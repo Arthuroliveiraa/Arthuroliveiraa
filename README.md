@@ -4,7 +4,9 @@ Site institucional demonstrativo de uma clínica odontológica ilustrativa, feit
 
 **Não representa uma clínica em funcionamento.** A demonstração permite preparar e copiar uma mensagem; não oferece atendimento, reservas ou envio para contatos reais. Use dados fictícios para experimentar.
 
-[Repositório](https://github.com/Arthuroliveiraa/Arthuroliveiraa) · [Publicação da demonstração](./docs/PUBLICACAO.md) · [Decisões e comparativo](./docs/COMPARATIVO.md) · [Licença MIT](./LICENSE)
+[Ver demonstração online](https://arthuroliveiraa.github.io/Arthuroliveiraa/) · [Repositório](https://github.com/Arthuroliveiraa/Arthuroliveiraa) · [Como publicar](./docs/PUBLICACAO.md) · [Decisões e comparativo](./docs/COMPARATIVO.md) · [Licença MIT](./LICENSE)
+
+[![Verificar projeto](https://github.com/Arthuroliveiraa/Arthuroliveiraa/actions/workflows/check.yml/badge.svg)](https://github.com/Arthuroliveiraa/Arthuroliveiraa/actions/workflows/check.yml)
 
 ## Prévia
 
@@ -73,7 +75,7 @@ $env:AURA_SCREENSHOT_DIR = 'docs/images'
 node tests/browser-check.mjs
 ```
 
-Os workflows foram preparados para GitHub Actions; a execução remota depende do envio ao repositório. Verificações locais não comprovam uma execução no GitHub ou conformidade completa de acessibilidade.
+Os workflows foram executados no GitHub Actions. A [primeira publicação validada](https://github.com/Arthuroliveiraa/Arthuroliveiraa/actions/runs/41906540970) passou nos testes e disponibilizou a demonstração em 04/11/2026. O selo acima acompanha a verificação mais recente. Esses testes não comprovam conformidade completa de acessibilidade.
 
 ## Estrutura
 
@@ -109,7 +111,7 @@ O formulário monta uma mensagem no navegador. Não há backend, disponibilidade
 - [x] Experiência responsiva e demonstração funcional.
 - [x] Documentação, capturas, licença e testes locais.
 - [x] Configuração para verificação e publicação no GitHub.
-- [ ] Publicar e verificar a URL real da demonstração no GitHub Pages.
+- [x] Publicar e verificar a URL real da demonstração no GitHub Pages.
 - [ ] Auditoria adicional com leitores de tela e outros navegadores.
 - [ ] Em uma implantação real: validar identidade, profissionais, serviços e informações de contato.
 - [ ] Como evolução de escopo: integrar uma agenda e gerenciar horários disponíveis.

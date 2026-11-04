@@ -65,20 +65,24 @@ const origin = `http://127.0.0.1:${server.address().port}`;
 const profile = await mkdtemp(join(tmpdir(), 'aura-browser-check-'));
 const browser = spawn(browserPath, ['--headless', '--disable-gpu', '--no-first-run',
   '--no-default-browser-check', '--remote-debugging-port=0', `--user-data-dir=${profile}`, 'about:blank'],
-{ windowsHide: true, stdio: 'ignore' });
+{ windowsHide: true, stdio: ['ignore', 'ignore', 'pipe'] });
 let spawnError;
+let browserStderr = '';
+// M13 — Inicialização pode ser mais lenta no runner Linux; guarda diagnóstico limitado.
+browser.stderr.on('data', chunk => { browserStderr = (browserStderr + chunk.toString()).slice(-4000); });
 browser.on('error', error => { spawnError = error; });
 let socket;
 
 try {
   // O navegador escolhe uma porta livre e a escreve no perfil temporário.
   let port;
-  for (let i = 0; i < 100; i++) {
+  for (let i = 0; i < 300; i++) {
     if (spawnError) throw spawnError;
+    if (browser.exitCode !== null) throw new Error(`O navegador encerrou com código ${browser.exitCode}: ${browserStderr}`);
     try { port = (await readFile(join(profile, 'DevToolsActivePort'), 'utf8')).split('\n')[0]; break; }
     catch { await pause(100); }
   }
-  assert.ok(port, 'O navegador não iniciou o CDP em 10 segundos.');
+  assert.ok(port, `O navegador não iniciou o CDP em 30 segundos. ${browserStderr}`);
   const targets = await (await fetch(`http://127.0.0.1:${port}/json/list`)).json();
   socket = new WebSocket(targets.find(target => target.type === 'page').webSocketDebuggerUrl);
   await new Promise((done, reject) => { socket.addEventListener('open', done); socket.addEventListener('error', reject); });

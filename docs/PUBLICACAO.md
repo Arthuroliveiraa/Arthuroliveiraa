@@ -1,6 +1,11 @@
 # Publicar a demonstração
 
-O repositório indicado é [Arthuroliveiraa/Arthuroliveiraa](https://github.com/Arthuroliveiraa/Arthuroliveiraa). A configuração do projeto está preparada para GitHub Pages. **Este documento não comprova que a publicação foi executada.**
+O repositório é [Arthuroliveiraa/Arthuroliveiraa](https://github.com/Arthuroliveiraa/Arthuroliveiraa). A demonstração foi publicada no GitHub Pages em **04/11/2026**.
+
+- [Abrir demonstração](https://arthuroliveiraa.github.io/Arthuroliveiraa/)
+- [Execução bem-sucedida da primeira publicação](https://github.com/Arthuroliveiraa/Arthuroliveiraa/actions/runs/41906540970)
+
+A página, o CSS, os dois scripts e o ícone retornaram HTTP 200 na conferência após a publicação. Os passos abaixo permitem repetir o processo ou adaptar a configuração em um fork.
 
 ## Preparação do repositório
 
