@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <!-- M01 — Identidade e metadados. Sem rastreadores ou fontes externas. -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Projeto demonstrativo de site odontológico para portfólio: layout responsivo, acessibilidade e formulário interativo. Clínica ilustrativa, sem atendimento real.">
+  <meta name="theme-color" content="#2D5A4C">
+  <title>Aura | Demonstração de site odontológico</title>
+  <link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/style.css">
+  <!-- A configuração precisa carregar antes das interações; defer preserva essa ordem. -->
+  <script src="js/config.js" defer></script>
+  <script src="js/app.js" defer></script>
+</head>
+<body>
+  <!-- M02 — Atalho por teclado e navegação adaptada para celular. -->
+  <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+  <!-- M12 — Demonstração identificada mesmo sem JS. O modo real oculta este aviso.
+       Telefones e links externos permanecem bloqueados enquanto demoMode estiver ativo. -->
+  <aside class="demo-banner" id="demo-banner" aria-label="Aviso de demonstração">
+    <div class="container demo-banner-inner">
+      <p><strong>Projeto demonstrativo para portfólio.</strong> Clínica ilustrativa, sem atendimento ou agendamento real.</p>
+      <a href="#agendamento">Experimentar formulário →</a>
+    </div>
+  </aside>
+  <header class="header-nav">
+    <div class="container header-inner">
+      <a class="brand-logo" href="#inicio" aria-label="Aura Odontologia, início">
+        <span class="brand-name">aura<span class="brand-sub">Odontologia contemporânea</span></span>
+      </a>
+      <nav aria-label="Principal">
+        <button class="menu-toggle" type="button" aria-controls="menu" aria-expanded="false" aria-label="Abrir menu">☰</button>
+        <ul class="nav-links" id="menu">
+          <li><a class="nav-link" href="#tratamentos">Tratamentos</a></li>
+          <li><a class="nav-link" href="#primeira-visita">Primeira visita</a></li>
+          <li><a class="nav-link" href="#contato">Contato</a></li>
+          <li><a class="btn btn-primary btn-sm" href="#agendamento">Solicitar avaliação</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="conteudo" tabindex="-1">
+    <!-- M03 — Apresentação: identidade original preservada, ilustração feita com CSS. -->
+    <section class="hero-section" id="inicio" aria-labelledby="hero-title">
+      <div class="container hero-grid">
+        <div class="hero-content">
+          <span class="badge-pill badge-sage">Cuidado que começa na escuta</span>
+          <h1 class="hero-title" id="hero-title">Seu sorriso merece<br>um cuidado <span class="highlight">especial.</span></h1>
+          <p class="hero-subtitle">Odontologia com acolhimento, informação e atenção a cada detalhe. Conheça as possibilidades para cuidar do seu sorriso.</p>
+          <div class="hero-cta-group">
+            <a class="btn btn-primary btn-lg" href="#agendamento">Quero uma avaliação ↗</a>
+            <a class="btn btn-secondary" href="#tratamentos">Conhecer tratamentos</a>
+          </div>
+          <div class="hero-benefits-strip">
+            <span class="benefit-item">✓ Atendimento individualizado</span>
+            <span class="benefit-item">✓ Planejamento com você</span>
+          </div>
+        </div>
+        <div class="smile-art" role="img" aria-label="Ilustração abstrata de um sorriso em verde e terracota">
+          <span class="art-sun"></span><span class="art-arch"></span><span class="art-smile"></span>
+          <span class="art-caption">Mais conforto.<br>Mais motivos para sorrir.</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- M03 — Princípios do atendimento. Sem estatísticas ou depoimentos inventados. -->
+    <section class="section-pad" id="cuidados" aria-labelledby="care-title">
+      <div class="container">
+        <div class="section-head">
+          <span class="badge-pill badge-terracotta">A experiência Aura</span>
+          <h2 id="care-title">Você no centro do cuidado</h2>
+          <p>Cada pessoa tem uma história. O seu plano de cuidado também deve ter.</p>
+        </div>
+        <div class="differentials-grid">
+          <article class="diff-card"><h3>Escuta e acolhimento</h3><p>Suas expectativas e receios fazem parte da conversa na avaliação.</p></article>
+          <article class="diff-card"><h3>Clareza nas escolhas</h3><p>Entenda as opções, as etapas e os cuidados antes de decidir.</p></article>
+          <article class="diff-card"><h3>Prevenção no dia a dia</h3><p>Orientações para cuidar da saúde bucal em cada fase da vida.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <!-- M04 — Catálogo: filtro com estado acessível e detalhes nativos, sem modal. -->
+    <section class="section-pad treatments-section" id="tratamentos" aria-labelledby="treatments-title">
+      <div class="container">
+        <div class="section-head">
+          <span class="badge-pill badge-sage">Tratamentos</span>
+          <h2 id="treatments-title">Saúde e confiança para sorrir</h2>
+          <p>A indicação de qualquer procedimento depende de avaliação profissional.</p>
+        </div>
+        <!-- Sem JavaScript, os filtros ficam ocultos e todos os tratamentos permanecem disponíveis. -->
+        <div class="treatments-tabs" role="group" aria-label="Filtrar tratamentos" id="treatment-filters" hidden>
+          <button class="filter-tab active" type="button" data-filter="todos" aria-pressed="true" aria-controls="treatment-list">Todos</button>
+          <button class="filter-tab" type="button" data-filter="prevencao" aria-pressed="false" aria-controls="treatment-list">Prevenção</button>
+          <button class="filter-tab" type="button" data-filter="estetica" aria-pressed="false" aria-controls="treatment-list">Estética</button>
+          <button class="filter-tab" type="button" data-filter="reabilitacao" aria-pressed="false" aria-controls="treatment-list">Reabilitação</button>
+        </div>
+        <p class="filter-status" id="filter-status" role="status" aria-live="polite"></p>
+        <div class="treatments-grid" id="treatment-list">
+          <!-- Cada data-treatment deve corresponder a uma opção do formulário. -->
+          <article class="treatment-card" data-category="prevencao">
+            <div class="treatment-body">
+              <span class="treatment-number" aria-hidden="true">01</span>
+              <h3>Prevenção e limpeza</h3>
+              <p>Avaliação da saúde bucal, higiene profissional e orientações para sua rotina.</p>
+              <details class="treatment-details"><summary>Sobre a avaliação preventiva</summary><p>Converse com o profissional sobre sua rotina de higiene e o acompanhamento adequado para você.</p></details>
+              <a class="treatment-link" href="#agendamento" data-treatment="Prevenção e limpeza">Tenho interesse <span class="sr-only">em prevenção e limpeza</span> →</a>
+            </div>
+          </article>
+          <article class="treatment-card" data-category="estetica">
+            <div class="treatment-body">
+              <span class="treatment-number" aria-hidden="true">02</span>
+              <h3>Clareamento dental</h3>
+              <p>Possibilidades e cuidados para um clareamento com acompanhamento profissional.</p>
+              <details class="treatment-details"><summary>O que perguntar na consulta</summary><p>Tire dúvidas sobre indicação, sensibilidade, etapas e expectativas para o seu caso.</p></details>
+              <a class="treatment-link" href="#agendamento" data-treatment="Clareamento dental">Tenho interesse <span class="sr-only">em clareamento dental</span> →</a>
+            </div>
+          </article>
+          <article class="treatment-card" data-category="reabilitacao">
+            <div class="treatment-body">
+              <span class="treatment-number" aria-hidden="true">03</span>
+              <h3>Implantes e próteses</h3>
+              <p>Opções de reabilitação para recuperar a função mastigatória e o sorriso.</p>
+              <details class="treatment-details"><summary>Planejamento individual</summary><p>A consulta permite discutir alternativas, exames necessários e etapas de um possível tratamento.</p></details>
+              <a class="treatment-link" href="#agendamento" data-treatment="Implantes e próteses">Tenho interesse <span class="sr-only">em implantes e próteses</span> →</a>
+            </div>
+          </article>
+          <article class="treatment-card" data-category="estetica">
+            <div class="treatment-body">
+              <span class="treatment-number" aria-hidden="true">04</span>
+              <h3>Ortodontia</h3>
+              <p>Avaliação do alinhamento dos dentes e da mordida, com planejamento individual.</p>
+              <details class="treatment-details"><summary>Conheça suas opções</summary><p>Pergunte sobre as opções disponíveis, a rotina de acompanhamento e os cuidados de cada alternativa.</p></details>
+              <a class="treatment-link" href="#agendamento" data-treatment="Ortodontia">Tenho interesse <span class="sr-only">em ortodontia</span> →</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- M05 — NOVO: primeira visita, inspirada na clareza dos sites pesquisados.
+         Não promete duração, exames incluídos ou procedimentos sem avaliação. -->
+    <section class="section-pad" id="primeira-visita" aria-labelledby="visit-title">
+      <div class="container">
+        <div class="section-head">
+          <span class="badge-pill badge-terracotta">Primeira visita</span>
+          <h2 id="visit-title">Saiba por onde começar</h2>
+          <p>Um caminho simples para conversar sobre suas necessidades.</p>
+        </div>
+        <ol class="visit-steps">
+          <li><h3>Solicite seu horário</h3><p>Escolha o assunto e informe sua preferência de período. Aguarde a confirmação da equipe.</p></li>
+          <li><h3>Converse na avaliação</h3><p>Compartilhe suas dúvidas e expectativas com o profissional. A avaliação orienta os próximos passos.</p></li>
+          <li><h3>Entenda o planejamento</h3><p>Peça explicações sobre alternativas, etapas e orçamento antes de decidir.</p></li>
+        </ol>
+        <aside class="visit-note" aria-labelledby="visit-note-title">
+          <h3 id="visit-note-title">Antes de sair de casa</h3>
+          <p>Confirme com a equipe os documentos necessários, o endereço e o horário. Pergunte se deve levar exames anteriores. Informações de saúde devem ser compartilhadas diretamente no atendimento.</p>
+          <a class="text-link" href="#duvidas">Ver dúvidas frequentes →</a>
+        </aside>
+      </div>
+    </section>
+
+    <!-- M06 — NOVO: equipe real, renderizada somente quando configurada em js/config.js. -->
+    <section class="section-pad team-section" id="equipe" aria-labelledby="team-title" hidden>
+      <div class="container">
+        <div class="section-head"><span class="badge-pill badge-sage">Quem cuida de você</span><h2 id="team-title">Conheça a equipe</h2></div>
+        <div class="team-grid" id="team-list"></div>
+      </div>
+    </section>
+
+    <!-- M07 — Formulário local. Sem endpoint, prontuário, cookies ou armazenamento local. -->
+    <section class="section-pad booking-section" id="agendamento" aria-labelledby="booking-title">
+      <div class="container-narrow">
+        <div class="section-head">
+          <span class="badge-pill badge-terracotta">Vamos conversar</span>
+          <h2 id="booking-title">O primeiro passo é seu</h2>
+          <p>Prepare uma solicitação. Data e horário dependem de confirmação da clínica.</p>
+        </div>
+        <form class="booking-card" id="booking-form" aria-describedby="contact-status privacy-hint">
+          <p class="setup-notice" id="contact-status" role="status">Demonstração: use um nome fictício para experimentar. Você pode preparar e copiar a mensagem, sem envio ou agendamento real.</p>
+          <div class="input-grid">
+            <!-- Campos mínimos: não pedir telefone, CPF, diagnóstico ou anexos. -->
+            <div class="input-field"><label for="name">Como podemos chamar você?</label><input id="name" name="name" autocomplete="given-name" maxlength="80" required></div>
+            <div class="input-field"><label for="request-type">Como podemos ajudar?</label><select id="request-type" name="requestType"><option>Primeira avaliação</option><option>Retorno</option><option>Remarcação</option></select></div>
+            <div class="input-field"><label for="treatment">Qual cuidado procura?</label><select id="treatment" name="treatment"><option>Avaliação geral</option><option>Prevenção e limpeza</option><option>Clareamento dental</option><option>Implantes e próteses</option><option>Ortodontia</option></select></div>
+            <div class="input-field"><label for="period">Preferência de período</label><select id="period" name="period"><option>Sem preferência</option><option>Manhã</option><option>Tarde</option></select></div>
+          </div>
+          <p class="form-group-subtitle" id="privacy-hint">Não inclua informações médicas. Você pode revisar a mensagem antes de compartilhar. <a class="text-link" href="#privacidade">Entenda o uso dos dados.</a></p>
+          <div class="hero-cta-group">
+            <!-- Desabilitado até o script carregar: evita submissão GET acidental sem JS. -->
+            <button class="btn btn-primary" id="prepare" type="submit" disabled>Preparar solicitação</button>
+            <button class="btn btn-secondary" type="reset">Limpar dados</button>
+          </div>
+          <!-- O resultado é invalidado a cada alteração, para não enviar preferências antigas. -->
+          <div id="request-result" hidden>
+            <div class="input-field"><label for="message">Sua mensagem</label><textarea id="message" rows="5" readonly></textarea></div>
+            <div class="hero-cta-group">
+              <button class="btn btn-secondary" type="button" id="copy-message">Copiar mensagem</button>
+              <a class="btn btn-primary" id="send-message" target="_blank" rel="noopener noreferrer" hidden>Continuar no WhatsApp <span class="sr-only">(abre em nova aba)</span></a>
+            </div>
+            <p id="copy-status" role="status"></p>
+          </div>
+          <noscript><p>Ative o JavaScript para preparar a solicitação. As demais informações e perguntas frequentes continuam disponíveis.</p></noscript>
+        </form>
+      </div>
+    </section>
+
+    <!-- M08 — FAQ ampliado: dúvidas operacionais, sem copiar políticas de outras clínicas. -->
+    <section class="section-pad faq-section" id="duvidas" aria-labelledby="faq-title">
+      <div class="container-narrow">
+        <div class="section-head"><h2 id="faq-title">Antes da sua visita</h2><p>Respostas para começar com tranquilidade.</p></div>
+        <div class="faq-accordion">
+          <details class="faq-item"><summary>Como funciona a primeira avaliação?</summary><p>O profissional conversa sobre suas necessidades, avalia sua saúde bucal e orienta sobre os próximos passos. Exames podem ser indicados conforme o caso.</p></details>
+          <details class="faq-item"><summary>A solicitação garante um horário?</summary><p>Não. A equipe precisa confirmar a disponibilidade, a data e o horário diretamente com você.</p></details>
+          <details class="faq-item"><summary>Tenho receio de ir ao dentista. Posso avisar?</summary><p>Sim. Compartilhe seus receios com a equipe para que o atendimento possa respeitar suas necessidades.</p></details>
+          <details class="faq-item"><summary>Como consultar valores e formas de pagamento?</summary><p>Consulte a equipe. O orçamento depende da avaliação e do plano de tratamento indicado.</p></details>
+          <details class="faq-item"><summary>A clínica atende por convênio?</summary><p id="insurance-info">Consulte a equipe sobre convênios e cobertura antes de solicitar seu horário. Não há convênios confirmados nesta página.</p></details>
+          <details class="faq-item"><summary>Como remarcar ou cancelar?</summary><p id="cancellation-info">Entre em contato com a equipe para confirmar a remarcação ou o cancelamento. Consulte os prazos e as condições aplicáveis ao seu atendimento.</p></details>
+        </div>
+      </div>
+    </section>
+
+    <!-- M09 — NOVO: localização e canais. Links só aparecem com configuração válida.
+         O mapa é um link externo, evitando carregar rastreadores de mapas na página. -->
+    <section class="section-pad contact-section" id="contato" aria-labelledby="contact-title">
+      <div class="container">
+        <div class="section-head"><span class="badge-pill badge-sage">Planeje sua visita</span><h2 id="contact-title">Encontre a Aura</h2><p id="contact-description">Nesta demonstração, a clínica é ilustrativa e não possui local de atendimento.</p></div>
+        <div class="contact-grid">
+          <div class="contact-panel">
+            <h3>Endereço e horários</h3>
+            <dl class="contact-details">
+              <dt>Endereço</dt><dd id="clinic-address">Clínica ilustrativa, sem endereço de atendimento.</dd>
+              <dt>Horários de atendimento</dt><dd id="clinic-hours">Demonstração sem horários ou consultas disponíveis.</dd>
+              <dt>Acesso ao espaço</dt><dd id="clinic-accessibility">Informações de acesso serão definidas em uma implantação real.</dd>
+            </dl>
+            <a class="text-link" id="map-link" target="_blank" rel="noopener noreferrer" hidden>Ver endereço no Google Maps <span class="sr-only">(abre em nova aba)</span> ↗</a>
+          </div>
+          <div class="contact-panel">
+            <h3>Converse com a equipe</h3>
+            <p id="contact-availability">Experimente o formulário com dados fictícios. Os canais externos estão desativados nesta demonstração.</p>
+            <div class="contact-actions">
+              <a class="btn btn-primary" id="contact-whatsapp" target="_blank" rel="noopener noreferrer" hidden>Conversar no WhatsApp <span class="sr-only">(abre em nova aba)</span></a>
+              <a class="btn btn-secondary" id="contact-phone" hidden>Ligar para a clínica</a>
+              <a class="text-link" href="#agendamento">Preparar uma solicitação →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- M10 — NOVO: transparência sobre o funcionamento real deste site estático. -->
+    <section class="section-pad privacy-section" id="privacidade" aria-labelledby="privacy-title">
+      <div class="container-narrow">
+        <details class="privacy-details">
+          <summary id="privacy-title">Sua privacidade nesta página</summary>
+          <p>O formulário monta uma mensagem no navegador. Este site não envia o formulário para um servidor, não usa cookies de análise e não grava seus dados em armazenamento local.</p>
+          <p>Ao continuar no WhatsApp, o nome e as preferências entram no link enviado à plataforma. Ao copiar, a mensagem vai para a área de transferência do dispositivo. Compartilhe apenas o que desejar e evite informações médicas.</p>
+          <p>O botão “Limpar dados” apaga os campos e a mensagem desta página. Ele não apaga a área de transferência nem mensagens que você já tenha compartilhado. O serviço de hospedagem poderá manter registros técnicos de acesso; esta explicação trata do código deste site.</p>
+        </details>
+      </div>
+    </section>
+  </main>
+
+  <!-- M11 — Rodapé e identificação profissional, condicionada a dados reais completos. -->
+  <footer class="footer-main">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand"><span class="brand-name">aura</span><p>Odontologia contemporânea.<br>Cuidado em cada detalhe.</p><p id="responsible-info" hidden></p></div>
+        <div class="footer-col"><h4>Explore</h4><ul><li><a href="#cuidados">Nosso cuidado</a></li><li><a href="#primeira-visita">Primeira visita</a></li><li><a href="#duvidas">Dúvidas frequentes</a></li><li><a href="#privacidade">Privacidade</a></li></ul></div>
+        <div class="footer-col"><h4>Visite</h4><ul><li><a href="#contato">Endereço e contato</a></li><li><a href="#agendamento">Solicitar avaliação</a></li><li id="team-nav" hidden><a href="#equipe">Conheça a equipe</a></li></ul></div>
+      </div>
+      <div class="footer-bottom"><span>© <span id="year">2026</span> Aura Odontologia</span><span id="publication-notice">Projeto demonstrativo para portfólio · Sem atendimento real.</span></div>
+    </div>
+  </footer>
+  <!-- M11 — Atalho no celular; acessível mesmo sem número de WhatsApp configurado. -->
+  <a class="btn btn-primary mobile-booking" href="#agendamento">Solicitar avaliação ↗</a>
+</body>
+</html>

@@ -1,0 +1,3 @@
+# M13 — Fontes com fim de linha consistente; capturas preservadas como binário.
+* text=auto eol=lf
+*.png binary

@@ -1,0 +1,22 @@
+# M13 — Saídas e arquivos locais. O site publicado usa apenas HTML/CSS/JS e assets.
+dist/
+.cache/
+.qa/
+coverage/
+node_modules/
+*.log
+
+# Configurações do ambiente e arquivos temporários de ferramentas.
+.env
+.env.*
+!.env.example
+.vscode/
+.idea/
+.codex/
+.agents/
+.openai/
+
+# Arquivos do sistema operacional.
+.DS_Store
+Thumbs.db
+Desktop.ini

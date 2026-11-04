@@ -1,0 +1,121 @@
+# Aura Odontologia · Projeto de portfólio
+
+Site institucional demonstrativo de uma clínica odontológica ilustrativa, feito com **HTML, CSS e JavaScript**, com layout responsivo, recursos de acessibilidade e formulário interativo.
+
+**Não representa uma clínica em funcionamento.** A demonstração permite preparar e copiar uma mensagem; não oferece atendimento, reservas ou envio para contatos reais. Use dados fictícios para experimentar.
+
+[Repositório](https://github.com/Arthuroliveiraa/Arthuroliveiraa) · [Publicação da demonstração](./docs/PUBLICACAO.md) · [Decisões e comparativo](./docs/COMPARATIVO.md) · [Licença MIT](./LICENSE)
+
+## Prévia
+
+### Computador
+
+![Abertura do site em 1440px com aviso de demonstração, navegação e apresentação da Aura](./docs/images/aura-1440.png)
+
+### Celular
+
+<img src="./docs/images/aura-390.png" width="320" alt="Abertura do site em 390px com aviso de demonstração, menu recolhido e botão de avaliação">
+
+Capturas reais da página em navegador, geradas pelos testes. O layout foi verificado em oito larguras entre 320 e 1440px.
+
+## O que o projeto demonstra
+
+| Área | Implementação |
+| --- | --- |
+| HTML | Estrutura semântica, títulos, rótulos de formulário e detalhes expansíveis nativos |
+| CSS | Variáveis de design, Grid, Flexbox, pontos de adaptação e ilustração abstrata local |
+| JavaScript | Eventos, filtros, validação, geração de mensagem, área de transferência e configuração |
+| Acessibilidade | Atalho para conteúdo, foco visível, menu por teclado, estados ARIA e redução de movimento |
+| Testes | Navegador real via CDP, dados sintéticos, cenários de erro e versão sem JavaScript |
+| Entrega | Distribuição estática isolada, verificação no GitHub Actions e publicação manual no Pages |
+
+## Funcionalidades
+
+- Navegação para computador e celular; o menu fecha por Escape, clique externo ou saída do foco.
+- Catálogo com filtros por categoria, contagem de resultados e detalhes dos tratamentos.
+- Etapas da primeira visita e perguntas frequentes.
+- Formulário com primeira avaliação, retorno ou remarcação, tratamento e preferência de período.
+- Validação do nome, revisão da mensagem, cópia com alternativa manual e limpeza dos campos.
+- Modo demonstrativo que bloqueia telefone, WhatsApp e mapa, mesmo com contatos preenchidos.
+- Estrutura configurável para contato, equipe e responsável técnico em uma implantação real.
+- Informações e navegação acessíveis sem JavaScript; filtros e geração de mensagem dependem dele.
+
+## Executar localmente
+
+O site não exige instalação de pacotes ou compilação. Com Python 3 instalado, na pasta do projeto:
+
+```sh
+python -m http.server 8000 --bind 127.0.0.1
+```
+
+Acesse **http://127.0.0.1:8000**. Para encerrar, pressione `Ctrl+C` no terminal. Também é possível abrir [index.html](./index.html) diretamente; permissões da área de transferência variam conforme o navegador.
+
+## Verificar o projeto
+
+Para testes, use Node.js 22 ou superior e Edge/Chrome instalado:
+
+```sh
+node --check js/config.js
+node --check js/app.js
+node scripts/prepare-site.mjs
+node tests/browser-check.mjs
+```
+
+O teste inicia um servidor em loopback e um navegador headless, executa as verificações e encerra ambos. O perfil temporário é removido ao final. Sem navegador no caminho padrão, defina `BROWSER_PATH`. Em ambientes restritos, iniciar/controlar o navegador pode exigir autorização do ambiente.
+
+Cobertura: oito larguras de tela, IDs e âncoras, rótulos dos campos, menu, filtros, nome inválido, geração e invalidação da mensagem, limpeza, negativa de acesso ao clipboard, configuração de contatos, equipe opcional e navegação sem JavaScript. Também verifica que o modo demo não oferece contatos externos e que a página não inicia requisições externas.
+
+Para testar a distribuição pronta e atualizar as capturas no PowerShell:
+
+```powershell
+$env:AURA_SITE_ROOT = 'dist'
+$env:AURA_SCREENSHOT_DIR = 'docs/images'
+node tests/browser-check.mjs
+```
+
+Os workflows foram preparados para GitHub Actions; a execução remota depende do envio ao repositório. Verificações locais não comprovam uma execução no GitHub ou conformidade completa de acessibilidade.
+
+## Estrutura
+
+```text
+index.html                 Página e estrutura semântica
+css/style.css              Design original e componentes comentados
+js/config.js               Modo de demonstração e configuração pública
+js/app.js                  Interações da página
+assets/icons/favicon.svg   Ícone vetorial local
+docs/images/               Capturas usadas neste README
+docs/COMPARATIVO.md         Referências, decisões e registro M01–M13
+docs/PUBLICACAO.md          Passos para disponibilizar a demonstração
+tests/browser-check.mjs    Verificação funcional em navegador real
+scripts/prepare-site.mjs   Geração da pasta dist/ para hospedagem
+.github/workflows/         Verificação e publicação no GitHub Pages
+LICENSE                    Licença MIT
+```
+
+## Decisões técnicas
+
+- **Sem framework:** a experiência cabe em uma página e interações locais, mantendo a execução simples.
+- **Melhoria progressiva:** conteúdo e elementos expansíveis nativos funcionam antes do JavaScript.
+- **Configuração centralizada:** os dados públicos ficam separados da lógica e são inseridos como texto.
+- **Demonstração segura:** `demoMode: true` identifica o portfólio e bloqueia canais externos. Não são usados números, endereços ou registros profissionais fictícios como se fossem reais.
+- **Publicação enxuta:** apenas HTML, CSS, JavaScript, assets e licença entram na distribuição. Testes e documentação permanecem no repositório.
+
+A base visual fornecida no projeto foi preservada. A comparação com outros sites orientou a organização de conteúdo, documentada com referências no [comparativo](./docs/COMPARATIVO.md). Os comentários **M01 a M13** explicam cada parte e alteração.
+
+## Limitações e evolução
+
+O formulário monta uma mensagem no navegador. Não há backend, disponibilidade em tempo real, prontuário, autenticação ou armazenamento de pacientes. O modo real oferece um link para o WhatsApp; o visitante ainda precisa enviar a mensagem e receber a confirmação da equipe.
+
+- [x] Experiência responsiva e demonstração funcional.
+- [x] Documentação, capturas, licença e testes locais.
+- [x] Configuração para verificação e publicação no GitHub.
+- [ ] Publicar e verificar a URL real da demonstração no GitHub Pages.
+- [ ] Auditoria adicional com leitores de tela e outros navegadores.
+- [ ] Em uma implantação real: validar identidade, profissionais, serviços e informações de contato.
+- [ ] Como evolução de escopo: integrar uma agenda e gerenciar horários disponíveis.
+
+Para adaptar a uma clínica real, revise os campos de [config.js](./js/config.js), preencha os dados confirmados e altere `demoMode` para `false`. `publicationReady` remove somente o aviso de preparação no modo real; não hospeda nem publica o site.
+
+## Licença e autoria
+
+Distribuído sob a [licença MIT](./LICENSE). Perfil do autor: [Arthur](https://github.com/Arthuroliveiraa). A marca apresentada é ilustrativa; o repositório não declara vínculo com clínicas de nome semelhante.

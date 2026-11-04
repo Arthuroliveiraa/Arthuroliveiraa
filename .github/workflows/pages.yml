@@ -1,0 +1,53 @@
+# M13 — Publicação manual da demonstração após habilitar Pages > GitHub Actions.
+# Não publica PRs nem usa segredos pessoais. A publicação efetiva é solicitada por Run workflow.
+name: Publicar demonstração
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: false
+
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+          package-manager-cache: false
+      - name: Conferir sintaxe
+        run: |
+          node --check js/config.js
+          node --check js/app.js
+      - name: Preparar site
+        run: node scripts/prepare-site.mjs
+      - name: Verificar distribuição no Chrome
+        env:
+          BROWSER_PATH: /usr/bin/google-chrome
+          AURA_SITE_ROOT: dist
+        run: node tests/browser-check.mjs
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    needs: prepare
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Publicar no GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
