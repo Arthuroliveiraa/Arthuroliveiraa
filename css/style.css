@@ -609,7 +609,7 @@ p {
 
 .diff-card {
   background: var(--color-surface);
-  border: 1px solid var(--color-border);
+  border: 0;
   border-radius: var(--radius-xl);
   padding: 2.25rem 1.75rem;
   display: flex;
@@ -619,26 +619,9 @@ p {
   overflow: hidden;
 }
 
-.diff-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 4px;
-  background: linear-gradient(90deg, var(--color-primary), var(--color-accent));
-  opacity: 0;
-  transition: opacity var(--transition-fast);
-}
-
 .diff-card:hover {
   transform: translateY(-6px);
   box-shadow: var(--shadow-lg);
-  border-color: var(--color-primary-soft);
-}
-
-.diff-card:hover::before {
-  opacity: 1;
 }
 
 .diff-icon-wrap {
@@ -715,7 +698,7 @@ p {
   background: var(--color-surface);
   border-radius: var(--radius-xl);
   overflow: hidden;
-  border: 1px solid var(--color-border);
+  border: 0;
   box-shadow: var(--shadow-sm);
   display: flex;
   flex-direction: column;
@@ -725,7 +708,6 @@ p {
 .treatment-card:hover {
   transform: translateY(-6px);
   box-shadow: var(--shadow-xl);
-  border-color: rgba(45, 90, 76, 0.25);
 }
 
 .treatment-img-wrap {
@@ -1053,7 +1035,7 @@ p {
   background: var(--color-bg);
   border-radius: var(--radius-xl);
   overflow: hidden;
-  border: 1px solid var(--color-border);
+  border: 0;
   text-align: center;
   transition: all var(--transition-normal);
 }
@@ -1061,7 +1043,6 @@ p {
 .team-card:hover {
   transform: translateY(-6px);
   box-shadow: var(--shadow-lg);
-  border-color: var(--color-primary-light);
 }
 
 .team-img-wrap {
@@ -1240,22 +1221,12 @@ p {
 
 .booking-card {
   background: var(--color-surface);
-  border: 1px solid var(--color-border);
+  border: 0;
   border-radius: var(--radius-xl);
   box-shadow: var(--shadow-xl);
   padding: 3rem;
   position: relative;
   overflow: hidden;
-}
-
-.booking-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 6px;
-  background: linear-gradient(90deg, var(--color-primary), var(--color-accent));
 }
 
 .wizard-steps {
@@ -1508,7 +1479,7 @@ p {
 }
 
 .faq-item {
-  border: 1px solid var(--color-border);
+  border: 0;
   border-radius: var(--radius-lg);
   overflow: hidden;
   background: var(--color-bg);
@@ -1516,7 +1487,6 @@ p {
 }
 
 .faq-item:hover {
-  border-color: var(--color-primary-light);
 }
 
 .faq-question {
@@ -1604,6 +1574,29 @@ p {
   margin-top: 1rem;
   max-width: 320px;
 }
+
+/* Ícones locais: sem dependências externas ou perfis fictícios. */
+.footer-socials {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+  list-style: none;
+  margin-top: 1.5rem;
+}
+
+.footer-social {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, .06);
+  color: #B5C4BE;
+}
+
+.footer-social svg { width: 24px; height: 24px; }
 
 .footer-col h4 {
   color: #FFFFFF;
@@ -2003,7 +1996,7 @@ section[id], main[id] { scroll-margin-top: 100px; }
 .visit-steps li { counter-increment: visit; border-top: 1px solid var(--color-border); padding-top: 1.5rem; }
 .visit-steps li::before { content: '0' counter(visit); display: block; color: var(--color-accent); font-family: var(--font-serif); font-size: 2rem; margin-bottom: .75rem; }
 .visit-steps h3 { margin-bottom: .75rem; }
-.visit-note { margin-top: 2.5rem; border-left: 3px solid var(--color-accent); background: var(--color-bg-alt); padding: 1.5rem; border-radius: var(--radius-sm); }
+.visit-note { margin-top: 2.5rem; background: var(--color-bg-alt); padding: 1.5rem; border-radius: var(--radius-sm); }
 .visit-note p { margin: .75rem 0; }
 
 /* M06 — Equipe cadastrada usa os cartões da base, sem retratos genéricos. */
@@ -2025,7 +2018,7 @@ section[id], main[id] { scroll-margin-top: 100px; }
 /* M09 — NOVO: informações práticas em duas colunas e ações de contato. */
 .contact-section { background: var(--color-bg-alt); }
 .contact-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2rem; }
-.contact-panel { padding: 2rem; background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-lg); }
+.contact-panel { padding: 2rem; background: var(--color-surface); border: 0; border-radius: var(--radius-lg); }
 .contact-panel h3 { margin-bottom: 1.25rem; }
 .contact-details { margin-bottom: 1.5rem; }
 .contact-details dt { font-weight: 600; margin-top: 1rem; }
