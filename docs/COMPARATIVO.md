@@ -9,7 +9,7 @@ A paleta combina o contraste quente/frio entre verde-petróleo e terracota com f
 | Papel | Cor | Aplicação |
 | --- | --- | --- |
 | Marfim | `#FBF8F2` | Fundo principal |
-| Areia | `#F0E9DC` | Alternância de seções |
+| Névoa verde | `#EDF3F0` | Fundo de tratamentos, contato e alternância de seções |
 | Verde-petróleo | `#14665E` | Identidade, links e botões |
 | Terracota | `#AA4D32` | Texto de destaque, selos e números |
 | Pêssego | `#DF9872` | Elementos decorativos |

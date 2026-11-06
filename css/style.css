@@ -12,7 +12,7 @@
   /* Harmonia quente/frio: marfim nas áreas amplas, petróleo na identidade
      e terracota nos detalhes. Tons claros e escuros mantêm a hierarquia. */
   --color-bg: #FBF8F2;
-  --color-bg-alt: #F0E9DC;
+  --color-bg-alt: #EDF3F0;         /* Névoa verde: harmoniza seções e cartões brancos */
   --color-surface: #FFFFFF;
   --color-surface-translucent: rgba(255, 252, 247, 0.92);
 
