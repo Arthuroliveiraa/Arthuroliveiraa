@@ -348,6 +348,8 @@ try {
   await evaluate("document.querySelector('[data-theme-toggle]').focus()");
   await call('Input.dispatchKeyEvent', { type: 'keyDown', key: ' ', code: 'Space', windowsVirtualKeyCode: 32 });
   await call('Input.dispatchKeyEvent', { type: 'keyUp', key: ' ', code: 'Space', windowsVirtualKeyCode: 32 });
+  // Os exemplos do guia acompanham a pintura do tema no próximo quadro.
+  await evaluate('new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)))');
   assert.equal(await evaluate('document.documentElement.dataset.theme'), 'dark');
   assert.equal(await evaluate("document.querySelector('[data-theme-toggle]').getAttribute('aria-pressed')"), 'true');
   assert.equal(await evaluate("localStorage.getItem('aura-theme')"), 'dark');
