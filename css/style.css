@@ -1,7 +1,7 @@
 /* ==========================================================================
    AURA ODONTOLOGIA CONTEMPORÂNEA - DESIGN SYSTEM & STYLESHEET
    Inspirado nos benchmarks Tend Dental & Studio Dental
-   Paleta: Off-white/Areia (#FAF9F5), Verde Sálvia (#2D5A4C), Terracota Suave (#C87D55)
+   Paleta: Marfim (#FBF8F2), Verde-petróleo (#14665E), Terracota (#AA4D32)
    Base original preservada; componentes ativos e alterações M01–M12 ao final.
    Índice das mudanças e referências: ../docs/COMPARATIVO.md.
    Os estilos de comparação de fotos, tour, avaliações e modal são da base original;
@@ -9,43 +9,52 @@
    ========================================================================== */
 
 :root {
-  /* Cores Principais */
-  --color-bg: #FAF9F5;
-  --color-bg-alt: #F4F0E8;
+  /* Harmonia quente/frio: marfim nas áreas amplas, petróleo na identidade
+     e terracota nos detalhes. Tons claros e escuros mantêm a hierarquia. */
+  --color-bg: #FBF8F2;
+  --color-bg-alt: #F0E9DC;
   --color-surface: #FFFFFF;
-  --color-surface-translucent: rgba(255, 255, 255, 0.85);
+  --color-surface-translucent: rgba(255, 252, 247, 0.92);
 
-  --color-primary: #2D5A4C;        /* Verde Sálvia Profundo */
-  --color-primary-light: #447768;
-  --color-primary-dark: #1E3D33;
-  --color-primary-soft: #E8F0EC;   /* Verde Sálvia Suave */
-  --color-primary-subtle: #F0F5F2;
+  --color-primary: #14665E;        /* Verde-petróleo */
+  --color-primary-rgb: 20, 102, 94;
+  --color-primary-light: #20766C;
+  --color-primary-dark: #0C403B;
+  --color-primary-soft: #DEEEE6;
+  --color-primary-subtle: #EDF6F1;
 
-  --color-accent: #C87D55;         /* Terracota Sutil */
-  --color-accent-hover: #B56C44;
-  --color-accent-soft: #F9EFE9;
+  --color-accent: #AA4D32;         /* Terracota para textos e detalhes */
+  --color-accent-rgb: 170, 77, 50;
+  --color-accent-hover: #963E27;
+  --color-accent-soft: #FAEAE0;
+  --color-accent-decorative: #DF9872;
+  --color-art-bg: #F0DCCA;
 
-  --color-text-main: #1C2421;      /* Chumbo suave */
-  --color-text-muted: #5C6661;     /* Taupe acinzentado */
-  --color-text-light: #8E9993;
+  --color-text-main: #173B35;
+  --color-text-muted: #50665F;
+  --color-text-light: #60746D;
 
-  --color-border: #E8E4DA;
-  --color-border-light: #F0EDE6;
-  --color-border-focus: #2D5A4C;
+  --color-border: #DCD5C9;
+  --color-border-light: #EBE5DB;
+  --color-control-border: #80928B;
+  --color-border-focus: var(--color-primary);
+  --color-footer: #0D302C;
+  --color-on-dark: #C4D7CF;
+  --color-on-dark-muted: #A3BDB2;
 
-  --color-gold: #E5A83B;
-  --color-success: #2E7D32;
+  --color-gold: #BB7A24;
+  --color-success: #24734E;
 
   /* Tipografia */
   --font-serif: 'Playfair Display', Georgia, 'Times New Roman', serif;
   --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 
   /* Sombras & Efeitos */
-  --shadow-sm: 0 2px 8px rgba(28, 36, 33, 0.04);
-  --shadow-md: 0 6px 20px rgba(28, 36, 33, 0.06);
-  --shadow-lg: 0 16px 36px rgba(28, 36, 33, 0.08);
-  --shadow-xl: 0 24px 48px rgba(28, 36, 33, 0.12);
-  --shadow-glow: 0 0 24px rgba(45, 90, 76, 0.15);
+  --shadow-sm: 0 2px 8px rgba(23, 59, 53, 0.04);
+  --shadow-md: 0 6px 20px rgba(23, 59, 53, 0.06);
+  --shadow-lg: 0 16px 36px rgba(23, 59, 53, 0.08);
+  --shadow-xl: 0 24px 48px rgba(23, 59, 53, 0.12);
+  --shadow-glow: 0 0 24px rgba(var(--color-primary-rgb), 0.15);
 
   /* Raios de Borda */
   --radius-sm: 8px;
@@ -177,19 +186,19 @@ p {
 }
 
 .btn:focus-visible {
-  box-shadow: 0 0 0 3px rgba(45, 90, 76, 0.35);
+  box-shadow: 0 0 0 3px rgba(var(--color-primary-rgb), 0.35);
 }
 
 .btn-primary {
   background-color: var(--color-primary);
   color: #FFFFFF;
-  box-shadow: 0 4px 14px rgba(45, 90, 76, 0.25);
+  box-shadow: 0 4px 14px rgba(var(--color-primary-rgb), 0.25);
 }
 
 .btn-primary:hover {
   background-color: var(--color-primary-light);
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(45, 90, 76, 0.35);
+  box-shadow: 0 6px 20px rgba(var(--color-primary-rgb), 0.35);
 }
 
 .btn-secondary {
@@ -207,13 +216,13 @@ p {
 .btn-accent {
   background-color: var(--color-accent);
   color: #FFFFFF;
-  box-shadow: 0 4px 14px rgba(200, 125, 85, 0.3);
+  box-shadow: 0 4px 14px rgba(var(--color-accent-rgb), 0.3);
 }
 
 .btn-accent:hover {
   background-color: var(--color-accent-hover);
   transform: translateY(-2px);
-  box-shadow: 0 6px 18px rgba(200, 125, 85, 0.4);
+  box-shadow: 0 6px 18px rgba(var(--color-accent-rgb), 0.4);
 }
 
 .btn-whatsapp {
@@ -252,7 +261,7 @@ p {
 }
 
 .header-nav.scrolled {
-  background-color: rgba(255, 255, 255, 0.95);
+  background-color: rgba(255, 252, 247, 0.96);
   box-shadow: var(--shadow-sm);
 }
 
@@ -362,7 +371,9 @@ p {
   position: relative;
   padding: 4.5rem 0 5.5rem;
   overflow: hidden;
-  background: radial-gradient(circle at 80% 20%, rgba(232, 240, 236, 0.7) 0%, rgba(250, 249, 245, 0) 65%);
+  background: radial-gradient(ellipse at 82% 15%, var(--color-primary-soft), transparent 62%),
+              radial-gradient(ellipse at 5% 100%, var(--color-accent-soft), transparent 50%),
+              var(--color-bg);
 }
 
 .hero-grid {
@@ -502,7 +513,7 @@ p {
   border-radius: var(--radius-xl);
   overflow: hidden;
   box-shadow: var(--shadow-xl);
-  background-color: #E2DDD5;
+  background-color: var(--color-border);
   aspect-ratio: 4 / 4.6;
 }
 
@@ -519,7 +530,7 @@ p {
 
 .floating-card {
   position: absolute;
-  background: rgba(255, 255, 255, 0.95);
+  background: rgba(255, 252, 247, 0.96);
   backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.8);
   padding: 1rem 1.25rem;
@@ -676,7 +687,7 @@ p {
 .filter-tab.active {
   background: var(--color-primary);
   color: #FFFFFF;
-  box-shadow: 0 4px 12px rgba(45, 90, 76, 0.2);
+  box-shadow: 0 4px 12px rgba(var(--color-primary-rgb), 0.2);
 }
 
 .treatments-grid {
@@ -704,7 +715,7 @@ p {
   position: relative;
   aspect-ratio: 16 / 10;
   overflow: hidden;
-  background-color: #ECE7DE;
+  background-color: var(--color-bg-alt);
 }
 
 .treatment-img-wrap img {
@@ -1004,7 +1015,7 @@ p {
   overflow: hidden;
   box-shadow: var(--shadow-xl);
   aspect-ratio: 16 / 11;
-  background-color: #E2DDD5;
+  background-color: var(--color-border);
 }
 
 .tour-preview-frame img {
@@ -1038,7 +1049,7 @@ p {
   position: relative;
   aspect-ratio: 1 / 1.15;
   overflow: hidden;
-  background-color: #ECE7DE;
+  background-color: var(--color-bg-alt);
 }
 
 .team-img-wrap img {
@@ -1145,7 +1156,7 @@ p {
 .review-card:hover {
   transform: translateY(-4px);
   box-shadow: var(--shadow-md);
-  border-color: rgba(45, 90, 76, 0.2);
+  border-color: rgba(var(--color-primary-rgb), 0.2);
 }
 
 .review-stars {
@@ -1205,7 +1216,7 @@ p {
    ========================================================================== */
 .booking-section {
   position: relative;
-  background: linear-gradient(180deg, var(--color-bg) 0%, var(--color-bg-alt) 100%);
+  background: linear-gradient(145deg, var(--color-primary-soft), var(--color-bg-alt));
 }
 
 .booking-card {
@@ -1351,7 +1362,7 @@ p {
 .radio-card.selected {
   border-color: var(--color-primary);
   background: var(--color-primary-soft);
-  box-shadow: 0 4px 12px rgba(45, 90, 76, 0.12);
+  box-shadow: 0 4px 12px rgba(var(--color-primary-rgb), 0.12);
 }
 
 .radio-card-title {
@@ -1371,7 +1382,7 @@ p {
   border-radius: var(--radius-lg);
   padding: 1.25rem 1.5rem;
   margin-bottom: 2rem;
-  border: 1px solid rgba(200, 125, 85, 0.2);
+  border: 1px solid rgba(var(--color-accent-rgb), 0.2);
 }
 
 .comfort-preference-box h5 {
@@ -1427,7 +1438,7 @@ p {
 .input-field select,
 .input-field textarea {
   padding: 0.85rem 1.15rem;
-  border: 1px solid var(--color-border);
+  border: 1px solid var(--color-control-border);
   border-radius: var(--radius-md);
   font-family: var(--font-sans);
   font-size: 0.95rem;
@@ -1442,7 +1453,7 @@ p {
 .input-field textarea:focus {
   border-color: var(--color-primary);
   background: #FFFFFF;
-  box-shadow: 0 0 0 3px rgba(45, 90, 76, 0.15);
+  box-shadow: 0 0 0 3px rgba(var(--color-primary-rgb), 0.15);
 }
 
 .wizard-actions {
@@ -1531,7 +1542,7 @@ p {
    RODAPÉ COMPLETO & LOCAL SEO
    ========================================================================== */
 .footer-main {
-  background-color: #17211C;
+  background-color: var(--color-footer);
   color: #FFFFFF;
   padding: 5rem 0 2rem;
   position: relative;
@@ -1550,11 +1561,11 @@ p {
 }
 
 .footer-brand .brand-sub {
-  color: var(--color-accent);
+  color: var(--color-accent-decorative);
 }
 
 .footer-brand p {
-  color: #A3B0AA;
+  color: var(--color-on-dark-muted);
   font-size: 0.95rem;
   margin-top: 1rem;
   max-width: 320px;
@@ -1576,7 +1587,7 @@ p {
   height: 44px;
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.07);
-  color: #DCE6E0;
+  color: var(--color-on-dark);
   text-decoration: none;
   transition: background-color var(--transition-fast), color var(--transition-fast), transform var(--transition-fast);
 }
@@ -1658,7 +1669,7 @@ p {
 }
 
 .footer-col a {
-  color: #B5C4BE;
+  color: var(--color-on-dark);
   text-decoration: none;
   font-size: 0.925rem;
   transition: color var(--transition-fast);
@@ -1679,14 +1690,14 @@ p {
   display: flex;
   align-items: flex-start;
   gap: 0.75rem;
-  color: #B5C4BE;
+  color: var(--color-on-dark);
   font-size: 0.9rem;
 }
 
 .contact-item svg {
   width: 20px;
   height: 20px;
-  color: var(--color-accent);
+  color: var(--color-accent-decorative);
   flex-shrink: 0;
   margin-top: 2px;
 }
@@ -1705,11 +1716,11 @@ p {
   flex-wrap: wrap;
   gap: 1rem;
   font-size: 0.825rem;
-  color: #7D8E87;
+  color: var(--color-on-dark-muted);
 }
 
 .footer-bottom a {
-  color: #A3B0AA;
+  color: var(--color-on-dark-muted);
   text-decoration: none;
 }
 
@@ -1848,7 +1859,7 @@ p {
   position: fixed;
   top: 1.5rem;
   right: 1.5rem;
-  background: #2D5A4C;
+  background: var(--color-primary);
   color: #FFF;
   padding: 1rem 1.5rem;
   border-radius: var(--radius-lg);
@@ -1962,7 +1973,7 @@ p {
 /* ==========================================================================
    COMPONENTES ATIVOS — revisão comparativa de 04/11/2026.
    Mxx corresponde aos blocos do HTML/JS e ao registro em docs/COMPARATIVO.md.
-   As regras abaixo complementam a base, preservando suas cores e tipografia.
+   As regras abaixo complementam a base e usam a paleta definida em :root.
    ========================================================================== */
 
 /* M02 — Ocultação real: impede que links/controles invisíveis recebam foco.
@@ -2006,14 +2017,14 @@ section[id], main[id] { scroll-margin-top: 100px; }
   position: relative;
   min-height: 470px;
   width: 100%;
-  background: #e8e4d9;
+  background: var(--color-art-bg);
   border-radius: 160px 160px 24px 24px;
   overflow: hidden;
 }
-.art-sun { position: absolute; width: 120px; height: 120px; border-radius: 50%; background: #c87d55; right: 30px; top: 35px; }
-.art-arch { position: absolute; background: #2d5a4c; width: 65%; height: 76%; border-radius: 160px 160px 0 0; bottom: 0; left: 8%; transform: rotate(-12deg); }
-.art-smile { position: absolute; width: 180px; height: 90px; border-radius: 0 0 100px 100px; background: #faf9f5; top: 205px; left: 25%; transform: rotate(-12deg); }
-.art-caption { position: absolute; bottom: 30px; left: 30px; color: white; font-family: var(--font-serif); font-size: 1.6rem; line-height: 1.3; }
+.art-sun { position: absolute; width: 120px; height: 120px; border-radius: 50%; background: var(--color-accent-decorative); right: 30px; top: 35px; }
+.art-arch { position: absolute; background: var(--color-primary); width: 65%; height: 76%; border-radius: 160px 160px 0 0; bottom: 0; left: 8%; transform: rotate(-12deg); }
+.art-smile { position: absolute; width: 180px; height: 90px; border-radius: 0 0 100px 100px; background: var(--color-bg); top: 205px; left: 25%; transform: rotate(-12deg); }
+.art-caption { position: absolute; bottom: 24px; left: 24px; right: 24px; padding: .75rem 1rem; border-radius: var(--radius-md); background: var(--color-primary-dark); color: white; font-family: var(--font-serif); font-size: 1.6rem; line-height: 1.3; }
 
 /* M04 — Quatro tratamentos equilibrados em duas colunas e detalhes expansíveis. */
 .treatments-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -2075,7 +2086,7 @@ section[id], main[id] { scroll-margin-top: 100px; }
 
 /* M11 — Rodapé com três colunas e atalho exibido somente em telas menores. */
 .footer-top { grid-template-columns: 1.5fr 1fr 1fr; }
-.footer-col p { color: #B5C4BE; font-size: .925rem; }
+.footer-col p { color: var(--color-on-dark); font-size: .925rem; }
 .mobile-booking { display: none; }
 
 /* M12 — Aviso permanente de portfólio no fluxo da página, sem cobrir o conteúdo.

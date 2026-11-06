@@ -1,6 +1,21 @@
 # Comparação e registro das alterações
 
-Pesquisa realizada em **04/11/2026**. Comparação de conteúdo e navegação pública; não é auditoria de desempenho, de resultados clínicos ou de conformidade legal das clínicas citadas. A marca e a paleta existentes foram preservadas.
+Pesquisa realizada em **04/11/2026**. Comparação de conteúdo e navegação pública; não é auditoria de desempenho, de resultados clínicos ou de conformidade legal das clínicas citadas. A marca foi preservada. A paleta recebeu a revisão descrita abaixo em **06/11/2026**.
+
+## Revisão de cores — 06/11/2026
+
+A paleta combina o contraste quente/frio entre verde-petróleo e terracota com fundos claros em marfim. Os neutros ocupam as superfícies maiores, o verde identifica navegação e ações e o terracota destaca selos e numeração. As variações de luminosidade organizam a hierarquia sem acrescentar cores concorrentes.
+
+| Papel | Cor | Aplicação |
+| --- | --- | --- |
+| Marfim | `#FBF8F2` | Fundo principal |
+| Areia | `#F0E9DC` | Alternância de seções |
+| Verde-petróleo | `#14665E` | Identidade, links e botões |
+| Terracota | `#AA4D32` | Texto de destaque, selos e números |
+| Pêssego | `#DF9872` | Elementos decorativos |
+| Verde profundo | `#0D302C` | Rodapé |
+
+Os pares principais de texto e fundo foram verificados com contraste mínimo de 4,5:1, incluindo botões em repouso e hover; os contornos dos campos atingem 3:1 em relação ao fundo. Isso é uma checagem da paleta, não uma auditoria completa de acessibilidade. A legenda da ilustração usa uma superfície escura para manter o contraste em qualquer largura. Favicon, cor do navegador e capturas do README acompanham a identidade; os ícones sociais mantêm suas cores de marca.
 
 ## Referências consultadas
 

@@ -1,6 +1,6 @@
-<!-- M01 — Ícone vetorial local: sorriso abstrato nas cores já existentes da Aura. -->
+<!-- M01 — Ícone vetorial local: sorriso abstrato na paleta da Aura. -->
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <rect width="64" height="64" rx="18" fill="#2D5A4C"/>
-  <path d="M14 28h36a18 18 0 0 1-36 0" fill="#FAF9F5"/>
-  <circle cx="46" cy="17" r="6" fill="#C87D55"/>
+  <rect width="64" height="64" rx="18" fill="#14665E"/>
+  <path d="M14 28h36a18 18 0 0 1-36 0" fill="#FBF8F2"/>
+  <circle cx="46" cy="17" r="6" fill="#DF9872"/>
 </svg>
