@@ -5,6 +5,7 @@ on:
   push:
   pull_request:
   workflow_dispatch:
+  workflow_call:
 
 permissions:
   contents: read
@@ -25,6 +26,7 @@ jobs:
           node --check js/app.js
           node --check js/design-system.js
           node --check js/theme.js
+          node --check js/navigation.js
           node --check scripts/prepare-site.mjs
           node --check tests/browser-check.mjs
       - name: Preparar site
@@ -34,3 +36,30 @@ jobs:
           BROWSER_PATH: /usr/bin/google-chrome
           AURA_SITE_ROOT: dist
         run: node tests/browser-check.mjs
+
+  quality:
+    runs-on: windows-latest
+    timeout-minutes: 10
+    env:
+      PLAYWRIGHT_BROWSERS_PATH: ${{ github.workspace }}/.cache/playwright
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install chromium firefox webkit
+      - run: npm run build
+      - name: Compatibilidade e acessibilidade
+        run: npm run test:qa
+      - name: Comparar referências visuais Windows
+        run: npm run test:visual
+      - name: Guardar diferenças e diagnóstico
+        if: failure()
+        uses: actions/upload-artifact@v7
+        with:
+          name: qa-windows
+          path: .cache/test-results/
+          include-hidden-files: true
+          retention-days: 7

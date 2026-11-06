@@ -1,0 +1,21 @@
+{
+  "name": "aura-odontologia-demo",
+  "version": "1.2.0",
+  "private": true,
+  "type": "module",
+  "engines": { "node": ">=22.12.0" },
+  "scripts": {
+    "build": "node scripts/prepare-site.mjs",
+    "test": "node tests/browser-check.mjs",
+    "test:compat": "playwright test tests/compat.spec.mjs",
+    "test:a11y": "playwright test tests/accessibility.spec.mjs",
+    "test:qa": "playwright test tests/compat.spec.mjs tests/accessibility.spec.mjs tests/mobile-action.spec.mjs tests/not-found.spec.mjs",
+    "test:performance": "playwright test tests/performance.spec.mjs --project=chromium",
+    "test:visual": "playwright test tests/visual.spec.mjs --project=visual-chromium --update-snapshots=none",
+    "test:visual:update": "playwright test tests/visual.spec.mjs --project=visual-chromium --update-snapshots=all"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "4.14.0",
+    "@playwright/test": "1.65.0"
+  }
+}

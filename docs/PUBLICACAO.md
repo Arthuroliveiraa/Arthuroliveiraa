@@ -41,4 +41,8 @@ Após mudanças, confira os testes, envie o código e execute novamente **Public
 
 O artefato inclui a página principal e `design-system.html`, com as folhas e scripts compartilhados. Após o deploy, confira também o guia visual e `css/tokens.css`: omitir os tokens afeta as duas páginas. A documentação Markdown e os testes continuam fora da distribuição.
 
+A distribuição inclui também `404.html`. Ela usa caminhos absolutos sob `/Arthuroliveiraa/` para funcionar mesmo em URLs inválidas com subpastas. Ao migrar o domínio ou a pasta pública, revise esses caminhos junto com as URLs de compartilhamento do `index.html`. Confira uma URL inexistente após o próximo deploy autorizado; o servidor local de QA reproduz esse cenário, mas não altera a versão publicada.
+
+Antes de publicar esta revisão, execute também `npm run test:qa` após instalar os navegadores, conforme [QUALIDADE.md](QUALIDADE.md).
+
 Mantenha `demoMode: true` em [config.js](../js/config.js) para o portfólio. Essa opção mantém os avisos e impede chamadas, WhatsApp e mapa mesmo que alguém preencha dados de contato.

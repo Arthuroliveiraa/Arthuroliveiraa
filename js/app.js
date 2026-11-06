@@ -37,40 +37,8 @@ function element(tag, className, text) {
   return node;
 }
 
-/* M02 — Menu mobile progressivo.
- * Sem JS a lista continua visível. Com JS, o CSS passa a controlar a abertura.
- * Escape devolve o foco ao botão; sair do menu por Tab fecha a lista.
- */
+/* M02 — A abertura do menu fica em navigation.js, inicializado antes da pintura. */
 const menu = byId('menu');
-const toggle = document.querySelector('.menu-toggle');
-function closeMenu() {
-  menu.classList.remove('open');
-  toggle.setAttribute('aria-expanded', 'false');
-  toggle.setAttribute('aria-label', 'Abrir menu');
-}
-toggle.addEventListener('click', () => {
-  const open = menu.classList.toggle('open');
-  toggle.setAttribute('aria-expanded', String(open));
-  toggle.setAttribute('aria-label', open ? 'Fechar menu' : 'Abrir menu');
-});
-menu.addEventListener('click', event => {
-  if (event.target.closest('a')) closeMenu();
-});
-document.addEventListener('click', event => {
-  if (!event.target.closest('.header-nav')) closeMenu();
-});
-document.addEventListener('focusin', event => {
-  if (!event.target.closest('.header-nav')) closeMenu();
-});
-document.addEventListener('keydown', event => {
-  if (event.key === 'Escape' && menu.classList.contains('open')) {
-    closeMenu();
-    toggle.focus();
-  }
-});
-// Evita manter estado de abertura antigo ao alternar entre desktop e celular.
-window.matchMedia('(max-width: 960px)').addEventListener('change', closeMenu);
-document.documentElement.classList.add('js');
 
 /* T06 — Seção atual, inclusive em rolagem manual e navegação por teclado.
  * Mede os alvos existentes; seções sem item no menu não recebem destaque falso.
@@ -100,6 +68,43 @@ window.addEventListener('resize', scheduleNavigationUpdate);
 window.addEventListener('hashchange', scheduleNavigationUpdate);
 document.fonts?.ready.then(scheduleNavigationUpdate);
 scheduleNavigationUpdate();
+
+/* Q03 — O atalho móvel cede espaço ao formulário, rodapé e edição de campos.
+ * Mede a área visível, inclusive quando o teclado virtual reduz o viewport.
+ * Sem JS, o link continua disponível como navegação normal.
+ */
+const floatingBooking = document.querySelector('.mobile-booking');
+let floatingFrame = false;
+function updateFloatingBooking() {
+  floatingFrame = false;
+  const viewport = window.visualViewport;
+  const top = viewport?.offsetTop || 0;
+  const bottom = top + (viewport?.height || window.innerHeight);
+  const inView = node => {
+    const bounds = node.getBoundingClientRect();
+    return bounds.top < bottom && bounds.bottom > top;
+  };
+  const editing = document.activeElement.matches('input, select, textarea, [contenteditable="true"]');
+  floatingBooking.hidden = editing || inView(byId('agendamento')) || inView(document.querySelector('.footer-main'));
+}
+function scheduleFloatingUpdate() {
+  if (floatingFrame) return;
+  floatingFrame = true;
+  requestAnimationFrame(updateFloatingBooking);
+}
+window.addEventListener('scroll', scheduleFloatingUpdate, { passive: true });
+window.addEventListener('resize', scheduleFloatingUpdate);
+window.visualViewport?.addEventListener('resize', scheduleFloatingUpdate);
+window.visualViewport?.addEventListener('scroll', scheduleFloatingUpdate);
+document.addEventListener('focusin', scheduleFloatingUpdate);
+document.addEventListener('focusout', scheduleFloatingUpdate);
+document.fonts?.ready.then(scheduleFloatingUpdate);
+floatingBooking.addEventListener('click', event => {
+  if (event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
+  event.preventDefault();
+  byId('name').focus();
+});
+scheduleFloatingUpdate();
 
 /* M04 — Filtros: visibilidade, botão selecionado e anúncio da quantidade.
  * São botões de filtro (aria-pressed), pois não se comportam como abas de conteúdo.

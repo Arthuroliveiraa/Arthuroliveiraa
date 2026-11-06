@@ -4,6 +4,8 @@ dist/
 .qa/
 coverage/
 node_modules/
+playwright-report/
+test-results/
 *.log
 
 # Configurações do ambiente e arquivos temporários de ferramentas.

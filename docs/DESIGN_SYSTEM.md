@@ -29,6 +29,8 @@ Carregue as folhas nesta ordem, com caminhos relativos à página:
 
 O site e o guia usam os mesmos arquivos. Valores exibidos pelo JavaScript são lidos das propriedades CSS, não de uma segunda tabela de cores. Sem JavaScript, amostras, componentes, navegação e exemplos de código permanecem disponíveis; cópia e cálculos são melhorias progressivas.
 
+Na página principal, `js/navigation.js` também carrega antes das folhas. Ele inicializa o menu móvel sem salto de layout e não depende do formulário. Não é necessário no guia nem na página 404. A revisão de qualidade removeu os componentes antigos sem uso de `style.css`, preservando os componentes aqui documentados e suas capturas. Veja [QUALIDADE.md](QUALIDADE.md).
+
 ## Princípios
 
 - **Acolher:** superfícies claras, espaço de leitura e linguagem simples.

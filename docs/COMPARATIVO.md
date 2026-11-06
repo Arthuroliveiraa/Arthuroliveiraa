@@ -90,7 +90,7 @@ As pendências abaixo se aplicam à adaptação para uma clínica em funcionamen
 - Links de telefone/WhatsApp só aparecem com formato brasileiro válido; isso não comprova existência ou titularidade do número.
 - Mensagens são codificadas antes de entrar na URL do WhatsApp. Não há envio nem confirmação automática.
 - Sem JavaScript, as informações, navegação e detalhes continuam disponíveis; filtros e geração de mensagem dependem do script.
-- A folha original contém componentes ainda não usados. Foram preservados e identificados como base, sem criar conteúdo fictício para preenchê-los.
+- A revisão de qualidade removeu componentes antigos sem uso da folha original, preservando a interface e os componentes documentados. O resultado e os limites da validação estão em [QUALIDADE.md](QUALIDADE.md).
 
 ## Validação reproduzível
 

@@ -13,7 +13,11 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  verify:
+    uses: ./.github/workflows/check.yml
+
   prepare:
+    needs: verify
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -22,19 +26,8 @@ jobs:
         with:
           node-version: '24'
           package-manager-cache: false
-      - name: Conferir sintaxe
-        run: |
-          node --check js/config.js
-          node --check js/app.js
-          node --check js/design-system.js
-          node --check js/theme.js
       - name: Preparar site
         run: node scripts/prepare-site.mjs
-      - name: Verificar distribuição no Chrome
-        env:
-          BROWSER_PATH: /usr/bin/google-chrome
-          AURA_SITE_ROOT: dist
-        run: node tests/browser-check.mjs
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:

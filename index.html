@@ -7,6 +7,7 @@
   <meta name="description" content="Projeto demonstrativo de site odontológico para portfólio: layout responsivo, acessibilidade e formulário interativo. Clínica ilustrativa, sem atendimento real.">
   <meta name="theme-color" content="#14665E">
   <script src="js/theme.js"></script>
+  <script src="js/navigation.js"></script>
   <!-- T07 — Metadados estáticos: leitores de compartilhamento dispensam JavaScript. -->
   <link rel="canonical" href="https://arthuroliveiraa.github.io/Arthuroliveiraa/">
   <meta property="og:type" content="website">
@@ -49,8 +50,8 @@
   </aside>
   <header class="header-nav">
     <div class="container header-inner">
-      <a class="brand-logo" href="#inicio" aria-label="Aura Odontologia, início">
-        <span class="brand-name">aura<span class="brand-sub">Odontologia contemporânea</span></span>
+      <a class="brand-logo" href="#inicio">
+        <span class="brand-name">aura <span class="brand-sub">Odontologia contemporânea</span></span><span class="sr-only">, início</span>
       </a>
       <div class="header-controls">
       <nav aria-label="Principal">
@@ -409,6 +410,6 @@
     </div>
   </footer>
   <!-- M11 — Atalho no celular; acessível mesmo sem número de WhatsApp configurado. -->
-  <a class="btn btn-primary mobile-booking" href="#agendamento">Solicitar avaliação ↗</a>
+  <nav aria-label="Agendamento rápido"><a class="btn btn-primary mobile-booking" href="#agendamento">Solicitar avaliação ↗</a></nav>
 </body>
 </html>

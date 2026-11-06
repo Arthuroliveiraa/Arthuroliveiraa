@@ -14,13 +14,25 @@ Site institucional demonstrativo de uma clínica odontológica ilustrativa, feit
 
 ### Computador
 
-![Abertura do site em 1440px com aviso de demonstração, navegação e apresentação da Aura](./docs/images/aura-1440.png)
+| Tema claro | Tema escuro |
+| --- | --- |
+| <img src="./docs/images/aura-1440.png" width="600" alt="Aura em 1440px no tema claro, com navegação e ilustração do sorriso"> | <img src="./docs/images/aura-dark-1440.png" width="600" alt="A mesma abertura da Aura em 1440px no tema escuro"> |
 
 ### Celular
 
-<img src="./docs/images/aura-390.png" width="320" alt="Abertura do site em 390px com aviso de demonstração, menu recolhido e botão de avaliação">
+| Tema claro | Tema escuro |
+| --- | --- |
+| <img src="./docs/images/aura-390.png" width="280" alt="Aura em 390px com menu recolhido, alternância de tema e atalho de avaliação"> | <img src="./docs/images/aura-dark-390.png" width="280" alt="Aura em 390px no tema escuro, com os mesmos controles"> |
 
 Capturas reais da página em navegador, geradas pelos testes. O layout foi verificado em oito larguras entre 320 e 1440px.
+
+A galeria amplia ilustrações próprias, a agenda permite experimentar datas e horários fictícios e o [design system](./design-system.html) documenta os componentes compartilhados. As opções para conteúdo real estão no [guia de configuração](./docs/CONFIGURACAO.md).
+
+## Revisão de qualidade
+
+A rodada de 06/11/2026 acrescentou testes em Chromium, Firefox e WebKit, perfis móveis com toque, auditoria com axe, texto a 200%, ajuste do atalho móvel e página 404. O carregamento do menu foi corrigido para evitar o salto inicial de conteúdo. A limpeza do CSS preservou oito capturas idênticas do site e do guia.
+
+Os perfis Android/iPhone são **emulados**. Safari instalado, aparelhos físicos e escuta em leitor de tela ainda exigem conferência manual. Consulte resultados, comandos e limites em [QUALIDADE.md](./docs/QUALIDADE.md). A publicação continua manual, mediante solicitação.
 
 ## O que o projeto demonstra
 
@@ -50,6 +62,8 @@ Capturas reais da página em navegador, geradas pelos testes. O layout foi verif
 - Equipe com foto e biografia, avaliações com fonte e link de agenda externa disponíveis por configuração, fora do modo demonstrativo.
 - Seleção de data e horário fictícios na demonstração, sem reservas ou envio.
 - Imagem PNG de compartilhamento e metadados Open Graph/Twitter estáticos.
+- Página 404 com temas claro/escuro e caminhos de retorno para URLs inválidas em subpastas.
+- Atalho móvel oculto junto ao formulário, ao rodapé e durante a edição de campos.
 - Informações e navegação acessíveis sem JavaScript; filtros e geração de mensagem dependem dele.
 
 ## Executar localmente
@@ -64,15 +78,31 @@ Acesse **http://127.0.0.1:8000**. Para encerrar, pressione `Ctrl+C` no terminal.
 
 ## Verificar o projeto
 
-Para testes, use Node.js 22 ou superior e Edge/Chrome instalado:
+Para os testes originais, use Node.js 22.12 ou superior e Edge/Chrome instalado:
 
 ```sh
 node --check js/config.js
 node --check js/app.js
 node --check js/theme.js
+node --check js/navigation.js
+node --check js/design-system.js
 node scripts/prepare-site.mjs
 node tests/browser-check.mjs
 ```
+
+Para instalar as ferramentas extras de desenvolvimento e repetir os testes de compatibilidade/acessibilidade:
+
+```powershell
+npm ci
+$env:PLAYWRIGHT_BROWSERS_PATH = "$PWD/.cache/playwright"
+npx playwright install chromium firefox webkit
+npm run build
+npm run test:qa
+```
+
+Essas dependências são usadas somente para desenvolvimento e não entram em `dist/`. A medição de desempenho pode ser repetida com `npm run test:performance`; não equivale a métricas de usuários reais.
+
+No Windows, `npm run test:visual` compara 28 capturas de referência. Atualizações intencionais usam `npm run test:visual:update` e exigem inspeção das imagens, conforme [o guia de qualidade](./docs/QUALIDADE.md#comparação-visual). O workflow de verificação inclui esses testes; a publicação manual só prossegue quando todos passarem.
 
 O teste inicia um servidor em loopback e um navegador headless, executa as verificações e encerra ambos. O perfil temporário é removido ao final. Sem navegador no caminho padrão, defina `BROWSER_PATH`. Em ambientes restritos, iniciar/controlar o navegador pode exigir autorização do ambiente.
 
@@ -93,13 +123,16 @@ Os workflows foram executados no GitHub Actions. A [primeira publicação valida
 ```text
 index.html                 Página e estrutura semântica
 design-system.html         Guia visual de fundamentos, componentes e padrões
+404.html                   Erro com retorno à raiz pública do projeto
 css/tokens.css             Valores compartilhados entre o site e o guia
 css/style.css              Design original e componentes comentados
 css/fonts.css              Fontes WOFF2 locais, sem consulta a serviços externos
 css/design-system.css      Apresentação exclusiva do guia visual
+css/error.css              Apresentação da página 404
 js/config.js               Modo de demonstração e configuração pública
 js/app.js                  Interações da página
 js/theme.js                Tema compartilhado, preferência local e acessibilidade
+js/navigation.js           Menu progressivo, inicializado antes da primeira pintura
 js/design-system.js        Cópia de tokens, contraste e exemplos do guia
 assets/icons/favicon.svg   Ícone vetorial local
 assets/illustrations/      Ilustração vetorial da abertura
@@ -109,7 +142,11 @@ docs/COMPARATIVO.md         Referências, decisões e registro M01–M13
 docs/PUBLICACAO.md          Passos para disponibilizar a demonstração
 docs/DESIGN_SYSTEM.md       Regras, uso e manutenção do design system
 docs/CONFIGURACAO.md        Mídia, equipe, avaliações e agenda externa
+docs/QUALIDADE.md           Resultados, limites e roteiro de validação manual
 tests/browser-check.mjs    Verificação funcional em navegador real
+tests/*.spec.mjs            Compatibilidade, acessibilidade, desempenho e erro 404
+playwright.config.mjs      Motores, perfis e execução dos testes extras
+package.json               Comandos e dependências exclusivas de desenvolvimento
 scripts/prepare-site.mjs   Geração da pasta dist/ para hospedagem
 .github/workflows/         Verificação e publicação no GitHub Pages
 LICENSE                    Licença MIT
@@ -120,6 +157,7 @@ LICENSE                    Licença MIT
 - **Sem framework:** a experiência cabe em uma página e interações locais, mantendo a execução simples.
 - **Tipografia local:** Playfair Display e Plus Jakarta Sans em WOFF2, com variações de peso e `font-display: swap`. As fontes e os ícones são servidos pelo próprio site.
 - **Melhoria progressiva:** conteúdo e elementos expansíveis nativos funcionam antes do JavaScript.
+- **Navegação estável:** `navigation.js` prepara o menu antes da pintura e funciona independentemente do formulário; sem JavaScript os links continuam expostos.
 - **Configuração centralizada:** os dados públicos ficam separados da lógica e são inseridos como texto.
 - **Design system compartilhado:** cores, tipografia, dimensões e efeitos ficam em `css/tokens.css`. O guia visual reutiliza os componentes do site e inclui exemplos de uso e estados.
 - **Tema acessível:** site e guia alternam entre superfícies claras e escuras com tokens semânticos. Somente `aura-theme` é salvo em `localStorage`; nome, data de exemplo e mensagem não são armazenados.
@@ -136,7 +174,8 @@ O formulário monta uma mensagem no navegador. Não há backend, prontuário, au
 - [x] Documentação, capturas, licença e testes locais.
 - [x] Configuração para verificação e publicação no GitHub.
 - [x] Publicar e verificar a URL real da demonstração no GitHub Pages.
-- [ ] Auditoria adicional com leitores de tela e outros navegadores.
+- [x] Testes automatizados em Chromium, Firefox e WebKit, com perfis móveis emulados.
+- [ ] Conferência em Safari instalado, aparelhos físicos e leitor de tela real.
 - [ ] Em uma implantação real: validar identidade, profissionais, serviços e informações de contato.
 - [x] Preparar agenda demonstrativa e conexão por link com uma plataforma real.
 - [ ] Para uso real: escolher o serviço de agenda, configurar sua URL e validar a disponibilidade na plataforma.
