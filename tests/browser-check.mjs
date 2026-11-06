@@ -135,6 +135,7 @@ try {
   await call('Runtime.enable');
   await call('Network.enable');
   await navigate('/');
+  const primaryToken = await evaluate("getComputedStyle(document.documentElement).getPropertyValue('--color-primary').trim()");
   // Fontes e ilustração precisam carregar de verdade, sem fallback silencioso.
   assert.equal(await evaluate(`(() => {
     const loaded = [...document.fonts].filter(face => face.status === 'loaded');
@@ -227,10 +228,50 @@ try {
   assert.equal(await evaluate("getComputedStyle(document.querySelector('#menu')).visibility"), 'visible');
   assert.equal(await evaluate("document.querySelector('#treatment-filters').hidden"), true);
   assert.equal(await evaluate("document.querySelector('#prepare').disabled"), true);
+
+  // Guia sem scripts: documentação e exemplos continuam disponíveis.
+  await navigate('/design-system.html', false);
+  assert.equal(await evaluate("document.querySelectorAll('.ds-sidebar nav a').length"), 7);
+  assert.equal(await evaluate("[...document.querySelectorAll('[data-copy-token]')].every(button => button.hidden)"), true);
+  await evaluate("document.querySelector('.ds-code summary').click()");
+  assert.equal(await evaluate("document.querySelector('.ds-code').open"), true);
+
+  // Guia com scripts: os tokens vêm do CSS e o feedback distingue sucesso e falha.
+  await call('Emulation.setScriptExecutionDisabled', { value: false });
+  await navigate('/design-system.html', false);
+  assert.equal(await evaluate("document.querySelector('[data-token-value]').textContent"), primaryToken);
+  assert.equal(await evaluate("document.querySelectorAll('[data-contrast-pass=true]').length"), 6);
+  assert.deepEqual(await evaluate(`(() => {
+    const ids = [...document.querySelectorAll('[id]')].map(element => element.id);
+    return {
+      uniqueIds: ids.length === new Set(ids).size,
+      brokenAnchors: [...document.querySelectorAll('a[href^="#"]')].filter(link => !document.getElementById(link.hash.slice(1))).length,
+      unlabelledFields: [...document.querySelectorAll('input, select, textarea')].filter(field => !field.labels.length).length
+    };
+  })()`), { uniqueIds: true, brokenAnchors: 0, unlabelledFields: 0 });
+  for (const width of [1440, 1024, 961, 960, 769, 768, 390, 320]) {
+    await call('Emulation.setDeviceMetricsOverride', { width, height: 1000, deviceScaleFactor: 1, mobile: false });
+    assert.ok(await evaluate('document.documentElement.scrollWidth <= innerWidth'), `Overflow no guia em ${width}px`);
+  }
+  await evaluate("Object.defineProperty(navigator, 'clipboard', {configurable:true, value:{writeText:async value=>{window.dsCopied=value}}}); document.querySelector('[data-copy-token]').click()");
+  assert.equal(await evaluate('window.dsCopied'), `--color-primary: ${primaryToken};`);
+  assert.match(await evaluate("document.querySelector('#ds-feedback').textContent"), /Token copiado/);
+  await evaluate("Object.defineProperty(navigator, 'clipboard', {configurable:true, value:{writeText:async()=>{throw new Error('Negado no teste')}}}); document.querySelector('[data-copy-token]').click()");
+  assert.match(await evaluate("document.querySelector('#ds-feedback').textContent"), /Copie manualmente/);
+  await evaluate("document.querySelector('[data-demo]').click()");
+  assert.match(await evaluate("document.querySelector('#ds-feedback').textContent"), /exemplo de interação/);
+  if (process.env.AURA_SCREENSHOT_DIR) {
+    for (const width of [1440, 390]) {
+      await call('Emulation.setDeviceMetricsOverride', { width, height: 1000, deviceScaleFactor: 1, mobile: false });
+      await evaluate("document.getElementById('fundamentos').scrollIntoView({ behavior: 'instant' }); document.getElementById('ds-feedback').textContent = ''");
+      const { data } = await call('Page.captureScreenshot', { format: 'png' });
+      await writeFile(join(process.env.AURA_SCREENSHOT_DIR, `design-system-${width}.png`), Buffer.from(data, 'base64'));
+    }
+  }
   assert.deepEqual(exceptions, [], 'Erros JavaScript no navegador');
   assert.deepEqual(failedResources, [], 'Recursos com erro HTTP');
   assert.deepEqual(externalRequests, [], 'A página iniciou requisições externas');
-  console.log('OK: fontes e ilustração locais, layout em 8 larguras, menu, filtros, formulário, clipboard, configuração, equipe, contatos, modo demonstrativo e modo sem JavaScript.');
+  console.log('OK: site e design system em 8 larguras, fontes locais, menu, filtros, formulário, clipboard, contatos, modo demo, navegação sem JS, tokens compartilhados e contraste.');
 } finally {
   socket?.close();
   browser.kill();

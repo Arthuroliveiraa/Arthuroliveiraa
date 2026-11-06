@@ -1,0 +1,98 @@
+/* Aura Design System v1.0. Fonte compartilhada pelo site e pelo guia visual. */
+:root {
+  /* Harmonia quente/frio: marfim nas áreas amplas, petróleo na identidade
+     e terracota nos detalhes. Tons claros e escuros mantêm a hierarquia. */
+  --color-bg: #FBF8F2;
+  --color-bg-alt: #EDF3F0;         /* Névoa verde: harmoniza seções e cartões brancos */
+  --color-surface: #FFFFFF;
+  --color-surface-translucent: rgba(255, 252, 247, 0.92);
+
+  --color-primary: #14665E;        /* Verde-petróleo */
+  --color-primary-rgb: 20, 102, 94;
+  --color-primary-light: #20766C;
+  --color-primary-dark: #0C403B;
+  --color-primary-soft: #DEEEE6;
+  --color-primary-subtle: #EDF6F1;
+
+  --color-accent: #AA4D32;         /* Terracota para textos e detalhes */
+  --color-accent-rgb: 170, 77, 50;
+  --color-accent-hover: #963E27;
+  --color-accent-soft: #FAEAE0;
+  --color-accent-decorative: #DF9872;
+  --color-art-bg: #F0DCCA;
+
+  --color-text-main: #173B35;
+  --color-text-muted: #50665F;
+  --color-text-light: #60746D;
+
+  --color-border: #DCD5C9;
+  --color-border-light: #EBE5DB;
+  --color-control-border: #80928B;
+  --color-border-focus: var(--color-primary);
+  --color-footer: #0D302C;
+  --color-on-dark: #C4D7CF;
+  --color-on-dark-muted: #A3BDB2;
+
+  --color-gold: #BB7A24;
+  --color-success: #24734E;
+
+  /* Tipografia */
+  --font-serif: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+  /* Sombras & Efeitos */
+  --shadow-sm: 0 2px 8px rgba(23, 59, 53, 0.04);
+  --shadow-md: 0 6px 20px rgba(23, 59, 53, 0.06);
+  --shadow-lg: 0 16px 36px rgba(23, 59, 53, 0.08);
+  --shadow-xl: 0 24px 48px rgba(23, 59, 53, 0.12);
+  --shadow-glow: 0 0 24px rgba(var(--color-primary-rgb), 0.15);
+
+  /* Raios de Borda */
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+  --radius-pill: 9999px;
+
+  /* Transições */
+  --transition-fast: 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-normal: 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-smooth: 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* Escala espacial de 4 px. */
+  --space-1: .25rem;
+  --space-2: .5rem;
+  --space-3: .75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-20: 5rem;
+  --space-22: 5.5rem;
+  --space-24: 6rem;
+
+  /* Hierarquia tipografica e limites do layout. */
+  --text-xs: .75rem;
+  --text-sm: .875rem;
+  --text-md: 1rem;
+  --text-body: 1.05rem;
+  --text-title: clamp(2.4rem, 4.5vw, 3.8rem);
+  --text-heading: clamp(2rem, 3.2vw, 2.75rem);
+  --text-subheading: clamp(1.35rem, 2vw, 1.65rem);
+  --line-body: 1.65;
+  --line-heading: 1.25;
+  --container-wide: 1240px;
+  --container-narrow: 860px;
+  --control-min-height: 44px;
+  --header-height: 80px;
+  --focus-width: 3px;
+  --focus-offset: 5px;
+
+  /* Estados semanticos; nunca usar apenas a cor para comunicar o estado. */
+  --color-success-soft: #E7F3EC;
+  --color-danger: #AD3529;
+  --color-danger-soft: #FCEBE8;
+}

@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,follow">
+  <meta name="theme-color" content="#14665E">
+  <meta name="description" content="Design system da Aura: fundamentos, tokens, componentes e padrões da interface.">
+  <title>Aura — Design System</title>
+  <link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="assets/fonts/plus-jakarta-sans-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/playfair-display-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="css/fonts.css">
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/design-system.css">
+  <script src="js/design-system.js" defer></script>
+</head>
+<body class="ds-page">
+  <a class="skip-link" href="#ds-content">Pular para o conteúdo</a>
+  <header class="ds-topbar">
+    <a class="ds-brand" href="index.html"><span class="brand-name">aura</span><span>Design System</span></a>
+    <a class="text-link" href="index.html">Ver o site ↗</a>
+  </header>
+  <div class="ds-layout">
+    <aside class="ds-sidebar">
+      <p class="ds-eyebrow">Guia de interface · v1.0</p>
+      <nav aria-label="Seções do design system">
+        <a href="#fundamentos"><span>01</span> Fundamentos</a>
+        <a href="#cores"><span>02</span> Cores</a>
+        <a href="#tipografia"><span>03</span> Tipografia</a>
+        <a href="#medidas"><span>04</span> Medidas e layout</a>
+        <a href="#componentes"><span>05</span> Componentes</a>
+        <a href="#padroes"><span>06</span> Padrões de página</a>
+        <a href="#acessibilidade"><span>07</span> Acessibilidade</a>
+      </nav>
+      <div class="ds-sidebar-note">Uma base compartilhada.<br>Do primeiro detalhe à página inteira.</div>
+    </aside>
+    <main id="ds-content" class="ds-main" tabindex="-1">
+      <section class="ds-intro" id="fundamentos" aria-labelledby="ds-title">
+        <span class="badge-pill badge-sage">Aura · Odontologia contemporânea</span>
+        <h1 id="ds-title">Cuidado também<br>é <em>consistência.</em></h1>
+        <p class="ds-lead">O sistema visual que conecta cores, palavras e interações. Construído a partir dos cinco primeiros tópicos de evolução do site.</p>
+        <div class="ds-principles">
+          <article><span class="ds-eyebrow">Acolher</span><h2>Calma para ler.</h2><p>Fundos suaves, espaço entre elementos e textos diretos.</p></article>
+          <article><span class="ds-eyebrow">Orientar</span><h2>Clareza para agir.</h2><p>Hierarquia visível e ações com nomes que explicam o próximo passo.</p></article>
+          <article><span class="ds-eyebrow">Conectar</span><h2>Uma só identidade.</h2><p>Os mesmos tokens e componentes no guia e no site.</p></article>
+        </div>
+        <details class="ds-code"><summary>Como carregar o sistema</summary><pre><code>&lt;link rel="stylesheet" href="css/fonts.css"&gt;
+&lt;link rel="stylesheet" href="css/tokens.css"&gt;
+&lt;link rel="stylesheet" href="css/style.css"&gt;</code></pre></details>
+      </section>
+
+      <section class="ds-section" id="cores" aria-labelledby="colors-title">
+        <div class="ds-section-heading"><span class="ds-index">02</span><div><h2 id="colors-title">Cor com propósito.</h2><p>Verde-petróleo para identidade e ações. Terracota para detalhes. Neutros claros para dar espaço ao conteúdo.</p></div></div>
+        <div class="ds-color-grid">
+          <article class="ds-color-card"><div class="ds-swatch" style="background:var(--color-primary)"></div><div class="ds-color-info"><h3>Verde-petróleo</h3><code>--color-primary</code><span data-token-value="--color-primary"></span><button class="ds-copy" data-copy-token="--color-primary" hidden>Copiar token</button></div></article>
+          <article class="ds-color-card"><div class="ds-swatch" style="background:var(--color-primary-dark)"></div><div class="ds-color-info"><h3>Verde profundo</h3><code>--color-primary-dark</code><span data-token-value="--color-primary-dark"></span><button class="ds-copy" data-copy-token="--color-primary-dark" hidden>Copiar token</button></div></article>
+          <article class="ds-color-card"><div class="ds-swatch" style="background:var(--color-accent)"></div><div class="ds-color-info"><h3>Terracota</h3><code>--color-accent</code><span data-token-value="--color-accent"></span><button class="ds-copy" data-copy-token="--color-accent" hidden>Copiar token</button></div></article>
+          <article class="ds-color-card"><div class="ds-swatch" style="background:var(--color-bg)"></div><div class="ds-color-info"><h3>Marfim</h3><code>--color-bg</code><span data-token-value="--color-bg"></span><button class="ds-copy" data-copy-token="--color-bg" hidden>Copiar token</button></div></article>
+          <article class="ds-color-card"><div class="ds-swatch" style="background:var(--color-bg-alt)"></div><div class="ds-color-info"><h3>Névoa verde</h3><code>--color-bg-alt</code><span data-token-value="--color-bg-alt"></span><button class="ds-copy" data-copy-token="--color-bg-alt" hidden>Copiar token</button></div></article>
+          <article class="ds-color-card"><div class="ds-swatch" style="background:var(--color-primary-soft)"></div><div class="ds-color-info"><h3>Verde suave</h3><code>--color-primary-soft</code><span data-token-value="--color-primary-soft"></span><button class="ds-copy" data-copy-token="--color-primary-soft" hidden>Copiar token</button></div></article>
+          <article class="ds-color-card"><div class="ds-swatch" style="background:var(--color-text-main)"></div><div class="ds-color-info"><h3>Texto principal</h3><code>--color-text-main</code><span data-token-value="--color-text-main"></span><button class="ds-copy" data-copy-token="--color-text-main" hidden>Copiar token</button></div></article>
+          <article class="ds-color-card"><div class="ds-swatch" style="background:var(--color-text-muted)"></div><div class="ds-color-info"><h3>Texto de apoio</h3><code>--color-text-muted</code><span data-token-value="--color-text-muted"></span><button class="ds-copy" data-copy-token="--color-text-muted" hidden>Copiar token</button></div></article>
+          <article class="ds-color-card"><div class="ds-swatch" style="background:var(--color-accent-decorative)"></div><div class="ds-color-info"><h3>Pêssego decorativo</h3><code>--color-accent-decorative</code><span data-token-value="--color-accent-decorative"></span><button class="ds-copy" data-copy-token="--color-accent-decorative" hidden>Copiar token</button></div></article>
+        </div>
+        <p class="ds-note">O pêssego é decorativo: evite usá-lo para texto sobre fundo claro. Instagram, Facebook e WhatsApp preservam suas cores de marca.</p>
+        <noscript><p class="ds-note">As amostras usam os tokens reais. Ative o JavaScript para ver os valores calculados e copiar as declarações.</p></noscript>
+      </section>
+
+      <section class="ds-section" id="tipografia" aria-labelledby="type-title">
+        <div class="ds-section-heading"><span class="ds-index">03</span><div><h2 id="type-title">Duas vozes, um ritmo.</h2><p>Playfair Display dá personalidade aos títulos. Plus Jakarta Sans mantém a leitura clara no corpo e nos controles.</p></div></div>
+        <div class="ds-type-grid">
+          <article class="ds-type-card"><span class="ds-type-glyph font-serif">Aa</span><h3>Playfair Display</h3><p>Títulos e destaques · pesos 400–700<br>Normal e itálico</p><span class="font-serif ds-alphabet">Cuidado, confiança e atenção.<br><em>O detalhe faz parte.</em></span></article>
+          <article class="ds-type-card"><span class="ds-type-glyph">Aa</span><h3>Plus Jakarta Sans</h3><p>Corpo, rótulos e ações · pesos 400–700<br>Normal</p><span class="ds-alphabet">Informação clara, do começo ao fim.<br>Áá · Éé · Ãã · Çç · 0123456789</span></article>
+        </div>
+        <div class="ds-type-scale">
+          <div><code>h1 · --text-title</code><span class="ds-sample-h1">Seu sorriso merece cuidado.</span></div>
+          <div><code>h2 · --text-heading</code><span class="ds-sample-h2">Saúde e confiança para sorrir.</span></div>
+          <div><code>h3 · --text-subheading</code><span class="ds-sample-h3">Você no centro do cuidado.</span></div>
+          <div><code>p · --text-body</code><p>Textos de apoio explicam as opções e ajudam a entender o próximo passo.</p></div>
+          <div><code>rótulo · --text-sm</code><span class="ds-sample-label">Como podemos chamar você?</span></div>
+        </div>
+        <p class="ds-note">Fontes WOFF2 locais, com suporte a português e <code>font-display: swap</code>. Os títulos usam escala fluida; o corpo mantém leitura confortável. Licenças OFL preservadas nos assets.</p>
+      </section>
+
+      <section class="ds-section" id="medidas" aria-labelledby="spacing-title">
+        <div class="ds-section-heading"><span class="ds-index">04</span><div><h2 id="spacing-title">Espaço para respirar.</h2><p>Escala de 4 px para espaçamentos. Cantos e sombras preservam o desenho já aplicado à página.</p></div></div>
+        <div class="ds-spacing" aria-label="Exemplos da escala de espaçamento">
+          <div><code>--space-1</code><span style="width:var(--space-1)"></span><small>4 px</small></div>
+          <div><code>--space-2</code><span style="width:var(--space-2)"></span><small>8 px</small></div>
+          <div><code>--space-4</code><span style="width:var(--space-4)"></span><small>16 px</small></div>
+          <div><code>--space-6</code><span style="width:var(--space-6)"></span><small>24 px</small></div>
+          <div><code>--space-8</code><span style="width:var(--space-8)"></span><small>32 px</small></div>
+          <div><code>--space-12</code><span style="width:var(--space-12)"></span><small>48 px</small></div>
+          <div><code>--space-16</code><span style="width:var(--space-16)"></span><small>64 px</small></div>
+          <div><code>--space-22</code><span style="width:var(--space-22)"></span><small>88 px</small></div>
+        </div>
+        <div class="ds-shape-grid">
+          <div style="border-radius:var(--radius-sm)"><code>sm · 8 px</code></div>
+          <div style="border-radius:var(--radius-md)"><code>md · 14 px</code></div>
+          <div style="border-radius:var(--radius-lg)"><code>lg · 20 px</code></div>
+          <div style="border-radius:var(--radius-xl)"><code>xl · 28 px</code></div>
+          <div style="border-radius:var(--radius-pill)"><code>pill</code></div>
+        </div>
+        <div class="ds-shape-grid ds-shadow-grid"><div style="box-shadow:var(--shadow-sm)"><code>shadow-sm</code></div><div style="box-shadow:var(--shadow-md)"><code>shadow-md</code></div><div style="box-shadow:var(--shadow-lg)"><code>shadow-lg</code></div><div style="box-shadow:var(--shadow-xl)"><code>shadow-xl</code></div></div>
+        <div class="ds-table-wrap"><table><caption>Layout responsivo do site</caption><thead><tr><th>Faixa</th><th>Comportamento</th></tr></thead><tbody><tr><td>Acima de 1024 px</td><td>Abertura e princípios em duas colunas; linha do tempo horizontal.</td></tr><tr><td>Até 1024 px</td><td>Abertura empilhada; filtros abaixo do título de tratamentos.</td></tr><tr><td>Até 960 px</td><td>Menu recolhível quando JavaScript está disponível.</td></tr><tr><td>Até 768 px</td><td>Cartões em uma coluna; linha do tempo vertical; atalho de avaliação no rodapé.</td></tr></tbody></table></div>
+        <p class="ds-note">Contêiner principal: 1240 px. Leitura e formulário: 860 px. Laterais: 24 px. Os limites incluem o padding, com <code>box-sizing: border-box</code>.</p>
+      </section>
+
+      <section class="ds-section" id="componentes" aria-labelledby="components-title">
+        <div class="ds-section-heading"><span class="ds-index">05</span><div><h2 id="components-title">Peças que trabalham juntas.</h2><p>Exemplos renderizados com as mesmas classes usadas no site. Passe o mouse e use Tab para experimentar os estados.</p></div></div>
+        <article class="ds-component-panel"><h3>Botões e links</h3><p class="ds-component-description">Uma ação principal por grupo. Ações secundárias dão alternativas; texto sublinhado indica navegação.</p><div class="ds-row"><button class="btn btn-primary" type="button" data-demo="Ação principal">Quero uma avaliação ↗</button><button class="btn btn-secondary" type="button" data-demo="Ação secundária">Conhecer tratamentos</button><button class="btn btn-accent" type="button" data-demo="Ação de destaque">Saiba mais</button><button class="btn btn-primary" type="button" disabled>Indisponível</button></div><div class="ds-row"><button class="btn btn-primary btn-sm" type="button" data-demo="Botão pequeno">Pequeno</button><button class="btn btn-primary" type="button" data-demo="Botão padrão">Padrão</button><button class="btn btn-primary btn-lg" type="button" data-demo="Botão grande">Grande</button><a class="text-link" href="#padroes">Conhecer os padrões →</a></div><details class="ds-code"><summary>Ver HTML</summary><pre><code>&lt;button class="btn btn-primary" type="button"&gt;Quero uma avaliação&lt;/button&gt;
+&lt;button class="btn btn-secondary" type="button"&gt;Conhecer tratamentos&lt;/button&gt;</code></pre></details></article>
+        <article class="ds-component-panel"><h3>Selos</h3><div class="ds-row"><span class="badge-pill badge-sage">Tratamentos</span><span class="badge-pill badge-terracotta">Primeira visita</span><span class="badge-pill badge-white">Informação</span></div><p class="ds-note">Selos apresentam contexto. Não devem parecer botões nem receber foco quando não são interativos.</p></article>
+        <article class="ds-component-panel"><h3>Campos e estados</h3><p class="ds-component-description">Rótulos ficam visíveis. Ajuda e erro se conectam ao campo por <code>aria-describedby</code>.</p><div class="ds-field-grid"><div class="input-field"><label for="ds-name">Nome de exemplo</label><input id="ds-name" autocomplete="off" maxlength="80" aria-describedby="ds-name-help"><p class="field-help" id="ds-name-help">Exemplo de campo em estado normal. Nada é enviado.</p></div><div class="input-field"><label for="ds-period">Preferência de período</label><select id="ds-period"><option>Sem preferência</option><option>Manhã</option><option>Tarde</option></select></div><div class="input-field"><label for="ds-error-field">Campo com erro de exemplo</label><input id="ds-error-field" aria-invalid="true" aria-describedby="ds-field-error" autocomplete="off"><p class="field-error" id="ds-field-error">Preencha este campo para continuar.</p></div><div class="input-field"><label for="ds-disabled">Campo indisponível</label><input id="ds-disabled" value="Exemplo desabilitado" disabled></div></div><details class="ds-code"><summary>Ver HTML do estado de erro</summary><pre><code>&lt;label for="nome"&gt;Nome&lt;/label&gt;
+&lt;input id="nome" aria-invalid="true" aria-describedby="nome-erro"&gt;
+&lt;p class="field-error" id="nome-erro"&gt;Preencha seu nome.&lt;/p&gt;</code></pre></details></article>
+        <article class="ds-component-panel"><h3>Mensagens</h3><div class="ds-stack"><p class="status-message">Informação: confira os dados antes de continuar.</p><p class="status-message status-success">Sucesso: a mensagem de exemplo está pronta.</p><p class="status-message status-error">Erro: revise o campo indicado acima.</p></div><p class="ds-note">A cor acompanha texto explícito. Mensagens dinâmicas usam <code>role="status"</code>; exemplos estáticos não precisam ser anunciados como alertas.</p></article>
+        <article class="ds-component-panel"><h3>Perguntas expansíveis</h3><details class="faq-item"><summary>Como este componente funciona?</summary><p>O elemento nativo details funciona com mouse, teclado e sem JavaScript. A resposta cresce conforme o conteúdo, sem altura fixa.</p></details></article>
+      </section>
+
+      <section class="ds-section" id="padroes" aria-labelledby="patterns-title">
+        <div class="ds-section-heading"><span class="ds-index">06</span><div><h2 id="patterns-title">Dos componentes à experiência.</h2><p>Os padrões consolidam os cinco tópicos: tipografia local, abertura vetorial, cartões com ícones, seções variadas e linha do tempo.</p></div></div>
+        <div class="ds-pattern-grid"><article class="ds-art-pattern"><img src="assets/illustrations/aura-smile.svg" alt="Ilustração vetorial abstrata do sorriso Aura." width="560" height="590" loading="lazy"><div><h3>Abertura editorial</h3><p>Uma ilustração própria, legenda legível e hierarquia clara. Não representa um consultório ou profissional real.</p></div></article><div class="ds-treatment-pattern"><article class="treatment-card" data-category="prevencao">
+            <div class="treatment-body">
+              <div class="treatment-heading"><span class="treatment-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+  <path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z" />
+  <path d="m9 12 2 2 4-4" />
+</svg></span><span class="treatment-number" aria-hidden="true">01</span></div>
+              <h3>Prevenção e limpeza</h3>
+              <p>Avaliação da saúde bucal, higiene profissional e orientações para sua rotina.</p>
+              <details class="treatment-details"><summary>Sobre a avaliação preventiva</summary><p>Converse com o profissional sobre sua rotina de higiene e o acompanhamento adequado para você.</p></details>
+              <a class="treatment-link" href="index.html#agendamento" data-treatment="Prevenção e limpeza">Tenho interesse <span class="sr-only">em prevenção e limpeza</span> →</a>
+            </div>
+          </article></div></div>
+        <div class="visit-section ds-timeline"><h3>Primeira visita · padrão responsivo</h3><ol class="visit-steps" role="list">
+          <li><span class="visit-marker" aria-hidden="true"><span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+  <path d="M8 2v3" />
+  <path d="M16 2v3" />
+  <rect x="3" y="3" width="18" height="18" rx="2" />
+  <path d="M3 9h18" />
+  <path d="m9 15 2 2 4-4" />
+</svg></span><span class="visit-step-number">01</span></span><div class="visit-step-content"><h3>Solicite seu horário</h3><p>Escolha o assunto e informe sua preferência de período. Aguarde a confirmação da equipe.</p></div></li>
+          <li><span class="visit-marker" aria-hidden="true"><span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+  <path d="M2.992 16.342a2 2 0 0 1 .094 1.167l-1.065 3.29a1 1 0 0 0 1.236 1.168l3.413-.998a2 2 0 0 1 1.099.092 10 10 0 1 0-4.777-4.719" />
+</svg></span><span class="visit-step-number">02</span></span><div class="visit-step-content"><h3>Converse na avaliação</h3><p>Compartilhe suas dúvidas e expectativas com o profissional. A avaliação orienta os próximos passos.</p></div></li>
+          <li><span class="visit-marker" aria-hidden="true"><span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+  <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
+  <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
+  <path d="M12 11h4" />
+  <path d="M12 16h4" />
+  <path d="M8 11h.01" />
+  <path d="M8 16h.01" />
+</svg></span><span class="visit-step-number">03</span></span><div class="visit-step-content"><h3>Entenda o planejamento</h3><p>Peça explicações sobre alternativas, etapas e orçamento antes de decidir.</p></div></li>
+        </ol></div>
+        <p class="ds-note">Ícones Lucide: viewBox de 24 × 24, traço de 2 e extremidades arredondadas. Ícones decorativos usam <code>aria-hidden="true"</code>; o texto explica a ação. As marcas sociais usam Simple Icons.</p>
+      </section>
+
+      <section class="ds-section" id="acessibilidade" aria-labelledby="access-title">
+        <div class="ds-section-heading"><span class="ds-index">07</span><div><h2 id="access-title">Clareza para mais pessoas.</h2><p>Critérios para revisar cada componente. Os resultados abaixo são da paleta carregada nesta página; não substituem uma auditoria completa.</p></div></div>
+        <div class="ds-table-wrap"><table><caption>Contrastes calculados</caption><thead><tr><th>Combinação</th><th>Razão</th><th>Mínimo</th></tr></thead><tbody><tr><td>Branco sobre verde-petróleo</td><td data-contrast="--color-surface|--color-primary">—</td><td>4,5:1</td></tr><tr><td>Branco sobre verde de hover</td><td data-contrast="--color-surface|--color-primary-light">—</td><td>4,5:1</td></tr><tr><td>Terracota sobre selo claro</td><td data-contrast="--color-accent|--color-accent-soft">—</td><td>4,5:1</td></tr><tr><td>Texto de apoio sobre névoa verde</td><td data-contrast="--color-text-muted|--color-bg-alt">—</td><td>4,5:1</td></tr><tr><td>Texto claro sobre verde profundo</td><td data-contrast="--color-on-dark|--color-primary-dark">—</td><td>4,5:1</td></tr><tr><td>Contorno de campo sobre marfim</td><td data-contrast="--color-control-border|--color-bg" data-minimum="3">—</td><td>3:1</td></tr></tbody></table></div>
+        <ul class="ds-checklist"><li>Foco visível, com afastamento do componente.</li><li>Rótulos reais nos campos, mesmo quando há texto de ajuda.</li><li>Botões com altura mínima de 44 px; ícones sociais em áreas de 44 × 44 px.</li><li>Erros explicados por texto e associados ao campo.</li><li>Movimento reduzido quando solicitado pelo sistema.</li><li>Navegação, conteúdo e perguntas acessíveis sem JavaScript.</li></ul>
+        <div class="ds-component-panel"><h3>Como evoluir o sistema</h3><p>Altere os valores em <code>css/tokens.css</code>, confira os exemplos e teste a página principal. Estilos de componentes ficam em <code>css/style.css</code>; os estilos exclusivos deste guia ficam em <code>css/design-system.css</code>.</p><a class="text-link" href="https://github.com/Arthuroliveiraa/Arthuroliveiraa/blob/main/docs/DESIGN_SYSTEM.md">Abrir documentação no GitHub ↗</a></div>
+      </section>
+      <footer class="ds-footer"><span>Aura Design System · v1.0</span><a class="text-link" href="#fundamentos">Voltar ao início ↑</a></footer>
+    </main>
+  </div>
+  <p id="ds-feedback" class="ds-feedback" role="status" aria-live="polite" aria-atomic="true"></p>
+</body>
+</html>

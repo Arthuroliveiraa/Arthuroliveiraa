@@ -3,6 +3,7 @@
 O repositório é [Arthuroliveiraa/Arthuroliveiraa](https://github.com/Arthuroliveiraa/Arthuroliveiraa). A demonstração foi publicada no GitHub Pages em **04/11/2026**.
 
 - [Abrir demonstração](https://arthuroliveiraa.github.io/Arthuroliveiraa/)
+- [Abrir design system](https://arthuroliveiraa.github.io/Arthuroliveiraa/design-system.html)
 - [Execução bem-sucedida da primeira publicação](https://github.com/Arthuroliveiraa/Arthuroliveiraa/actions/runs/41906540970)
 
 A página, o CSS, os dois scripts e o ícone retornaram HTTP 200 na conferência após a publicação. Os passos abaixo permitem repetir o processo ou adaptar a configuração em um fork.
@@ -37,5 +38,7 @@ Tópicos: `portfolio`, `html`, `css`, `javascript`, `responsive-design`, `access
 ## Atualizar a versão pública
 
 Após mudanças, confira os testes, envie o código e execute novamente **Publicar demonstração**. As capturas do README podem ser atualizadas com os comandos do [guia de execução](../README.md#verificar-o-projeto).
+
+O artefato inclui a página principal e `design-system.html`, com as folhas e scripts compartilhados. Após o deploy, confira também o guia visual e `css/tokens.css`: omitir os tokens afeta as duas páginas. A documentação Markdown e os testes continuam fora da distribuição.
 
 Mantenha `demoMode: true` em [config.js](../js/config.js) para o portfólio. Essa opção mantém os avisos e impede chamadas, WhatsApp e mapa mesmo que alguém preencha dados de contato.

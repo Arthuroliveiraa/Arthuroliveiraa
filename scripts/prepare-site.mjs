@@ -10,7 +10,7 @@ import { fileURLToPath } from 'node:url';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const output = resolve(root, 'dist');
-const entries = ['index.html', 'css', 'js', 'assets', 'LICENSE'];
+const entries = ['index.html', 'design-system.html', 'css', 'js', 'assets', 'LICENSE'];
 for (const entry of entries) await access(join(root, entry));
 
 // Antes da remoção recursiva, exige exatamente a pasta gerada dentro do projeto.

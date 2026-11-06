@@ -26,6 +26,7 @@ jobs:
         run: |
           node --check js/config.js
           node --check js/app.js
+          node --check js/design-system.js
       - name: Preparar site
         run: node scripts/prepare-site.mjs
       - name: Verificar distribuição no Chrome

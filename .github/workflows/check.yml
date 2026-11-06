@@ -23,6 +23,7 @@ jobs:
         run: |
           node --check js/config.js
           node --check js/app.js
+          node --check js/design-system.js
           node --check scripts/prepare-site.mjs
           node --check tests/browser-check.mjs
       - name: Preparar site

@@ -19,6 +19,8 @@ Os pares principais de texto e fundo foram verificados com contraste mínimo de 
 
 ## Referências consultadas
 
+O [Aura Design System v1.0](DESIGN_SYSTEM.md) consolida essa revisão em tokens compartilhados e um guia visual em [design-system.html](../design-system.html). A página principal e a documentação usam as mesmas fontes, cores e classes de componentes.
+
 Na revisão visual de **06/11/2026**, foram implementadas as melhorias 1 a 5 selecionadas:
 
 1. Fontes Playfair Display e Plus Jakarta Sans hospedadas localmente, em WOFF2, com pesos variáveis, itálico nos destaques e licenças OFL. Os subconjuntos latino e latino estendido atendem à escrita em português sem chamadas externas.

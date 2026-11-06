@@ -6,6 +6,8 @@ Site institucional demonstrativo de uma clínica odontológica ilustrativa, feit
 
 [Ver demonstração online](https://arthuroliveiraa.github.io/Arthuroliveiraa/) · [Repositório](https://github.com/Arthuroliveiraa/Arthuroliveiraa) · [Como publicar](./docs/PUBLICACAO.md) · [Decisões e comparativo](./docs/COMPARATIVO.md) · [Licença MIT](./LICENSE)
 
+[Design system visual](https://arthuroliveiraa.github.io/Arthuroliveiraa/design-system.html) · [Documentação do sistema](./docs/DESIGN_SYSTEM.md)
+
 [![Verificar projeto](https://github.com/Arthuroliveiraa/Arthuroliveiraa/actions/workflows/check.yml/badge.svg)](https://github.com/Arthuroliveiraa/Arthuroliveiraa/actions/workflows/check.yml)
 
 ## Prévia
@@ -67,7 +69,7 @@ node tests/browser-check.mjs
 
 O teste inicia um servidor em loopback e um navegador headless, executa as verificações e encerra ambos. O perfil temporário é removido ao final. Sem navegador no caminho padrão, defina `BROWSER_PATH`. Em ambientes restritos, iniciar/controlar o navegador pode exigir autorização do ambiente.
 
-Cobertura: oito larguras de tela, IDs e âncoras, rótulos dos campos, menu, filtros, nome inválido, geração e invalidação da mensagem, limpeza, negativa de acesso ao clipboard, configuração de contatos, equipe opcional e navegação sem JavaScript. Também verifica que o modo demo não oferece contatos externos e que a página não inicia requisições externas.
+Cobertura: oito larguras de tela, IDs e âncoras, rótulos dos campos, menu, filtros, nome inválido, geração e invalidação da mensagem, limpeza, negativa de acesso ao clipboard, configuração de contatos, equipe opcional e navegação sem JavaScript. O design system também é verificado em oito larguras, com tokens compartilhados, contraste, cópia de tokens e alternativa quando a cópia é negada. As páginas não iniciam requisições externas; o modo demo não oferece contatos reais.
 
 Para testar a distribuição pronta e atualizar as capturas no PowerShell:
 
@@ -83,16 +85,21 @@ Os workflows foram executados no GitHub Actions. A [primeira publicação valida
 
 ```text
 index.html                 Página e estrutura semântica
+design-system.html         Guia visual de fundamentos, componentes e padrões
+css/tokens.css             Valores compartilhados entre o site e o guia
 css/style.css              Design original e componentes comentados
 css/fonts.css              Fontes WOFF2 locais, sem consulta a serviços externos
+css/design-system.css      Apresentação exclusiva do guia visual
 js/config.js               Modo de demonstração e configuração pública
 js/app.js                  Interações da página
+js/design-system.js        Cópia de tokens, contraste e exemplos do guia
 assets/icons/favicon.svg   Ícone vetorial local
 assets/illustrations/      Ilustração vetorial da abertura
 assets/fonts/              Playfair Display, Plus Jakarta Sans e licenças OFL
 docs/images/               Capturas usadas neste README
 docs/COMPARATIVO.md         Referências, decisões e registro M01–M13
 docs/PUBLICACAO.md          Passos para disponibilizar a demonstração
+docs/DESIGN_SYSTEM.md       Regras, uso e manutenção do design system
 tests/browser-check.mjs    Verificação funcional em navegador real
 scripts/prepare-site.mjs   Geração da pasta dist/ para hospedagem
 .github/workflows/         Verificação e publicação no GitHub Pages
@@ -105,6 +112,7 @@ LICENSE                    Licença MIT
 - **Tipografia local:** Playfair Display e Plus Jakarta Sans em WOFF2, com variações de peso e `font-display: swap`. As fontes e os ícones são servidos pelo próprio site.
 - **Melhoria progressiva:** conteúdo e elementos expansíveis nativos funcionam antes do JavaScript.
 - **Configuração centralizada:** os dados públicos ficam separados da lógica e são inseridos como texto.
+- **Design system compartilhado:** cores, tipografia, dimensões e efeitos ficam em `css/tokens.css`. O guia visual reutiliza os componentes do site e inclui exemplos de uso e estados.
 - **Demonstração segura:** `demoMode: true` identifica o portfólio e bloqueia canais externos. Não são usados números, endereços ou registros profissionais fictícios como se fossem reais.
 - **Publicação enxuta:** apenas HTML, CSS, JavaScript, assets e licença entram na distribuição. Testes e documentação permanecem no repositório.
 
