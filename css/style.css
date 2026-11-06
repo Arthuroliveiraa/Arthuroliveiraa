@@ -1052,6 +1052,7 @@ section[id], main[id] { scroll-margin-top: 100px; }
 /* M07 — Formulário e avisos. min-width:0 evita campos estourando a grade. */
 .setup-notice { padding: 1rem; background: var(--color-accent-soft); border-radius: var(--radius-sm); margin-bottom: 1.5rem; font-size: .9rem; }
 #request-result { margin-top: 2rem; }
+#send-hint { margin-top: var(--space-3); }
 #copy-status { margin-top: 1rem; font-size: .9rem; }
 .input-field input, .input-field select, .input-field textarea { width: 100%; min-width: 0; }
 .input-field textarea { resize: vertical; }

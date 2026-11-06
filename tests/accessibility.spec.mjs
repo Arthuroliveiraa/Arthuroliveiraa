@@ -8,6 +8,11 @@ for (const path of ['/', '/design-system.html']) {
       await page.emulateMedia({ colorScheme: theme });
       await page.goto(path);
       await page.evaluate(() => document.fonts.ready);
+      if (path === '/') {
+        await page.locator('#name').fill('Pessoa de teste');
+        await page.locator('#prepare').click();
+        await expect(page.getByRole('link', { name: /Enviar pelo WhatsApp/ })).toBeVisible();
+      }
       const scan = await new AxeBuilder({ page }).analyze();
       expect(scan.violations.map(item => ({ id: item.id, nodes: item.nodes.map(node => node.target) }))).toEqual([]);
     });
@@ -47,5 +52,6 @@ test('teclado, estrutura acessível e ampliação de texto', async ({ page, isMo
   await page.locator('#prepare').click();
   await expect(page.locator('#message')).toBeFocused();
   await expect(page.locator('#message')).toHaveValue(/Pessoa de teste/);
+  await expect(page.getByRole('link', { name: /Enviar pelo WhatsApp/ })).toBeVisible();
   expect(await page.locator('meta[name="viewport"]').getAttribute('content')).not.toMatch(/user-scalable=no|maximum-scale=1/);
 });

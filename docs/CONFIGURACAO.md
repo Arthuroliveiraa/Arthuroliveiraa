@@ -81,6 +81,10 @@ Na demonstração, o link externo é bloqueado. A seleção de data e horário �
 
 ## Compartilhamento
 
+Depois de preparar a mensagem, o formulário oferece **Enviar pelo WhatsApp** e **Copiar mensagem**. Sem número configurado, ou em `demoMode: true`, o botão usa `https://wa.me/?text=...`: o WhatsApp Web ou app apresenta a mensagem pronta e permite escolher o contato. A mensagem só é incluída no link após a preparação válida; alterar ou limpar o formulário remove a URL anterior.
+
+Com `demoMode: false` e um `whatsapp` válido, o mesmo botão abre a conversa com esse número. No modo demo, números institucionais continuam ignorados. O site não confirma entrega nem envia automaticamente. Formato oficial: [clique para conversa do WhatsApp](https://faq.whatsapp.com/5913398998672934/?locale=pt_BR).
+
 `assets/social/aura-preview.png` tem 1200 × 630 pixels e usa a identidade local da Aura. As tags estão diretamente no `index.html`, pois leitores de prévia não precisam executar JavaScript. Em outro domínio ou numa clínica real, revise título, descrição, URL canônica, `og:url`, `og:image` e `twitter:image` no HTML. Alterar somente `config.js` não altera o que um leitor sem JavaScript vê.
 
 Depois de uma publicação autorizada, confirme que a imagem e a página retornam HTTP 200. Aplicativos de mensagens podem manter uma prévia antiga em cache. A revisão local não muda a página atualmente publicada.

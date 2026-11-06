@@ -5,7 +5,8 @@
  * Este arquivo é público: não coloque senhas, tokens nem dados de pacientes aqui.
  */
 window.CLINIC_CONFIG = Object.freeze({
-  // M12 — Portfólio: identifica a clínica como ilustrativa e bloqueia contatos externos.
+  // M12 — Portfólio: identifica a clínica como ilustrativa e bloqueia seus contatos.
+  // A mensagem do formulário pode ser compartilhada com um contato escolhido pelo visitante.
   // Mantenha true no repositório de exemplo. Para uso real, configure os dados abaixo
   // e altere para false depois de revisar docs/COMPARATIVO.md.
   demoMode: true,

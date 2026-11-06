@@ -71,7 +71,7 @@ npm run build
 npm run test:visual
 ```
 
-As referências em `tests/visual-baselines/win32/visual-chromium/` cobrem abertura, tratamentos com detalhes, galeria, formulário com simulação aberta, guia e página 404. São 28 imagens, em 1440/390 px e nos temas claro/escuro. Data, fontes, escala e movimento são estabilizados; o teste normal não cria nem atualiza referências. Nas capturas de componentes inteiros, barras fixas de cabeçalho e o atalho de pular conteúdo são ocultados somente durante a captura para não cobrir o componente. As capturas da abertura preservam o cabeçalho real.
+As referências em `tests/visual-baselines/win32/visual-chromium/` cobrem abertura, tratamentos com detalhes, galeria, formulário com simulação aberta e mensagem preparada (WhatsApp/cópia), guia e página 404. São 28 imagens, em 1440/390 px e nos temas claro/escuro. Data, fontes, escala e movimento são estabilizados; o teste normal não cria nem atualiza referências. Nas capturas de componentes inteiros, barras fixas de cabeçalho e o atalho de pular conteúdo são ocultados somente durante a captura para não cobrir o componente. As capturas da abertura preservam o cabeçalho real.
 
 Quando uma mudança visual for intencional, execute `npm run test:visual:update`, inspecione as imagens e então mantenha a nova referência no controle de versão. Não use atualização automática para encobrir uma regressão. Diferenças e traces ficam em `.cache/test-results/`.
 

@@ -386,10 +386,13 @@ form.addEventListener('submit', event => {
 
 [SIMULAÇÃO, SEM RESERVA] Data de exemplo: ${day}/${month}/${year}, às ${selectedDemoSlot}.`;
   }
-  if (hasContact) {
-    send.href = `https://wa.me/${whatsapp}?text=${encodeURIComponent(message.value)}`;
-    send.hidden = false;
-  }
+  // Sem número de atendimento, o WhatsApp oferece a escolha do contato.
+  // O modo demo nunca usa um número institucional preenchido por acidente.
+  send.href = `https://wa.me/${hasContact ? whatsapp : ''}?text=${encodeURIComponent(message.value)}`;
+  send.hidden = false;
+  byId('send-hint').textContent = hasContact
+    ? 'O WhatsApp abrirá a conversa com a clínica e a mensagem pronta. Confirme o envio por lá.'
+    : 'O WhatsApp abrirá com a mensagem pronta. Escolha o contato e confirme o envio por lá.';
   result.hidden = false;
   message.focus();
 });
@@ -462,7 +465,7 @@ if (!demoMode) {
   if (!textValue(config.address)) byId('clinic-address').textContent = 'Endereço em atualização.';
   if (!textValue(config.hours)) byId('clinic-hours').textContent = 'Horários em atualização. Confirme com a equipe.';
   if (!textValue(config.accessibility)) byId('clinic-accessibility').textContent = 'Consulte a equipe sobre acessibilidade e acesso ao local.';
-  if (!hasContact) byId('contact-status').textContent = 'Contato em configuração. Você pode preparar e copiar sua mensagem; nenhum dado será enviado por este site.';
+  if (!hasContact) byId('contact-status').textContent = 'Contato da clínica em configuração. Prepare sua mensagem e abra o WhatsApp para escolher o destinatário.';
   if (!hasContact && !validPhone(phone)) byId('contact-availability').textContent = 'Os canais de contato serão disponibilizados após a confirmação dos dados da clínica.';
   byId('publication-notice').textContent = 'Site em preparação. Dados institucionais pendentes.';
   if (config.publicationReady === true) byId('publication-notice').hidden = true;

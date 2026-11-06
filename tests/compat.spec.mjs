@@ -6,7 +6,7 @@ async function ready(page, path = '/') {
 }
 
 for (const theme of ['light', 'dark']) {
-  test(`fluxo completo em tema ${theme}`, async ({ page, isMobile }) => {
+  test(`fluxo completo em tema ${theme}`, async ({ page, isMobile, context }) => {
     const errors = [];
     page.on('pageerror', error => errors.push(error.message));
     page.on('response', response => { if (response.status() >= 400) errors.push(`${response.status()} ${response.url()}`); });
@@ -32,9 +32,25 @@ for (const theme of ['light', 'dark']) {
     await activate(page.getByRole('button', { name: '11:00', exact: true }));
     await activate(page.getByRole('button', { name: 'Preparar solicitação' }));
     await expect(page.locator('#message')).toHaveValue(/SIMULAÇÃO, SEM RESERVA/);
-    await expect(page.locator('#send-message')).toBeHidden();
+    const send = page.getByRole('link', { name: /Enviar pelo WhatsApp/ });
+    await expect(send).toBeVisible();
+    const sendUrl = new URL(await send.getAttribute('href'));
+    expect(sendUrl.origin).toBe('https://wa.me');
+    expect(sendUrl.pathname).toBe('/');
+    expect(sendUrl.searchParams.get('text')).toBe(await page.locator('#message').inputValue());
+    if (theme === 'light') {
+      // Intercepta o destino: testa a nova aba sem transmitir a mensagem ao WhatsApp.
+      await context.route(/^https:\/\/wa\.me\//, route => route.fulfill({ status: 200,
+        contentType: 'text/html', body: '<title>WhatsApp interceptado no teste</title>' }));
+      const opening = context.waitForEvent('page');
+      await activate(send);
+      const popup = await opening;
+      await expect(popup).toHaveURL(sendUrl.href);
+      await popup.close();
+    }
     await activate(page.getByRole('button', { name: 'Limpar dados' }));
     await expect(page.locator('#request-result')).toBeHidden();
+    await expect(page.locator('#send-message')).not.toHaveAttribute('href');
     await expect(page.locator('#name')).toHaveValue('');
 
     const image = page.locator('[data-gallery]').first();

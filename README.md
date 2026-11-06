@@ -2,7 +2,7 @@
 
 Site institucional demonstrativo de uma clínica odontológica ilustrativa, feito com **HTML, CSS e JavaScript**, com layout responsivo, recursos de acessibilidade e formulário interativo.
 
-**Não representa uma clínica em funcionamento.** A demonstração permite preparar e copiar uma mensagem; não oferece atendimento, reservas ou envio para contatos reais. Use dados fictícios para experimentar.
+**Não representa uma clínica em funcionamento.** A demonstração permite preparar, copiar ou abrir uma mensagem no WhatsApp para escolher o contato e confirmar o envio. Não oferece atendimento ou reservas. Use dados fictícios para experimentar.
 
 [Ver demonstração online](https://arthuroliveiraa.github.io/Arthuroliveiraa/) · [Repositório](https://github.com/Arthuroliveiraa/Arthuroliveiraa) · [Como publicar](./docs/PUBLICACAO.md) · [Decisões e comparativo](./docs/COMPARATIVO.md) · [Licença MIT](./LICENSE)
 
@@ -56,8 +56,8 @@ Os perfis Android/iPhone são **emulados**. Safari instalado, aparelhos físicos
 - Linha do tempo da primeira visita, horizontal no computador e vertical no celular.
 - Perguntas frequentes com detalhes expansíveis nativos.
 - Formulário com primeira avaliação, retorno ou remarcação, tratamento e preferência de período.
-- Validação do nome, revisão da mensagem, cópia com alternativa manual e limpeza dos campos.
-- Modo demonstrativo que bloqueia telefone, WhatsApp e mapa, mesmo com contatos preenchidos.
+- Validação do nome, revisão da mensagem, abertura no WhatsApp com texto pronto, cópia com alternativa manual e limpeza dos campos.
+- Modo demonstrativo que bloqueia contatos institucionais e mapa, mesmo com dados preenchidos; o formulário permite compartilhar a mensagem com um contato escolhido pelo visitante.
 - Estrutura configurável para contato, equipe e responsável técnico em uma implantação real.
 - Equipe com foto e biografia, avaliações com fonte e link de agenda externa disponíveis por configuração, fora do modo demonstrativo.
 - Seleção de data e horário fictícios na demonstração, sem reservas ou envio.
@@ -161,7 +161,7 @@ LICENSE                    Licença MIT
 - **Configuração centralizada:** os dados públicos ficam separados da lógica e são inseridos como texto.
 - **Design system compartilhado:** cores, tipografia, dimensões e efeitos ficam em `css/tokens.css`. O guia visual reutiliza os componentes do site e inclui exemplos de uso e estados.
 - **Tema acessível:** site e guia alternam entre superfícies claras e escuras com tokens semânticos. Somente `aura-theme` é salvo em `localStorage`; nome, data de exemplo e mensagem não são armazenados.
-- **Demonstração segura:** `demoMode: true` identifica o portfólio e bloqueia canais externos. Não são usados números, endereços ou registros profissionais fictícios como se fossem reais.
+- **Demonstração identificada:** `demoMode: true` identifica o portfólio e bloqueia os contatos da clínica. O compartilhamento da mensagem abre o WhatsApp sem destinatário predefinido. Não são usados números, endereços ou registros profissionais fictícios como se fossem reais.
 - **Publicação enxuta:** apenas HTML, CSS, JavaScript, assets e licença entram na distribuição. Testes e documentação permanecem no repositório.
 
 A base visual fornecida no projeto foi preservada. A comparação com outros sites orientou a organização de conteúdo, documentada com referências no [comparativo](./docs/COMPARATIVO.md). Os comentários **M01 a M13** explicam cada parte e alteração.

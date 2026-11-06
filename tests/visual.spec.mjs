@@ -23,6 +23,10 @@ for (const width of [1440, 390]) for (const theme of ['light', 'dark']) {
     await expect(page.locator('#tratamentos')).toHaveScreenshot(name('tratamentos'), component);
     await expect(page.locator('#espaco')).toHaveScreenshot(name('galeria'), component);
     await page.locator('#schedule-demo > summary').click();
+    await page.locator('#name').fill('Pessoa de teste');
+    await page.locator('#treatment').selectOption({ label: 'Clareamento dental' });
+    await page.locator('#prepare').click();
+    await page.locator('#message').blur();
     await expect(page.locator('#agendamento')).toHaveScreenshot(name('formulario'), component);
     await ready(page, '/design-system.html');
     await expect(page).toHaveScreenshot(name('guia-inicio'));

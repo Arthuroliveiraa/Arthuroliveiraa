@@ -217,15 +217,19 @@ try {
   assert.equal(await evaluate("document.querySelector('#gallery-dialog').open"), false);
   assert.equal(await evaluate("document.activeElement.hasAttribute('data-gallery')"), true);
 
-  // T12 — Agenda de demonstração nunca produz uma reserva nem um link externo.
+  // T12 — Agenda de demonstração não reserva; compartilhamento não tem destinatário fixo.
   assert.equal(await evaluate("document.querySelector('#schedule-demo').hidden"), false);
   assert.equal(await evaluate("document.querySelector('#booking-platform').hidden"), true);
   await evaluate("(() => { document.querySelector('#schedule-demo').open=true; const date=document.querySelector('#demo-date'); date.value='2099-11-20'; date.dispatchEvent(new Event('input',{bubbles:true})); document.querySelector('[data-slot=\"11:00\"]').click(); document.querySelector('#name').value='Pessoa de teste'; document.querySelector('#booking-form').requestSubmit(); })()");
   assert.match(await evaluate("document.querySelector('#message').value"), /SIMULAÇÃO, SEM RESERVA/);
   assert.match(await evaluate("document.querySelector('#message').value"), /20\/11\/2099, às 11:00/);
-  assert.equal(await evaluate("document.querySelector('#send-message').hasAttribute('href')"), false);
+  const demoShare = new URL(await evaluate("document.querySelector('#send-message').href"));
+  assert.equal(demoShare.host, 'wa.me');
+  assert.equal(demoShare.pathname, '/');
+  assert.equal(demoShare.searchParams.get('text'), await evaluate("document.querySelector('#message').value"));
   await evaluate("(() => { const date=document.querySelector('#demo-date'); date.value='2099-11-21'; date.dispatchEvent(new Event('input',{bubbles:true})); })()");
   assert.equal(await evaluate("document.querySelector('#request-result').hidden"), true);
+  assert.equal(await evaluate("document.querySelector('#send-message').hasAttribute('href')"), false);
   assert.equal(await evaluate("document.querySelectorAll('[data-slot][aria-pressed=true]').length"), 0);
   await evaluate("document.querySelector('#booking-form').reset(); document.querySelector('#schedule-demo').open=false");
 
@@ -240,9 +244,11 @@ try {
   assert.equal(await evaluate("document.querySelector('#request-result').hidden"), true);
   await evaluate("document.querySelector('#name').value = 'Ana & João'; document.querySelector('#name').dispatchEvent(new Event('input', {bubbles:true})); document.querySelector('#booking-form').requestSubmit()");
   assert.match(await evaluate("document.querySelector('#message').value"), /Ana & João/);
-  assert.equal(await evaluate("document.querySelector('#send-message').hidden"), true);
+  assert.equal(await evaluate("document.querySelector('#send-message').hidden"), false);
+  assert.match(await evaluate("document.querySelector('#send-hint').textContent"), /Escolha o contato/);
   await evaluate("document.querySelector('#period').value = 'Tarde'; document.querySelector('#period').dispatchEvent(new Event('change', {bubbles:true}))");
   assert.equal(await evaluate("document.querySelector('#message').value"), '');
+  assert.equal(await evaluate("document.querySelector('#send-message').hasAttribute('href')"), false);
   await evaluate("document.querySelector('#booking-form').requestSubmit(); document.querySelector('#booking-form').reset()");
   assert.equal(await evaluate("document.querySelector('#name').value + document.querySelector('#message').value"), '');
 
@@ -276,6 +282,7 @@ try {
   await evaluate("document.querySelector('#name').value = 'Ana & João'; document.querySelector('#booking-form').requestSubmit()");
   const sendUrl = new URL(await evaluate("document.querySelector('#send-message').href"));
   assert.equal(sendUrl.host, 'wa.me');
+  assert.equal(sendUrl.pathname, '/' + fixture.whatsapp.replace(/\D/g, ''));
   assert.equal(sendUrl.searchParams.get('text'), await evaluate("document.querySelector('#message').value"));
 
   // M07 — Negativa de acesso ao clipboard mantém alternativa manual sem erro global.
@@ -284,6 +291,8 @@ try {
   await navigate('/invalid/index.html');
   assert.equal(await evaluate("document.querySelector('#contact-whatsapp').hidden && document.querySelector('#contact-phone').hidden"), true);
   assert.equal(await evaluate("document.querySelector('#booking-platform').hidden && document.querySelector('#espaco').hidden && document.querySelector('#avaliacoes').hidden"), true);
+  await evaluate("document.querySelector('#name').value = 'Pessoa de teste'; document.querySelector('#booking-form').requestSubmit()");
+  assert.equal(new URL(await evaluate("document.querySelector('#send-message').href")).pathname, '/');
 
   // M12 — Mesmo com dados preenchidos, o modo demo não ativa contatos ou identificação.
   await navigate('/demo/index.html');
@@ -293,7 +302,7 @@ try {
   assert.equal(await evaluate("document.querySelectorAll('#gallery-list figure').length"), 3);
   assert.match(await evaluate("document.querySelector('#gallery-description').textContent"), /não representam uma clínica real/);
   await evaluate("document.querySelector('#name').value = 'Pessoa de teste'; document.querySelector('#booking-form').requestSubmit()");
-  assert.equal(await evaluate("document.querySelector('#send-message').hasAttribute('href')"), false);
+  assert.equal(new URL(await evaluate("document.querySelector('#send-message').href")).pathname, '/');
 
   // M02/M04 — Sem JS: navegação utilizável e controles dependentes de JS ocultos.
   await call('Emulation.setScriptExecutionDisabled', { value: true });

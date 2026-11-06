@@ -87,7 +87,7 @@ As pendências abaixo se aplicam à adaptação para uma clínica em funcionamen
 - Sem dependências de produção e sem fontes externas, widgets de mapa ou rastreadores.
 - Google Maps abre somente por ação do visitante; a página não carrega um iframe.
 - Dados configuráveis entram por `textContent`, sem interpretar HTML.
-- Links de telefone/WhatsApp só aparecem com formato brasileiro válido; isso não comprova existência ou titularidade do número.
+- Contatos institucionais de telefone/WhatsApp só aparecem com formato brasileiro válido; isso não comprova existência ou titularidade do número. O formulário também permite abrir o WhatsApp sem número, com a mensagem pronta para compartilhar com um contato escolhido pelo visitante.
 - Mensagens são codificadas antes de entrar na URL do WhatsApp. Não há envio nem confirmação automática.
 - Sem JavaScript, as informações, navegação e detalhes continuam disponíveis; filtros e geração de mensagem dependem do script.
 - A revisão de qualidade removeu componentes antigos sem uso da folha original, preservando a interface e os componentes documentados. O resultado e os limites da validação estão em [QUALIDADE.md](QUALIDADE.md).
