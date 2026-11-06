@@ -1594,6 +1594,37 @@ p {
 
 .footer-social-link:focus-visible { outline-color: #FFFFFF; }
 
+#footer-instagram {
+  border-radius: 10px;
+  background: radial-gradient(circle at 30% 105%, #FEDA75 0%, #FA7E1E 25%, #D62976 50%, #962FBF 75%, #4F5BD5 100%);
+  color: #FFFFFF;
+}
+
+#footer-instagram svg {
+  width: 28px;
+  height: 28px;
+}
+
+#footer-instagram[href]:hover {
+  filter: brightness(1.1);
+}
+
+#footer-facebook {
+  border-radius: 50%;
+  background: #FFFFFF;
+  color: #0866FF;
+}
+
+#footer-facebook svg {
+  width: 44px;
+  height: 44px;
+}
+
+#footer-facebook[href]:hover {
+  background: #FFFFFF;
+  color: #0756D6;
+}
+
 #footer-whatsapp {
   border-radius: 8px;
   background: #25D366;
