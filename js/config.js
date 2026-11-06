@@ -15,6 +15,10 @@ window.CLINIC_CONFIG = Object.freeze({
   whatsapp: '',
   phone: '',
 
+  // M11 — URLs completas dos perfis oficiais. Vazias mantêm os ícones sem links.
+  // O ícone de WhatsApp usa o número acima. O modo demo bloqueia todos os destinos.
+  socialLinks: { instagram: '', facebook: '' },
+
   // M09 — Endereço completo gera o link do Google Maps, sem iframe externo.
   address: '',
   // Use \n para separar dias/horários. Não há horários presumidos no código.

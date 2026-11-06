@@ -266,11 +266,36 @@
   <footer class="footer-main">
     <div class="container">
       <div class="footer-top">
-        <div class="footer-brand"><span class="brand-name">aura</span><p>Odontologia contemporânea.<br>Cuidado em cada detalhe.</p><p id="responsible-info" hidden></p>
+        <div class="footer-brand">
+          <span class="brand-name">aura</span>
+          <p>Odontologia contemporânea.<br>Cuidado em cada detalhe.</p>
+          <p id="responsible-info" hidden></p>
           <ul class="footer-socials" aria-label="Redes sociais">
-            <li><span class="footer-social" title="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true" focusable="false"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg><span class="sr-only">Instagram</span></span></li>
-            <li><span class="footer-social" title="Facebook"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M14 21v-8h2.8l.4-3H14V8.2c0-.9.3-1.5 1.6-1.5h1.7V4.1c-.3 0-1.3-.1-2.5-.1-2.5 0-4.2 1.5-4.2 4.3V10H8v3h2.6v8H14Z"/></svg><span class="sr-only">Facebook</span></span></li>
-            <li><span class="footer-social" title="WhatsApp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20.5 11.7a8.5 8.5 0 0 1-12.6 7.5L3 20.5l1.3-4.7a8.5 8.5 0 1 1 16.2-4.1Z"/><path d="M8.3 7.7c-.8.8-.6 2.7 1.5 4.8s4 2.4 4.8 1.6l1-1-2.2-1.2-.8.8c-.9-.4-1.9-1.4-2.3-2.3l.8-.8-1.2-2.2Z"/></svg><span class="sr-only">WhatsApp</span></span></li>
+            <!-- Sem perfil configurado, os ícones permanecem visíveis e sem destino. -->
+            <li>
+              <a class="footer-social-link" id="footer-instagram" role="link" aria-label="Instagram" aria-disabled="true" title="Instagram">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" focusable="false">
+                  <rect x="3" y="3" width="18" height="18" rx="5"/>
+                  <circle cx="12" cy="12" r="4"/>
+                  <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+                </svg>
+              </a>
+            </li>
+            <li>
+              <a class="footer-social-link" id="footer-facebook" role="link" aria-label="Facebook" aria-disabled="true" title="Facebook">
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false">
+                  <path d="M14 22v-9h3l.5-4H14V7c0-1.2.4-2 2-2h2V1.4A25 25 0 0 0 15 1c-3 0-5 1.8-5 5v3H7v4h3v9z"/>
+                </svg>
+              </a>
+            </li>
+            <li>
+              <a class="footer-social-link" id="footer-whatsapp" role="link" aria-label="WhatsApp" aria-disabled="true" title="WhatsApp">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                  <path d="M20.5 11.6a8.5 8.5 0 0 1-12.6 7.5L3 20.5l1.4-4.8a8.5 8.5 0 1 1 16.1-4.1Z"/>
+                  <path d="m8.2 7.6 1.4 2.6-1 1c.8 1.8 2.2 3.2 4 4l1-1 2.7 1.3c-.4 1.6-1.4 2-2.8 1.6-3.8-1-6.7-3.9-7.7-7.6-.3-1.3.5-2.2 2.4-1.9Z" fill="currentColor" stroke="none"/>
+                </svg>
+              </a>
+            </li>
           </ul>
         </div>
         <div class="footer-col"><h4>Explore</h4><ul><li><a href="#cuidados">Nosso cuidado</a></li><li><a href="#primeira-visita">Primeira visita</a></li><li><a href="#duvidas">Dúvidas frequentes</a></li><li><a href="#privacidade">Privacidade</a></li></ul></div>

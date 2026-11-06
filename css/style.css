@@ -143,13 +143,11 @@ p {
 .badge-sage {
   background-color: var(--color-primary-soft);
   color: var(--color-primary);
-  border: 1px solid rgba(45, 90, 76, 0.15);
 }
 
 .badge-terracotta {
   background-color: var(--color-accent-soft);
   color: var(--color-accent);
-  border: 1px solid rgba(200, 125, 85, 0.2);
 }
 
 .badge-white {
@@ -197,13 +195,11 @@ p {
 .btn-secondary {
   background-color: var(--color-surface);
   color: var(--color-text-main);
-  border: 1px solid var(--color-border);
   box-shadow: var(--shadow-sm);
 }
 
 .btn-secondary:hover {
   background-color: var(--color-primary-soft);
-  border-color: var(--color-primary);
   color: var(--color-primary);
   transform: translateY(-2px);
 }
@@ -252,14 +248,12 @@ p {
   background-color: var(--color-surface-translucent);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
-  border-bottom: 1px solid rgba(232, 228, 218, 0.7);
   transition: all var(--transition-normal);
 }
 
 .header-nav.scrolled {
   background-color: rgba(255, 255, 255, 0.95);
   box-shadow: var(--shadow-sm);
-  border-bottom-color: var(--color-border);
 }
 
 .header-inner {
@@ -481,7 +475,6 @@ p {
   gap: 1.25rem;
   margin-top: 1rem;
   padding-top: 1.5rem;
-  border-top: 1px solid var(--color-border);
 }
 
 .benefit-item {
@@ -609,7 +602,6 @@ p {
 
 .diff-card {
   background: var(--color-surface);
-  border: 0;
   border-radius: var(--radius-xl);
   padding: 2.25rem 1.75rem;
   display: flex;
@@ -670,7 +662,7 @@ p {
 
 .filter-tab {
   background: var(--color-surface);
-  border: 1px solid var(--color-border);
+  border: none;
   color: var(--color-text-muted);
   font-size: 0.9rem;
   font-weight: 600;
@@ -684,7 +676,6 @@ p {
 .filter-tab.active {
   background: var(--color-primary);
   color: #FFFFFF;
-  border-color: var(--color-primary);
   box-shadow: 0 4px 12px rgba(45, 90, 76, 0.2);
 }
 
@@ -698,7 +689,6 @@ p {
   background: var(--color-surface);
   border-radius: var(--radius-xl);
   overflow: hidden;
-  border: 0;
   box-shadow: var(--shadow-sm);
   display: flex;
   flex-direction: column;
@@ -1035,7 +1025,6 @@ p {
   background: var(--color-bg);
   border-radius: var(--radius-xl);
   overflow: hidden;
-  border: 0;
   text-align: center;
   transition: all var(--transition-normal);
 }
@@ -1221,7 +1210,7 @@ p {
 
 .booking-card {
   background: var(--color-surface);
-  border: 0;
+  border: none;
   border-radius: var(--radius-xl);
   box-shadow: var(--shadow-xl);
   padding: 3rem;
@@ -1479,14 +1468,10 @@ p {
 }
 
 .faq-item {
-  border: 0;
   border-radius: var(--radius-lg);
   overflow: hidden;
   background: var(--color-bg);
   transition: all var(--transition-fast);
-}
-
-.faq-item:hover {
 }
 
 .faq-question {
@@ -1575,28 +1560,39 @@ p {
   max-width: 320px;
 }
 
-/* Ícones locais: sem dependências externas ou perfis fictícios. */
 .footer-socials {
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
-  gap: 1rem;
-  list-style: none;
+  gap: 0.75rem;
   margin-top: 1.5rem;
+  list-style: none;
 }
 
-.footer-social {
-  display: inline-flex;
+.footer-social-link {
+  display: flex;
   align-items: center;
   justify-content: center;
   width: 44px;
   height: 44px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, .06);
-  color: #B5C4BE;
+  background: rgba(255, 255, 255, 0.07);
+  color: #DCE6E0;
+  text-decoration: none;
+  transition: background-color var(--transition-fast), color var(--transition-fast), transform var(--transition-fast);
 }
 
-.footer-social svg { width: 24px; height: 24px; }
+.footer-social-link svg {
+  width: 22px;
+  height: 22px;
+}
+
+.footer-social-link[href]:hover {
+  background: var(--color-primary-light);
+  color: #FFFFFF;
+  transform: translateY(-2px);
+}
+
+.footer-social-link:focus-visible { outline-color: #FFFFFF; }
 
 .footer-col h4 {
   color: #FFFFFF;
@@ -1657,7 +1653,6 @@ p {
 
 .footer-bottom {
   padding-top: 2.5rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -1993,7 +1988,7 @@ section[id], main[id] { scroll-margin-top: 100px; }
   list-style: none;
   counter-reset: visit;
 }
-.visit-steps li { counter-increment: visit; border-top: 1px solid var(--color-border); padding-top: 1.5rem; }
+.visit-steps li { counter-increment: visit; padding-top: 1.5rem; }
 .visit-steps li::before { content: '0' counter(visit); display: block; color: var(--color-accent); font-family: var(--font-serif); font-size: 2rem; margin-bottom: .75rem; }
 .visit-steps h3 { margin-bottom: .75rem; }
 .visit-note { margin-top: 2.5rem; background: var(--color-bg-alt); padding: 1.5rem; border-radius: var(--radius-sm); }
@@ -2018,7 +2013,7 @@ section[id], main[id] { scroll-margin-top: 100px; }
 /* M09 — NOVO: informações práticas em duas colunas e ações de contato. */
 .contact-section { background: var(--color-bg-alt); }
 .contact-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2rem; }
-.contact-panel { padding: 2rem; background: var(--color-surface); border: 0; border-radius: var(--radius-lg); }
+.contact-panel { padding: 2rem; background: var(--color-surface); border-radius: var(--radius-lg); }
 .contact-panel h3 { margin-bottom: 1.25rem; }
 .contact-details { margin-bottom: 1.5rem; }
 .contact-details dt { font-weight: 600; margin-top: 1rem; }
@@ -2028,7 +2023,7 @@ section[id], main[id] { scroll-margin-top: 100px; }
 
 /* M10 — NOVO: explicação expansível do uso dos dados, sem banner de cookies fictício. */
 .privacy-section { padding-top: 2.5rem; padding-bottom: 2.5rem; }
-.privacy-details { border-top: 1px solid var(--color-border); padding-top: 1.5rem; }
+.privacy-details { padding-top: 1.5rem; }
 .privacy-details summary { color: var(--color-primary); font-weight: 600; cursor: pointer; }
 .privacy-details p { font-size: .95rem; margin-top: 1rem; }
 

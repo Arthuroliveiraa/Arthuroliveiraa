@@ -195,6 +195,35 @@ byId('prepare').disabled = false;
 
 /* M11 — Ano e identificação institucional. Dados incompletos ficam ocultos. */
 byId('year').textContent = new Date().getFullYear();
+
+/* M11 — Ícones locais no rodapé; links só são ativados para perfis configurados.
+ * HTTPS e domínios conhecidos evitam destinos inesperados na configuração pública.
+ */
+function enableSocialLink(id, href, label) {
+  const link = byId(id);
+  link.href = href;
+  link.target = '_blank';
+  link.rel = 'noopener noreferrer';
+  link.removeAttribute('aria-disabled');
+  link.setAttribute('aria-label', `${label} (abre em nova aba)`);
+}
+if (!demoMode) {
+  const socialLinks = config.socialLinks || {};
+  const networks = [
+    ['instagram', 'Instagram', ['instagram.com', 'www.instagram.com']],
+    ['facebook', 'Facebook', ['facebook.com', 'www.facebook.com', 'm.facebook.com']]
+  ];
+  networks.forEach(([key, label, hosts]) => {
+    try {
+      const url = new URL(textValue(socialLinks[key]));
+      if (url.protocol === 'https:' && hosts.includes(url.hostname) && !url.username && !url.password) {
+        enableSocialLink(`footer-${key}`, url.href, label);
+      }
+    } catch { /* Sem URL válida, preserva apenas o ícone. */ }
+  });
+  if (hasContact) enableSocialLink('footer-whatsapp', `https://wa.me/${whatsapp}`, 'WhatsApp');
+}
+
 const responsible = config.responsibleProfessional || {};
 if (!demoMode && textValue(responsible.name) && textValue(responsible.cro)) {
   byId('responsible-info').textContent = `Responsável técnico: ${textValue(responsible.name)} — ${textValue(responsible.cro)}`;
