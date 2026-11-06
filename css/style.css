@@ -1594,6 +1594,21 @@ p {
 
 .footer-social-link:focus-visible { outline-color: #FFFFFF; }
 
+#footer-whatsapp {
+  border-radius: 8px;
+  background: #25D366;
+  color: #FFFFFF;
+}
+
+#footer-whatsapp svg {
+  width: 28px;
+  height: 28px;
+}
+
+#footer-whatsapp[href]:hover {
+  background: #1EBE5D;
+}
+
 .footer-col h4 {
   color: #FFFFFF;
   font-family: var(--font-sans);
