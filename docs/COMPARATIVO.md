@@ -43,6 +43,10 @@ As referências orientaram a organização. Textos, fotos, avaliações, valores
 
 ## Mapa das alterações no código
 
+O tema claro/escuro foi acrescentado ao site e ao guia, com alternância por teclado, preferência inicial do sistema, escolha local persistida e revisão de contraste. Fotografias e ilustrações preservam suas cores. A política de privacidade informa que apenas a preferência de tema é armazenada; dados do formulário não são persistidos. A publicação depende de solicitação explícita do usuário.
+
+Os tópicos **6 a 12** foram implementados em modo demonstrativo: navegação atual e feedback de seleção; prévia PNG e metadados; conteúdo ampliado nos tratamentos; galeria conceitual e ampliação acessível; fotos e biografias de equipe por configuração; avaliações autorizadas com fonte; simulação de horário e encaminhamento para agenda externa. Dados reais e URL de agenda continuam configuráveis, conforme a opção escolhida pelo usuário. Veja [CONFIGURACAO.md](CONFIGURACAO.md). A publicação é manual, mediante solicitação explícita do usuário.
+
 Os comentários **M01 a M13** aparecem em [index.html](../index.html), [app.js](../js/app.js), [config.js](../js/config.js), nos complementos de [style.css](../css/style.css) e nos arquivos de entrega. O HTML foi expandido de linhas compactas para blocos legíveis. Os comentários explicam propósito, dependências e limitações.
 
 | Código | Antes | Depois | Onde editar |

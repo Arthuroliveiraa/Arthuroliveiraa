@@ -4,7 +4,8 @@
 .ds-brand { display: flex; align-items: baseline; gap: var(--space-4); text-decoration: none; color: var(--color-text-main); }
 .ds-brand .brand-name { font-size: 2rem; }
 .ds-brand > span:last-child { font-size: var(--text-sm); }
-.ds-topbar > .text-link { font-size: var(--text-sm); white-space: nowrap; }
+.ds-topbar-actions { display: flex; align-items: center; gap: var(--space-4); }
+.ds-topbar-actions .text-link { font-size: var(--text-sm); white-space: nowrap; }
 .ds-layout { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: var(--space-16); max-width: 1520px; margin: auto; padding: var(--space-12) var(--space-10); }
 .ds-sidebar { position: sticky; top: 112px; align-self: start; max-height: calc(100dvh - 136px); overflow-y: auto; }
 .ds-eyebrow { color: var(--color-accent); font-size: .65rem; font-weight: 700; text-transform: uppercase; letter-spacing: .12em; }
@@ -62,7 +63,7 @@
 .ds-table-wrap table { width: 100%; border-collapse: collapse; font-size: var(--text-sm); text-align: left; }
 .ds-table-wrap caption { padding-bottom: var(--space-4); font-weight: 600; text-align: left; }
 .ds-table-wrap th, .ds-table-wrap td { padding: var(--space-4); border-bottom: 1px solid var(--color-border); vertical-align: top; }
-.ds-table-wrap th { color: var(--color-primary-dark); background: var(--color-bg-alt); }
+.ds-table-wrap th { color: var(--color-text-strong); background: var(--color-bg-alt); }
 .ds-table-wrap [data-contrast] { white-space: nowrap; font-weight: 600; }
 .ds-component-panel { padding: var(--space-8); margin-top: var(--space-6); background: var(--color-surface); border-radius: var(--radius-lg); }
 .ds-component-panel > h3 { margin-bottom: var(--space-5); font-size: 1.4rem; }
@@ -80,6 +81,7 @@
 .ds-art-pattern img { display: block; width: 100%; max-width: 210px; height: auto; margin: 0 auto var(--space-5); }
 .ds-art-pattern h3 { font-size: 1.3rem; margin-bottom: var(--space-3); }
 .ds-art-pattern p { font-size: var(--text-sm); }
+.ds-social-preview { display: block; width: 100%; height: auto; border-radius: var(--radius-md); }
 .ds-treatment-pattern { min-width: 0; }
 .ds-treatment-pattern .treatment-card { height: 100%; }
 .ds-timeline { margin-top: var(--space-6); padding: var(--space-8); border-radius: var(--radius-lg); }
@@ -91,7 +93,7 @@
 .ds-checklist { padding-left: var(--space-6); margin: var(--space-6) 0; color: var(--color-text-muted); font-size: var(--text-sm); }
 .ds-checklist li + li { margin-top: var(--space-3); }
 .ds-footer { display: flex; justify-content: space-between; flex-wrap: wrap; gap: var(--space-4); padding: var(--space-8) 0; font-size: var(--text-xs); color: var(--color-text-muted); }
-.ds-feedback { position: fixed; bottom: var(--space-6); left: 50%; transform: translateX(-50%); z-index: 1500; width: max-content; max-width: calc(100% - 2rem); padding: var(--space-4) var(--space-6); border-radius: var(--radius-md); background: var(--color-primary-dark); color: var(--color-surface); box-shadow: var(--shadow-xl); font-size: var(--text-sm); }
+.ds-feedback { position: fixed; bottom: var(--space-6); left: 50%; transform: translateX(-50%); z-index: 1500; width: max-content; max-width: calc(100% - 2rem); padding: var(--space-4) var(--space-6); border-radius: var(--radius-md); background: var(--color-primary-dark); color: var(--color-on-strong); box-shadow: var(--shadow-xl); font-size: var(--text-sm); }
 .ds-feedback:empty { padding: 0; box-shadow: none; }
 @media (max-width: 1100px) {
   .ds-layout { grid-template-columns: 180px minmax(0, 1fr); gap: var(--space-8); padding: var(--space-8); }
@@ -110,7 +112,8 @@
 @media (max-width: 600px) {
   .ds-topbar { padding: var(--space-4) var(--space-6); gap: var(--space-3); }
   .ds-brand { gap: var(--space-2); }
-  .ds-brand > span:last-child, .ds-topbar > .text-link { font-size: .7rem; }
+  .ds-brand > span:last-child, .ds-topbar-actions .text-link { font-size: .7rem; }
+  .ds-topbar-actions { gap: var(--space-2); }
   .ds-layout { padding: var(--space-6); gap: var(--space-6); }
   .ds-intro { padding-top: var(--space-4); }
   .ds-intro > .badge-pill { font-size: .65rem; }

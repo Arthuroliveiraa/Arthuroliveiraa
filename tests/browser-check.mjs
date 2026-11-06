@@ -34,12 +34,26 @@ const fixture = {
   address: 'Rua de teste, 123 & bloco A', hours: 'Segunda\n09h às 18h',
   accessibility: 'Informação sintética de acesso', insuranceInfo: 'Convênio de teste',
   cancellationInfo: 'Política de teste', team: [
-    { name: '<b>Profissional de teste</b>', role: 'Atuação de teste', cro: 'CRO-TESTE 000' },
+    { name: '<b>Profissional de teste</b>', role: 'Atuação de teste', cro: 'CRO-TESTE 000',
+      photo: 'assets/illustrations/aura-smile.svg', bio: 'Biografia <em>sintética</em>', qualifications: ['Formação de teste <b>local</b>'] },
     { name: 'Cadastro incompleto' }
   ], responsibleProfessional: { name: 'Responsável de teste', cro: 'CRO-TESTE 001' },
-  publicationReady: true
+  publicationReady: true,
+  gallery: [
+    { src: 'assets/gallery/recepcao.svg', alt: 'Imagem de teste', title: '<b>Recepção de teste</b>', caption: 'Legenda sintética', authorized: true },
+    { src: 'assets/gallery/consultorio.svg', alt: 'Outro ambiente de teste', title: 'Consultório de teste', authorized: true },
+    { src: 'https://example.org/photo.jpg', alt: 'Externa', title: 'Não renderizar', authorized: true },
+    { src: 'assets/gallery/acolhimento.svg', alt: 'Sem autorização', title: 'Não renderizar', authorized: false }
+  ],
+  reviews: [
+    { author: '<b>Pessoa de teste</b>', text: 'Relato <em>sintético</em>', sourceUrl: 'https://www.google.com/maps/reviews?test=1', rating: 5, date: '2026-11-06', authorized: true },
+    { author: 'Sem autorização', text: 'Não renderizar', sourceUrl: 'https://g.page/test', authorized: false },
+    { author: 'Destino inválido', text: 'Não renderizar', sourceUrl: 'javascript:alert(1)', authorized: true },
+    { author: 'Domínio semelhante', text: 'Não renderizar', sourceUrl: 'https://www.google.com.example.org/test', authorized: true }
+  ],
+  booking: { url: 'https://agenda.example.org/clinica?source=site', provider: 'Plataforma de teste' }
 };
-const mime = { '.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css', '.svg': 'image/svg+xml', '.woff2': 'font/woff2' };
+const mime = { '.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css', '.svg': 'image/svg+xml', '.woff2': 'font/woff2', '.png': 'image/png', '.webp': 'image/webp', '.jpg': 'image/jpeg' };
 const server = createServer(async (req, res) => {
   try {
     const url = new URL(req.url, 'http://localhost');
@@ -50,7 +64,7 @@ const server = createServer(async (req, res) => {
     const target = resolve(siteRoot, `.${decodeURIComponent(pathname === '/' ? '/index.html' : pathname)}`);
     if (!target.startsWith(siteRoot + sep)) { res.writeHead(403).end(); return; }
     if ((configured || invalid || demo) && pathname === '/js/config.js') {
-      const data = configured ? fixture : demo ? { ...fixture, demoMode: true } : { demoMode: false, whatsapp: 'javascript:alert(1)', phone: '5500999990000' };
+      const data = configured ? fixture : demo ? { ...fixture, demoMode: true } : { demoMode: false, whatsapp: 'javascript:alert(1)', phone: '5500999990000', booking: { url: 'https://user:password@agenda.example.org/' } };
       res.writeHead(200, { 'Content-Type': 'text/javascript; charset=utf-8' });
       res.end(`window.CLINIC_CONFIG = ${JSON.stringify(data)};`);
       return;
@@ -134,6 +148,7 @@ try {
   await call('Page.enable');
   await call('Runtime.enable');
   await call('Network.enable');
+  await call('Emulation.setEmulatedMedia', { features: [{ name: 'prefers-color-scheme', value: 'light' }] });
   await navigate('/');
   const primaryToken = await evaluate("getComputedStyle(document.documentElement).getPropertyValue('--color-primary').trim()");
   // Fontes e ilustração precisam carregar de verdade, sem fallback silencioso.
@@ -146,6 +161,13 @@ try {
   // M12 — O aviso aparece na versão de portfólio e o formulário continua utilizável.
   assert.equal(await evaluate("document.querySelector('#demo-banner').hidden"), false);
   assert.match(await evaluate("document.querySelector('#contact-status').textContent"), /Demonstração/);
+
+  // T07 — A imagem social existe e mantém as dimensões declaradas nos metadados.
+  const cover = await readFile(join(siteRoot, 'assets/social/aura-preview.png'));
+  assert.equal(cover.subarray(1, 4).toString(), 'PNG');
+  assert.deepEqual([cover.readUInt32BE(16), cover.readUInt32BE(20)], [1200, 630]);
+  assert.equal(await evaluate("document.querySelector('meta[property=\"og:image\"]').content.endsWith('/assets/social/aura-preview.png')"), true);
+  assert.equal(await evaluate("document.querySelector('meta[name=\"twitter:card\"]').content"), 'summary_large_image');
 
   // Integridade do HTML: IDs únicos, âncoras existentes e labels dos campos.
   assert.deepEqual(await evaluate(`(() => {
@@ -174,9 +196,38 @@ try {
   }
   await evaluate("document.querySelector('.menu-toggle').click()");
   assert.equal(await evaluate("document.querySelector('.menu-toggle').getAttribute('aria-expanded')"), 'true');
-  await call('Input.dispatchKeyEvent', { type: 'keyDown', key: 'Escape', code: 'Escape' });
+  await call('Input.dispatchKeyEvent', { type: 'keyDown', key: 'Escape', code: 'Escape', windowsVirtualKeyCode: 27, nativeVirtualKeyCode: 27 });
+  await call('Input.dispatchKeyEvent', { type: 'keyUp', key: 'Escape', code: 'Escape', windowsVirtualKeyCode: 27, nativeVirtualKeyCode: 27 });
   assert.equal(await evaluate("document.querySelector('.menu-toggle').getAttribute('aria-expanded')"), 'false');
   assert.equal(await evaluate("document.querySelector('#menu .btn').getClientRects().length"), 0, 'Botão do menu fechado continua visível');
+
+  // T06 — O menu acompanha a rolagem real, sem dois itens atuais simultaneamente.
+  await evaluate("document.getElementById('tratamentos').scrollIntoView({behavior:'instant'})");
+  await evaluate('new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)))');
+  assert.equal(await evaluate("document.querySelector('#menu [aria-current=location]').hash"), '#tratamentos');
+  assert.equal(await evaluate("document.querySelectorAll('#menu [aria-current=location]').length"), 1);
+
+  // T09 — Galeria acessível: modal, Escape, devolução de foco e imagem local.
+  await evaluate("document.querySelector('[data-gallery]').focus(); document.querySelector('[data-gallery]').click()");
+  assert.equal(await evaluate("document.querySelector('#gallery-dialog').open"), true);
+  assert.equal(await evaluate("document.querySelector('#gallery-dialog-image').alt.length > 0"), true);
+  await call('Input.dispatchKeyEvent', { type: 'keyDown', key: 'Escape', code: 'Escape', windowsVirtualKeyCode: 27, nativeVirtualKeyCode: 27 });
+  await call('Input.dispatchKeyEvent', { type: 'keyUp', key: 'Escape', code: 'Escape', windowsVirtualKeyCode: 27, nativeVirtualKeyCode: 27 });
+  await evaluate('new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)))');
+  assert.equal(await evaluate("document.querySelector('#gallery-dialog').open"), false);
+  assert.equal(await evaluate("document.activeElement.hasAttribute('data-gallery')"), true);
+
+  // T12 — Agenda de demonstração nunca produz uma reserva nem um link externo.
+  assert.equal(await evaluate("document.querySelector('#schedule-demo').hidden"), false);
+  assert.equal(await evaluate("document.querySelector('#booking-platform').hidden"), true);
+  await evaluate("(() => { document.querySelector('#schedule-demo').open=true; const date=document.querySelector('#demo-date'); date.value='2099-11-20'; date.dispatchEvent(new Event('input',{bubbles:true})); document.querySelector('[data-slot=\"11:00\"]').click(); document.querySelector('#name').value='Pessoa de teste'; document.querySelector('#booking-form').requestSubmit(); })()");
+  assert.match(await evaluate("document.querySelector('#message').value"), /SIMULAÇÃO, SEM RESERVA/);
+  assert.match(await evaluate("document.querySelector('#message').value"), /20\/11\/2099, às 11:00/);
+  assert.equal(await evaluate("document.querySelector('#send-message').hasAttribute('href')"), false);
+  await evaluate("(() => { const date=document.querySelector('#demo-date'); date.value='2099-11-21'; date.dispatchEvent(new Event('input',{bubbles:true})); })()");
+  assert.equal(await evaluate("document.querySelector('#request-result').hidden"), true);
+  assert.equal(await evaluate("document.querySelectorAll('[data-slot][aria-pressed=true]').length"), 0);
+  await evaluate("document.querySelector('#booking-form').reset(); document.querySelector('#schedule-demo').open=false");
 
   // M04/M07 — Filtrar, transferir interesse, gerar, invalidar e limpar solicitação.
   await evaluate("document.querySelector('[data-filter=estetica]').click()");
@@ -184,6 +235,7 @@ try {
   assert.match(await evaluate("document.querySelector('#filter-status').textContent"), /2 tratamentos/);
   await evaluate("document.querySelector('[data-treatment=\"Ortodontia\"]').click()");
   assert.equal(await evaluate("document.querySelector('#treatment').value"), 'Ortodontia');
+  assert.match(await evaluate("document.querySelector('#treatment-selection').textContent"), /Ortodontia/);
   await evaluate("document.querySelector('#name').value = '   '; document.querySelector('#booking-form').requestSubmit()");
   assert.equal(await evaluate("document.querySelector('#request-result').hidden"), true);
   await evaluate("document.querySelector('#name').value = 'Ana & João'; document.querySelector('#name').dispatchEvent(new Event('input', {bubbles:true})); document.querySelector('#booking-form').requestSubmit()");
@@ -200,6 +252,23 @@ try {
   assert.equal(await evaluate("document.querySelectorAll('#team-list article').length"), 1);
   assert.equal(await evaluate("document.querySelector('#team-list b')"), null);
   assert.equal(await evaluate("document.querySelector('#equipe').hidden"), false);
+  assert.equal(await evaluate("document.querySelectorAll('#team-list img').length"), 1);
+  assert.equal(await evaluate("document.querySelector('#team-list .team-bio').textContent"), 'Biografia <em>sintética</em>');
+  assert.equal(await evaluate("document.querySelector('#team-list .team-bio em')"), null);
+  assert.equal(await evaluate("document.querySelectorAll('#team-list .team-qualifications li').length"), 1);
+  assert.equal(await evaluate("document.querySelectorAll('#gallery-list figure').length"), 2);
+  assert.equal(await evaluate("document.querySelector('#gallery-list b')"), null);
+  assert.equal(await evaluate("document.querySelectorAll('#reviews-list article').length"), 1);
+  assert.equal(await evaluate("document.querySelector('#reviews-list b, #reviews-list em')"), null);
+  assert.equal(await evaluate("document.querySelector('#avaliacoes').hidden"), false);
+  assert.equal(await evaluate("document.querySelector('#reviews-list .text-link').hostname"), 'www.google.com');
+  assert.equal(await evaluate("document.querySelector('#booking-platform-link').href"), fixture.booking.url);
+  assert.equal(await evaluate("document.querySelector('#booking-platform').hidden"), false);
+  assert.equal(await evaluate("document.querySelector('#schedule-demo').hidden"), true);
+  for (const width of [1440, 1024, 961, 960, 769, 768, 390, 320]) {
+    await call('Emulation.setDeviceMetricsOverride', { width, height: 1000, deviceScaleFactor: 1, mobile: false });
+    assert.ok(await evaluate('document.documentElement.scrollWidth <= innerWidth'), `Overflow no modo configurado em ${width}px`);
+  }
   assert.equal(await evaluate("document.querySelector('#contact-phone').getAttribute('href')"), 'tel:+551133330000');
   const map = new URL(await evaluate("document.querySelector('#map-link').href"));
   assert.equal(map.searchParams.get('query'), fixture.address);
@@ -214,11 +283,15 @@ try {
   assert.match(await evaluate("document.querySelector('#copy-status').textContent"), /Ctrl\+C/);
   await navigate('/invalid/index.html');
   assert.equal(await evaluate("document.querySelector('#contact-whatsapp').hidden && document.querySelector('#contact-phone').hidden"), true);
+  assert.equal(await evaluate("document.querySelector('#booking-platform').hidden && document.querySelector('#espaco').hidden && document.querySelector('#avaliacoes').hidden"), true);
 
   // M12 — Mesmo com dados preenchidos, o modo demo não ativa contatos ou identificação.
   await navigate('/demo/index.html');
   assert.equal(await evaluate("['contact-whatsapp','contact-phone','map-link','equipe','responsible-info'].every(id => document.getElementById(id).hidden)"), true);
   assert.equal(await evaluate("document.querySelector('#publication-notice').hidden"), false);
+  assert.equal(await evaluate("document.querySelector('#avaliacoes').hidden && document.querySelector('#booking-platform').hidden"), true);
+  assert.equal(await evaluate("document.querySelectorAll('#gallery-list figure').length"), 3);
+  assert.match(await evaluate("document.querySelector('#gallery-description').textContent"), /não representam uma clínica real/);
   await evaluate("document.querySelector('#name').value = 'Pessoa de teste'; document.querySelector('#booking-form').requestSubmit()");
   assert.equal(await evaluate("document.querySelector('#send-message').hasAttribute('href')"), false);
 
@@ -228,6 +301,9 @@ try {
   assert.equal(await evaluate("getComputedStyle(document.querySelector('#menu')).visibility"), 'visible');
   assert.equal(await evaluate("document.querySelector('#treatment-filters').hidden"), true);
   assert.equal(await evaluate("document.querySelector('#prepare').disabled"), true);
+  assert.equal(await evaluate("document.querySelector('[data-theme-toggle]').hidden"), true);
+  assert.equal(await evaluate("document.querySelectorAll('[data-gallery]').length"), 3);
+  assert.equal(await evaluate("document.querySelector('#schedule-demo').hidden"), true);
 
   // Guia sem scripts: documentação e exemplos continuam disponíveis.
   await navigate('/design-system.html', false);
@@ -268,10 +344,81 @@ try {
       await writeFile(join(process.env.AURA_SCREENSHOT_DIR, `design-system-${width}.png`), Buffer.from(data, 'base64'));
     }
   }
+  // Tema: ação por teclado, persistência, atualização do guia e preferência do sistema.
+  await evaluate("document.querySelector('[data-theme-toggle]').focus()");
+  await call('Input.dispatchKeyEvent', { type: 'keyDown', key: ' ', code: 'Space', windowsVirtualKeyCode: 32 });
+  await call('Input.dispatchKeyEvent', { type: 'keyUp', key: ' ', code: 'Space', windowsVirtualKeyCode: 32 });
+  assert.equal(await evaluate('document.documentElement.dataset.theme'), 'dark');
+  assert.equal(await evaluate("document.querySelector('[data-theme-toggle]').getAttribute('aria-pressed')"), 'true');
+  assert.equal(await evaluate("localStorage.getItem('aura-theme')"), 'dark');
+  assert.equal(await evaluate("document.querySelectorAll('[data-contrast-pass=true]').length"), 6);
+  assert.equal(await evaluate("document.querySelector('[data-token-value]').textContent"), '#8ACDBC');
+  for (const width of [1440, 1024, 961, 960, 769, 768, 390, 320]) {
+    await call('Emulation.setDeviceMetricsOverride', { width, height: 1000, deviceScaleFactor: 1, mobile: false });
+    assert.ok(await evaluate('document.documentElement.scrollWidth <= innerWidth'), `Overflow no guia escuro em ${width}px`);
+  }
+  await navigate('/');
+  assert.equal(await evaluate('document.documentElement.dataset.theme'), 'dark');
+  assert.equal(await evaluate("document.querySelector('meta[name=\"theme-color\"]').content"), '#0E1916');
+  for (const width of [1440, 1024, 961, 960, 769, 768, 390, 320]) {
+    await call('Emulation.setDeviceMetricsOverride', { width, height: 1000, deviceScaleFactor: 1, mobile: false });
+    assert.ok(await evaluate('document.documentElement.scrollWidth <= innerWidth'), `Overflow no site escuro em ${width}px`);
+  }
+  const darkContrasts = await evaluate(`(() => {
+    const parse = color => color.match(/[\\d.]+/g).map(Number);
+    function background(node) {
+      if (!node) return [0, 0, 0];
+      const rgba = parse(getComputedStyle(node).backgroundColor);
+      const alpha = rgba.length === 4 ? rgba[3] : 1;
+      const behind = alpha < 1 ? background(node.parentElement) : [0, 0, 0];
+      return rgba.slice(0, 3).map((value, i) => value * alpha + behind[i] * (1 - alpha));
+    }
+    function luminance(rgb) {
+      const [r, g, b] = rgb.map(value => value / 255).map(value => value <= .04045 ? value / 12.92 : ((value + .055) / 1.055) ** 2.4);
+      return r * .2126 + g * .7152 + b * .0722;
+    }
+    return ['body', '.btn-primary', '.filter-tab.active', '.badge-sage', '.badge-terracotta', '#name', '.art-note', '.visit-section h2', '.footer-brand p'].map(selector => {
+      const node = document.querySelector(selector);
+      const values = [luminance(parse(getComputedStyle(node).color).slice(0, 3)), luminance(background(node))].sort((a, b) => b - a);
+      return { selector, ratio: (values[0] + .05) / (values[1] + .05) };
+    });
+  })()`);
+  for (const result of darkContrasts) assert.ok(result.ratio >= 4.5, `Contraste escuro ${result.selector}: ${result.ratio.toFixed(2)}:1`);
+  if (process.env.AURA_SCREENSHOT_DIR) {
+    for (const width of [1440, 390]) {
+      await call('Emulation.setDeviceMetricsOverride', { width, height: 1000, deviceScaleFactor: 1, mobile: false });
+      await evaluate('scrollTo({top:0,behavior:"instant"})');
+      const { data } = await call('Page.captureScreenshot', { format: 'png' });
+      await writeFile(join(process.env.AURA_SCREENSHOT_DIR, `aura-dark-${width}.png`), Buffer.from(data, 'base64'));
+    }
+  }
+  await evaluate("document.querySelector('[data-theme-toggle]').click()");
+  await navigate('/');
+  assert.equal(await evaluate('document.documentElement.dataset.theme'), 'light');
+  await evaluate("localStorage.removeItem('aura-theme')");
+  await navigate('/');
+  await call('Emulation.setEmulatedMedia', { features: [{ name: 'prefers-color-scheme', value: 'dark' }] });
+  await evaluate('new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)))');
+  assert.equal(await evaluate('document.documentElement.dataset.theme'), 'dark');
+  await evaluate("document.querySelector('[data-theme-toggle]').click()");
+  await call('Emulation.setEmulatedMedia', { features: [{ name: 'prefers-color-scheme', value: 'light' }] });
+  await call('Emulation.setEmulatedMedia', { features: [{ name: 'prefers-color-scheme', value: 'dark' }] });
+  assert.equal(await evaluate('document.documentElement.dataset.theme'), 'light');
+  await evaluate("localStorage.removeItem('aura-theme')");
+  await call('Emulation.setEmulatedMedia', { features: [{ name: 'prefers-color-scheme', value: 'light' }] });
+  const blockedStorage = await call('Page.addScriptToEvaluateOnNewDocument', {
+    source: "Object.defineProperty(window, 'localStorage', {get(){throw new DOMException('Blocked in test','SecurityError')}})"
+  });
+  await navigate('/');
+  await evaluate("document.querySelector('[data-theme-toggle]').click()");
+  assert.equal(await evaluate('document.documentElement.dataset.theme'), 'dark');
+  await evaluate("document.querySelector('[data-theme-toggle]').click()");
+  assert.equal(await evaluate('document.documentElement.dataset.theme'), 'light');
+  await call('Page.removeScriptToEvaluateOnNewDocument', { identifier: blockedStorage.identifier });
   assert.deepEqual(exceptions, [], 'Erros JavaScript no navegador');
   assert.deepEqual(failedResources, [], 'Recursos com erro HTTP');
   assert.deepEqual(externalRequests, [], 'A página iniciou requisições externas');
-  console.log('OK: site e design system em 8 larguras, fontes locais, menu, filtros, formulário, clipboard, contatos, modo demo, navegação sem JS, tokens compartilhados e contraste.');
+  console.log('OK: site e guia claros/escuros em 8 larguras; tema por teclado, persistência, sistema, armazenamento bloqueado e contraste; galeria, agenda, configuração real, formulário e modo sem JS.');
 } finally {
   socket?.close();
   browser.kill();

@@ -1,6 +1,6 @@
-# Aura Design System — v1.0
+# Aura Design System — v1.2
 
-Referência consolidada após a implementação dos cinco tópicos aprovados: tipografia local, abertura vetorial, cartões com ícones, variação de seções e linha do tempo. A identidade é a mesma da demonstração odontológica; os exemplos não representam uma clínica em funcionamento.
+Referência consolidada após a implementação dos cinco primeiros tópicos e estendida pelos tópicos 6 a 12. Inclui tipografia local, abertura vetorial, cartões com ícones, variação de seções, linha do tempo, galeria e seleção demonstrativa de horário. A identidade é a mesma da demonstração odontológica; os exemplos não representam uma clínica em funcionamento.
 
 [Abrir guia visual](../design-system.html) · [Guia publicado](https://arthuroliveiraa.github.io/Arthuroliveiraa/design-system.html) · [Tokens](../css/tokens.css) · [Componentes](../css/style.css)
 
@@ -14,12 +14,14 @@ Referência consolidada após a implementação dos cinco tópicos aprovados: ti
 | `design-system.html` | Catálogo visual acessível, com exemplos reais e trechos de HTML |
 | `css/design-system.css` | Apresentação exclusiva da documentação, com seletores `ds-` |
 | `js/design-system.js` | Leitura dos tokens, cópia, cálculo de contraste e feedback dos exemplos |
+| `js/theme.js` | Preferência de tema, alternância acessível e sincronização entre páginas |
 | `assets/fonts/`, `assets/icons/` | Assets de terceiros e licenças preservadas |
 | `assets/illustrations/aura-smile.svg` | Ilustração vetorial própria da abertura |
 
 Carregue as folhas nesta ordem, com caminhos relativos à página:
 
 ```html
+<script src="js/theme.js"></script>
 <link rel="stylesheet" href="css/fonts.css">
 <link rel="stylesheet" href="css/tokens.css">
 <link rel="stylesheet" href="css/style.css">
@@ -58,6 +60,26 @@ As variantes `primary-soft`, `primary-subtle`, `accent-soft`, `success-soft` e `
 Use neutros nas grandes áreas, verde nas ações e terracota nos detalhes. O pêssego não serve para texto sobre branco. As cores de Instagram, Facebook e WhatsApp pertencem às respectivas marcas e ficam fora da paleta institucional. Botões com texto devem manter contraste adequado; a cor verde clara do ícone de WhatsApp não deve ser reaproveitada indiscriminadamente para texto branco.
 
 Ao alterar `--color-primary` ou `--color-accent`, atualize também suas variantes `-rgb`, usadas em sombras translúcidas. Medidas específicas de uma composição, como proporções da ilustração, continuam locais; a escala compartilhada orienta o ritmo dos componentes.
+
+## Tema claro e escuro
+
+O botão “Modo escuro” no cabeçalho do site e do guia usa `aria-pressed` para indicar o estado. `js/theme.js` é carregado no head antes das folhas para aplicar a preferência sem uma pintura inicial no tema errado. Na primeira visita, acompanha `prefers-color-scheme`; após uma escolha manual, preserva `light` ou `dark` na chave `aura-theme` de `localStorage`.
+
+O tema usa `data-theme` na raiz e `color-scheme` para adaptar também os controles nativos, como seleção de data. Sem JavaScript, o conteúdo permanece legível no tema claro e o botão fica oculto. Se o navegador bloquear armazenamento, a alternância continua funcionando na página atual. A preferência é compartilhada entre site e guia e sincronizada entre abas da mesma origem.
+
+| Papel | Token semântico |
+| --- | --- |
+| Fundo da ação / hover | `--color-action-bg`, `--color-action-hover` |
+| Texto sobre ação | `--color-on-action` |
+| Ação de destaque | `--color-accent-action`, `--color-accent-action-hover`, `--color-on-accent` |
+| Texto de destaque em superfície normal | `--color-text-strong` |
+| Texto sobre painel escuro | `--color-on-strong` |
+| Texto sobre detalhe pêssego | `--color-on-decorative` |
+| Cor da interface do navegador | `--color-browser` |
+
+Evite usar o mesmo token para texto e para fundo de botão: no tema escuro, ações claras usam texto escuro. Cores institucionais, superfícies e estados mudam juntos em `:root[data-theme="dark"]`; fotografias, ilustrações e marcas sociais mantêm as cores originais. Os valores e as razões de contraste do guia são recalculados ao alternar o tema, por meio do evento `aura:themechange`.
+
+Os dados digitados no formulário e nos exemplos não são persistidos; apenas a escolha de tema é salva. Para voltar ao acompanhamento automático do sistema, remova a preferência `aura-theme` do armazenamento local. Os testes cobrem ambos os temas em oito larguras, teclado, persistência, mudança do sistema e bloqueio de armazenamento.
 
 ## Tipografia
 
@@ -157,6 +179,19 @@ A composição `aura-smile.svg` é abstrata e própria. Preserve a proporção, 
 Esses critérios e os testes automatizados não equivalem a uma auditoria integral de acessibilidade.
 
 ## Como manter
+
+### Extensões dos tópicos 6 a 12
+
+- Navegação atual: `.nav-link.active` e `aria-current="location"`; o estado acompanha a rolagem, sem alterar o histórico da página.
+- Interesse selecionado: `.treatment-card.is-selected` e confirmação textual em `#treatment-selection`.
+- Galeria: `.space-gallery`, `.space-card` e `<dialog class="gallery-dialog">`; links diretos permanecem utilizáveis sem JavaScript. O diálogo fecha por Escape ou botão, bloqueia interação com o fundo e devolve o foco ao item de origem.
+- Equipe: `.team-bio` e `.team-qualifications` complementam o cartão existente. Não gerar pessoas ou registros fictícios.
+- Avaliações: `.verified-review` apresenta texto, fonte original e dados opcionais. O nome da classe não substitui a conferência manual da fonte.
+- Agenda: `.booking-platform` para o encaminhamento real e `.schedule-demo` para a simulação. Horários de exemplo usam botões com `aria-pressed`; nunca apresentar os exemplos como disponibilidade real.
+
+As configurações e condições de exibição estão em [CONFIGURACAO.md](CONFIGURACAO.md). Esses componentes usam os tokens existentes; o fundo de um estado selecionado não dispensa texto ou atributos acessíveis.
+
+### Fluxo de alteração
 
 1. Edite tokens compartilhados em `css/tokens.css`; evite repetir valores novos em componentes.
 2. Para uma variação de componente, altere `css/style.css` e inclua um exemplo no guia.

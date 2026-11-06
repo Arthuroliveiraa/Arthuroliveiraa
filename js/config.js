@@ -31,9 +31,23 @@ window.CLINIC_CONFIG = Object.freeze({
   cancellationInfo: '',
 
   // M06 — Cadastre somente profissionais reais com registro conferido.
-  // Modelo de um item: { name: 'NOME REAL', role: 'ATUAÇÃO CONFIRMADA', cro: 'CRO-UF NÚMERO' }
+  // Item: { name, role, cro, photo: 'assets/team/foto.webp', bio, qualifications: [] }
+  // Fotos são locais e autorizadas; biografia e formação aparecem como texto.
   // Nome e CRO são necessários; sem eles o item não aparece.
   team: [],
+
+  // T09 — Fotos reais e autorizadas. Em demo, a galeria usa ilustrações próprias.
+  // Item: { src: 'assets/gallery/foto.webp', alt, title, caption, authorized: true }
+  gallery: [],
+
+  // T11 — Relatos autorizados com link verificável para a avaliação original.
+  // Item: { author, text, sourceUrl, rating: 5, date: '2026-11-06', authorized: true }
+  // Fontes aceitas: links do Google Maps, Google, g.page e share.google.
+  reviews: [],
+
+  // T12 — Link HTTPS da agenda real. O site não inventa horários nem faz reservas.
+  // A disponibilidade é consultada na plataforma, somente após abrir o link.
+  booking: { url: '', provider: '' },
 
   // M11 — Responsável pelo atendimento da clínica; independente da lista de equipe.
   responsibleProfessional: { name: '', cro: '' },

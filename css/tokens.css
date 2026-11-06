@@ -1,5 +1,6 @@
-/* Aura Design System v1.0. Fonte compartilhada pelo site e pelo guia visual. */
+/* Aura Design System v1.2. Fonte compartilhada pelo site e pelo guia visual. */
 :root {
+  color-scheme: light;
   /* Harmonia quente/frio: marfim nas áreas amplas, petróleo na identidade
      e terracota nos detalhes. Tons claros e escuros mantêm a hierarquia. */
   --color-bg: #FBF8F2;
@@ -35,6 +36,16 @@
 
   --color-gold: #BB7A24;
   --color-success: #24734E;
+  --color-action-bg: var(--color-primary);
+  --color-action-hover: var(--color-primary-light);
+  --color-on-action: #FFFFFF;
+  --color-accent-action: var(--color-accent);
+  --color-accent-action-hover: var(--color-accent-hover);
+  --color-on-accent: #FFFFFF;
+  --color-text-strong: var(--color-primary-dark);
+  --color-on-strong: #FFFFFF;
+  --color-on-decorative: #0C403B;
+  --color-browser: #14665E;
 
   /* Tipografia */
   --font-serif: 'Playfair Display', Georgia, 'Times New Roman', serif;
@@ -95,4 +106,49 @@
   --color-success-soft: #E7F3EC;
   --color-danger: #AD3529;
   --color-danger-soft: #FCEBE8;
+}
+
+/* Superfícies e texto mudam juntos; fotografias e cores de marcas são preservadas. */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --color-bg: #0E1916;
+  --color-bg-alt: #12231D;
+  --color-surface: #192B24;
+  --color-surface-translucent: rgba(14, 25, 22, .94);
+  --color-primary: #8ACDBC;
+  --color-primary-rgb: 138, 205, 188;
+  --color-primary-light: #A7DECC;
+  --color-primary-dark: #0C3028;
+  --color-primary-soft: #203E34;
+  --color-primary-subtle: #172D28;
+  --color-accent: #EEAA8C;
+  --color-accent-rgb: 238, 170, 140;
+  --color-accent-hover: #F5C1A5;
+  --color-accent-soft: #3D2C25;
+  --color-text-main: #EDF4EC;
+  --color-text-muted: #B5C8BA;
+  --color-text-light: #9CB3A4;
+  --color-text-strong: #C8E6D9;
+  --color-border: #33483E;
+  --color-border-light: #263B31;
+  --color-control-border: #718E7E;
+  --color-footer: #08140F;
+  --color-on-dark: #D3E4D9;
+  --color-on-dark-muted: #ADC6B8;
+  --color-action-bg: #8ACDBC;
+  --color-action-hover: #A7DECC;
+  --color-on-action: #102F29;
+  --color-accent-action: #EEAA8C;
+  --color-accent-action-hover: #F5C1A5;
+  --color-on-accent: #2B211B;
+  --color-gold: #E7BA69;
+  --color-success: #99D7AE;
+  --color-success-soft: #183A2A;
+  --color-danger: #FFB0A4;
+  --color-danger-soft: #412723;
+  --color-browser: #0E1916;
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, .12);
+  --shadow-md: 0 6px 20px rgba(0, 0, 0, .18);
+  --shadow-lg: 0 16px 36px rgba(0, 0, 0, .23);
+  --shadow-xl: 0 24px 48px rgba(0, 0, 0, .3);
 }

@@ -36,14 +36,20 @@ Capturas reais da página em navegador, geradas pelos testes. O layout foi verif
 ## Funcionalidades
 
 - Navegação para computador e celular; o menu fecha por Escape, clique externo ou saída do foco.
+- Modo claro/escuro pelo botão no cabeçalho, com preferência do dispositivo na primeira visita e escolha manual salva apenas neste navegador.
 - Catálogo com filtros por categoria, contagem de resultados e detalhes dos tratamentos.
+- Menu com indicação da seção atual, confirmação do tratamento escolhido e detalhes ampliados para a avaliação.
 - Ilustração vetorial própria, tratamentos com ícones e princípios em duas colunas.
+- Galeria de ambientes conceituais com ampliação acessível, sem representar instalações reais.
 - Linha do tempo da primeira visita, horizontal no computador e vertical no celular.
 - Perguntas frequentes com detalhes expansíveis nativos.
 - Formulário com primeira avaliação, retorno ou remarcação, tratamento e preferência de período.
 - Validação do nome, revisão da mensagem, cópia com alternativa manual e limpeza dos campos.
 - Modo demonstrativo que bloqueia telefone, WhatsApp e mapa, mesmo com contatos preenchidos.
 - Estrutura configurável para contato, equipe e responsável técnico em uma implantação real.
+- Equipe com foto e biografia, avaliações com fonte e link de agenda externa disponíveis por configuração, fora do modo demonstrativo.
+- Seleção de data e horário fictícios na demonstração, sem reservas ou envio.
+- Imagem PNG de compartilhamento e metadados Open Graph/Twitter estáticos.
 - Informações e navegação acessíveis sem JavaScript; filtros e geração de mensagem dependem dele.
 
 ## Executar localmente
@@ -63,6 +69,7 @@ Para testes, use Node.js 22 ou superior e Edge/Chrome instalado:
 ```sh
 node --check js/config.js
 node --check js/app.js
+node --check js/theme.js
 node scripts/prepare-site.mjs
 node tests/browser-check.mjs
 ```
@@ -92,6 +99,7 @@ css/fonts.css              Fontes WOFF2 locais, sem consulta a serviços externo
 css/design-system.css      Apresentação exclusiva do guia visual
 js/config.js               Modo de demonstração e configuração pública
 js/app.js                  Interações da página
+js/theme.js                Tema compartilhado, preferência local e acessibilidade
 js/design-system.js        Cópia de tokens, contraste e exemplos do guia
 assets/icons/favicon.svg   Ícone vetorial local
 assets/illustrations/      Ilustração vetorial da abertura
@@ -100,6 +108,7 @@ docs/images/               Capturas usadas neste README
 docs/COMPARATIVO.md         Referências, decisões e registro M01–M13
 docs/PUBLICACAO.md          Passos para disponibilizar a demonstração
 docs/DESIGN_SYSTEM.md       Regras, uso e manutenção do design system
+docs/CONFIGURACAO.md        Mídia, equipe, avaliações e agenda externa
 tests/browser-check.mjs    Verificação funcional em navegador real
 scripts/prepare-site.mjs   Geração da pasta dist/ para hospedagem
 .github/workflows/         Verificação e publicação no GitHub Pages
@@ -113,6 +122,7 @@ LICENSE                    Licença MIT
 - **Melhoria progressiva:** conteúdo e elementos expansíveis nativos funcionam antes do JavaScript.
 - **Configuração centralizada:** os dados públicos ficam separados da lógica e são inseridos como texto.
 - **Design system compartilhado:** cores, tipografia, dimensões e efeitos ficam em `css/tokens.css`. O guia visual reutiliza os componentes do site e inclui exemplos de uso e estados.
+- **Tema acessível:** site e guia alternam entre superfícies claras e escuras com tokens semânticos. Somente `aura-theme` é salvo em `localStorage`; nome, data de exemplo e mensagem não são armazenados.
 - **Demonstração segura:** `demoMode: true` identifica o portfólio e bloqueia canais externos. Não são usados números, endereços ou registros profissionais fictícios como se fossem reais.
 - **Publicação enxuta:** apenas HTML, CSS, JavaScript, assets e licença entram na distribuição. Testes e documentação permanecem no repositório.
 
@@ -120,7 +130,7 @@ A base visual fornecida no projeto foi preservada. A comparação com outros sit
 
 ## Limitações e evolução
 
-O formulário monta uma mensagem no navegador. Não há backend, disponibilidade em tempo real, prontuário, autenticação ou armazenamento de pacientes. O modo real oferece um link para o WhatsApp; o visitante ainda precisa enviar a mensagem e receber a confirmação da equipe.
+O formulário monta uma mensagem no navegador. Não há backend, prontuário, autenticação ou armazenamento de pacientes. A agenda da demonstração usa datas e horários fictícios e não reserva consultas. No modo real, a disponibilidade e as reservas ficam na plataforma configurada em `booking.url`; o site oferece um link para ela. O WhatsApp continua uma alternativa de solicitação, com confirmação pela equipe.
 
 - [x] Experiência responsiva e demonstração funcional.
 - [x] Documentação, capturas, licença e testes locais.
@@ -128,9 +138,12 @@ O formulário monta uma mensagem no navegador. Não há backend, disponibilidade
 - [x] Publicar e verificar a URL real da demonstração no GitHub Pages.
 - [ ] Auditoria adicional com leitores de tela e outros navegadores.
 - [ ] Em uma implantação real: validar identidade, profissionais, serviços e informações de contato.
-- [ ] Como evolução de escopo: integrar uma agenda e gerenciar horários disponíveis.
+- [x] Preparar agenda demonstrativa e conexão por link com uma plataforma real.
+- [ ] Para uso real: escolher o serviço de agenda, configurar sua URL e validar a disponibilidade na plataforma.
 
 Para adaptar a uma clínica real, revise os campos de [config.js](./js/config.js), preencha os dados confirmados e altere `demoMode` para `false`. `publicationReady` remove somente o aviso de preparação no modo real; não hospeda nem publica o site.
+
+Os tópicos 6 a 12 foram preparados em modo demonstrativo, conforme a seleção do projeto. Veja o [guia de configuração](./docs/CONFIGURACAO.md) para inserir mídia autorizada, profissionais, fontes de avaliações e o serviço de agenda. Deploy só é executado mediante solicitação explícita.
 
 ## Licença e autoria
 

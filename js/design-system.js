@@ -1,7 +1,6 @@
-/* Guia visual: valores reais dos tokens e demonstrações locais. Sem armazenamento. */
-const rootStyles = getComputedStyle(document.documentElement);
+/* Guia visual: valores reais dos tokens e exemplos sem armazenamento de dados. */
 const feedback = document.getElementById('ds-feedback');
-const tokenValue = name => rootStyles.getPropertyValue(name).trim();
+const tokenValue = name => getComputedStyle(document.documentElement).getPropertyValue(name).trim();
 let feedbackTimer;
 
 function announce(message) {
@@ -10,9 +9,11 @@ function announce(message) {
   feedbackTimer = setTimeout(() => { feedback.textContent = ''; }, 6500);
 }
 
-document.querySelectorAll('[data-token-value]').forEach(element => {
-  element.textContent = tokenValue(element.dataset.tokenValue);
-});
+function refreshTokens() {
+  document.querySelectorAll('[data-token-value]').forEach(element => {
+    element.textContent = tokenValue(element.dataset.tokenValue);
+  });
+}
 
 document.querySelectorAll('[data-copy-token]').forEach(button => {
   button.hidden = false;
@@ -42,15 +43,24 @@ function luminance(color) {
   return r * .2126 + g * .7152 + b * .0722;
 }
 
-document.querySelectorAll('[data-contrast]').forEach(cell => {
-  const values = cell.dataset.contrast.split('|').map(name => luminance(tokenValue(name)));
-  if (values.some(value => value === null)) {
-    cell.textContent = 'Requer revisão';
-    return;
-  }
-  const [lighter, darker] = values.sort((a, b) => b - a);
-  const ratio = (lighter + .05) / (darker + .05);
-  const minimum = Number(cell.dataset.minimum || 4.5);
-  cell.dataset.contrastPass = String(ratio >= minimum);
-  cell.textContent = `${ratio.toFixed(2).replace('.', ',')}:1 · ${ratio >= minimum ? 'Atende' : 'Revisar'}`;
-});
+function refreshContrast() {
+  document.querySelectorAll('[data-contrast]').forEach(cell => {
+    const values = cell.dataset.contrast.split('|').map(name => luminance(tokenValue(name)));
+    if (values.some(value => value === null)) {
+      cell.textContent = 'Requer revisão';
+      delete cell.dataset.contrastPass;
+      return;
+    }
+    const [lighter, darker] = values.sort((a, b) => b - a);
+    const ratio = (lighter + .05) / (darker + .05);
+    const minimum = Number(cell.dataset.minimum || 4.5);
+    cell.dataset.contrastPass = String(ratio >= minimum);
+    cell.textContent = `${ratio.toFixed(2).replace('.', ',')}:1 · ${ratio >= minimum ? 'Atende' : 'Revisar'}`;
+  });
+}
+function refreshThemeExamples() {
+  refreshTokens();
+  refreshContrast();
+}
+document.addEventListener('aura:themechange', refreshThemeExamples);
+refreshThemeExamples();
