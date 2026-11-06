@@ -25,7 +25,7 @@ Capturas reais da página em navegador, geradas pelos testes. O layout foi verif
 | Área | Implementação |
 | --- | --- |
 | HTML | Estrutura semântica, títulos, rótulos de formulário e detalhes expansíveis nativos |
-| CSS | Variáveis de design, Grid, Flexbox, pontos de adaptação e ilustração abstrata local |
+| CSS | Variáveis de design, Grid, Flexbox, fontes locais e pontos de adaptação |
 | JavaScript | Eventos, filtros, validação, geração de mensagem, área de transferência e configuração |
 | Acessibilidade | Atalho para conteúdo, foco visível, menu por teclado, estados ARIA e redução de movimento |
 | Testes | Navegador real via CDP, dados sintéticos, cenários de erro e versão sem JavaScript |
@@ -35,7 +35,9 @@ Capturas reais da página em navegador, geradas pelos testes. O layout foi verif
 
 - Navegação para computador e celular; o menu fecha por Escape, clique externo ou saída do foco.
 - Catálogo com filtros por categoria, contagem de resultados e detalhes dos tratamentos.
-- Etapas da primeira visita e perguntas frequentes.
+- Ilustração vetorial própria, tratamentos com ícones e princípios em duas colunas.
+- Linha do tempo da primeira visita, horizontal no computador e vertical no celular.
+- Perguntas frequentes com detalhes expansíveis nativos.
 - Formulário com primeira avaliação, retorno ou remarcação, tratamento e preferência de período.
 - Validação do nome, revisão da mensagem, cópia com alternativa manual e limpeza dos campos.
 - Modo demonstrativo que bloqueia telefone, WhatsApp e mapa, mesmo com contatos preenchidos.
@@ -82,9 +84,12 @@ Os workflows foram executados no GitHub Actions. A [primeira publicação valida
 ```text
 index.html                 Página e estrutura semântica
 css/style.css              Design original e componentes comentados
+css/fonts.css              Fontes WOFF2 locais, sem consulta a serviços externos
 js/config.js               Modo de demonstração e configuração pública
 js/app.js                  Interações da página
 assets/icons/favicon.svg   Ícone vetorial local
+assets/illustrations/      Ilustração vetorial da abertura
+assets/fonts/              Playfair Display, Plus Jakarta Sans e licenças OFL
 docs/images/               Capturas usadas neste README
 docs/COMPARATIVO.md         Referências, decisões e registro M01–M13
 docs/PUBLICACAO.md          Passos para disponibilizar a demonstração
@@ -97,6 +102,7 @@ LICENSE                    Licença MIT
 ## Decisões técnicas
 
 - **Sem framework:** a experiência cabe em uma página e interações locais, mantendo a execução simples.
+- **Tipografia local:** Playfair Display e Plus Jakarta Sans em WOFF2, com variações de peso e `font-display: swap`. As fontes e os ícones são servidos pelo próprio site.
 - **Melhoria progressiva:** conteúdo e elementos expansíveis nativos funcionam antes do JavaScript.
 - **Configuração centralizada:** os dados públicos ficam separados da lógica e são inseridos como texto.
 - **Demonstração segura:** `demoMode: true` identifica o portfólio e bloqueia canais externos. Não são usados números, endereços ou registros profissionais fictícios como se fossem reais.
@@ -121,3 +127,5 @@ Para adaptar a uma clínica real, revise os campos de [config.js](./js/config.js
 ## Licença e autoria
 
 Distribuído sob a [licença MIT](./LICENSE). Perfil do autor: [Arthur](https://github.com/Arthuroliveiraa). A marca apresentada é ilustrativa; o repositório não declara vínculo com clínicas de nome semelhante.
+
+As fontes preservam suas licenças SIL OFL em `assets/fonts/`. Os ícones Lucide e Simple Icons preservam as respectivas licenças em `assets/icons/`.

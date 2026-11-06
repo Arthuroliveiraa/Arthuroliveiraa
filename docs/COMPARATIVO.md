@@ -19,6 +19,16 @@ Os pares principais de texto e fundo foram verificados com contraste mínimo de 
 
 ## Referências consultadas
 
+Na revisão visual de **06/11/2026**, foram implementadas as melhorias 1 a 5 selecionadas:
+
+1. Fontes Playfair Display e Plus Jakarta Sans hospedadas localmente, em WOFF2, com pesos variáveis, itálico nos destaques e licenças OFL. Os subconjuntos latino e latino estendido atendem à escrita em português sem chamadas externas.
+2. Nova ilustração SVG própria para a abertura, com arcos, sorriso e elementos orgânicos na paleta existente. A legenda fica fora da figura para manter a leitura.
+3. Ícones Lucide incorporados ao HTML e reorganização dos cartões de tratamentos, com numeração menor e ações alinhadas.
+4. Princípios em duas colunas, cabeçalho de tratamentos com filtros laterais e alternância de superfícies claras com uma seção verde profunda.
+5. Primeira visita em linha do tempo com ícones e conectores entre os passos: horizontal no computador e vertical no celular. A estrutura continua uma lista ordenada, utilizável sem JavaScript.
+
+As referências adicionais foram [Halo Odontologia](https://haloodontologia.com.br/), [Odontologia Sudoeste](https://www.odontologiasudoeste.com.br/), [Studio Dental — equipe](https://www.studiodental.com/people) e [Villela Odontologia](https://villelaodontologia.com.br/). A revisão usa soluções próprias; não copia textos, fotografias ou identidade visual dessas clínicas.
+
 | Referência | O que foi observado | Aplicação no projeto |
 | --- | --- | --- |
 | [Tend — unidade East Nashville](https://www.hellotend.com/site/studios/east-nashville) | Informações de unidade e explicação da primeira visita | Etapas para o visitante entender como começar, endereço, horários e acesso |

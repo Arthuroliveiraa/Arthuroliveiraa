@@ -2007,49 +2007,108 @@ section[id], main[id] { scroll-margin-top: 100px; }
 .badge-pill { width: fit-content; }
 .section-head h2 { margin: 1rem 0; }
 
-/* M03 — Ajuste da grade aos três princípios de atendimento existentes. */
-.differentials-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-.diff-card h3, .treatment-body h3 { margin-bottom: .85rem; }
-
-/* M03 — Ilustração abstrata local: fundo, círculo, arco, sorriso e legenda.
-   Mantém a identidade sem usar foto fictícia de profissional ou consultório. */
+/* M03 — Abertura editorial com arte vetorial própria e legenda fora da imagem. */
+.hero-grid > *, .care-layout > *, .treatments-header > * { min-width: 0; }
+.hero-title { font-size: clamp(2.5rem, 4.35vw, 3.8rem); letter-spacing: -.035em; }
+.hero-subtitle { font-size: 1.05rem; max-width: 500px; }
+.hero-visual { width: 100%; max-width: 480px; margin-left: auto; }
 .smile-art {
   position: relative;
-  min-height: 470px;
   width: 100%;
-  background: var(--color-art-bg);
-  border-radius: 160px 160px 24px 24px;
-  overflow: hidden;
 }
-.art-sun { position: absolute; width: 120px; height: 120px; border-radius: 50%; background: var(--color-accent-decorative); right: 30px; top: 35px; }
-.art-arch { position: absolute; background: var(--color-primary); width: 65%; height: 76%; border-radius: 160px 160px 0 0; bottom: 0; left: 8%; transform: rotate(-12deg); }
-.art-smile { position: absolute; width: 180px; height: 90px; border-radius: 0 0 100px 100px; background: var(--color-bg); top: 205px; left: 25%; transform: rotate(-12deg); }
-.art-caption { position: absolute; bottom: 24px; left: 24px; right: 24px; padding: .75rem 1rem; border-radius: var(--radius-md); background: var(--color-primary-dark); color: white; font-family: var(--font-serif); font-size: 1.6rem; line-height: 1.3; }
+.hero-artwork { display: block; width: 100%; height: auto; }
+.art-note {
+  position: absolute;
+  bottom: 1.25rem;
+  left: 1.25rem;
+  right: 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .65rem;
+  padding: .9rem 1rem;
+  background: var(--color-bg);
+  border-radius: var(--radius-md);
+  color: var(--color-primary-dark);
+  font-size: .8rem;
+  font-weight: 600;
+  box-shadow: var(--shadow-md);
+}
+.inline-icon { display: inline-flex; flex-shrink: 0; }
+.inline-icon svg { width: 20px; height: 20px; }
+.art-caption {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1.25rem .25rem 0;
+  color: var(--color-primary-dark);
+  font-family: var(--font-serif);
+  font-size: 1.3rem;
+  line-height: 1.4;
+}
+.art-caption-label { font: 600 .65rem/1.5 var(--font-sans); letter-spacing: .12em; text-transform: uppercase; padding-top: .35rem; color: var(--color-accent); }
+
+/* M03 — Princípios em composição assimétrica, com leitura em linhas. */
+.care-layout { display: grid; grid-template-columns: .85fr 1.15fr; align-items: center; gap: 5rem; }
+.care-intro .section-head { text-align: left; margin: 0 0 1.75rem; max-width: 400px; }
+.care-intro .text-link { font-size: .9rem; font-weight: 600; }
+.differentials-grid { grid-template-columns: 1fr; gap: 1.75rem; }
+.care-layout .diff-card { flex-direction: row; align-items: flex-start; gap: 1.25rem; padding: 0; background: transparent; overflow: visible; }
+.care-layout .diff-card:hover { transform: none; box-shadow: none; }
+.care-layout .diff-icon-wrap { flex: 0 0 52px; width: 52px; height: 52px; margin: 0; border-radius: 50%; }
+.diff-icon-wrap svg { width: 24px; height: 24px; }
+.care-layout .diff-card h3 { margin-bottom: .4rem; font-size: 1.3rem; }
+.care-layout .diff-card p { max-width: 460px; }
 
 /* M04 — Quatro tratamentos equilibrados em duas colunas e detalhes expansíveis. */
+.treatments-header { display: grid; grid-template-columns: 1.2fr 1fr; align-items: end; gap: 3rem; margin-bottom: 2.25rem; }
+.treatments-header .section-head { text-align: left; margin: 0; }
+.treatments-header .section-head h2 { max-width: 520px; }
+.treatments-header .section-head p { font-size: .95rem; }
+.treatments-header .treatments-tabs { justify-content: flex-end; margin: 0 0 .25rem; }
 .treatments-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 .treatment-body { padding: 2rem; }
-.treatment-body p { margin-bottom: 1.5rem; }
-.treatment-number { display: block; font-family: var(--font-serif); font-size: 2.8rem; color: var(--color-accent); margin-bottom: 1rem; }
+.treatment-heading { display: flex; justify-content: space-between; align-items: center; gap: 1rem; margin-bottom: 1.4rem; }
+.treatment-icon { display: inline-flex; align-items: center; justify-content: center; width: 52px; height: 52px; border-radius: 16px; color: var(--color-primary); background: var(--color-primary-subtle); }
+.treatment-icon svg { width: 27px; height: 27px; }
+.treatment-card:nth-child(even) .treatment-icon { color: var(--color-accent); background: var(--color-accent-soft); }
+.treatment-number { font: 500 1.35rem/1 var(--font-serif); color: var(--color-accent); }
+.treatment-body h3 { font-size: 1.5rem; margin-bottom: .7rem; }
+.treatment-body > p { margin-bottom: 1.1rem; flex-grow: 0; }
 .treatment-details { margin-bottom: 1.5rem; }
-.treatment-details summary { color: var(--color-primary); font-weight: 600; cursor: pointer; padding: .5rem 0; }
+.treatment-details summary { color: var(--color-primary); font-size: .85rem; font-weight: 600; cursor: pointer; padding: .5rem 0; }
 .treatment-details p { margin: .75rem 0 0; font-size: .95rem; }
-.filter-status { text-align: center; margin-bottom: 1rem; font-size: .9rem; }
+.treatment-link { margin-top: auto; width: fit-content; }
+.treatment-link:hover { text-decoration: underline; text-underline-offset: 4px; }
+.filter-status { text-align: right; margin-bottom: 1rem; font-size: .9rem; }
 .filter-status:empty { display: none; }
 
-/* M05 — NOVO: etapas em lista ordenada; numeração é visual e semântica. */
+/* M05 — Linha do tempo sem dependência de JS; os passos continuam uma lista. */
+.visit-section { background: var(--color-primary-dark); }
+.visit-section .section-head { text-align: left; max-width: 600px; margin: 0 0 2.5rem; }
+.visit-section h2, .visit-section h3 { color: var(--color-surface); }
+.visit-section p { color: var(--color-on-dark); }
 .visit-steps {
+  position: relative;
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 2rem;
+  gap: 3rem;
   list-style: none;
-  counter-reset: visit;
 }
-.visit-steps li { counter-increment: visit; padding-top: 1.5rem; }
-.visit-steps li::before { content: '0' counter(visit); display: block; color: var(--color-accent); font-family: var(--font-serif); font-size: 2rem; margin-bottom: .75rem; }
-.visit-steps h3 { margin-bottom: .75rem; }
-.visit-note { margin-top: 2.5rem; background: var(--color-bg-alt); padding: 1.5rem; border-radius: var(--radius-sm); }
-.visit-note p { margin: .75rem 0; }
+.visit-steps li { position: relative; padding: 0; }
+.visit-steps li:not(:last-child)::after { content: ''; position: absolute; top: 36px; left: 64px; right: -3rem; height: 1px; background: rgba(196, 215, 207, .35); }
+.visit-marker { position: relative; display: flex; align-items: center; justify-content: center; width: 72px; height: 72px; margin: 0 0 1.25rem -8px; border: 8px solid var(--color-primary-dark); border-radius: 50%; color: var(--color-primary); background: var(--color-primary-soft); }
+.visit-marker > span:first-child { display: flex; }
+.visit-marker svg { width: 26px; height: 26px; }
+.visit-step-number { position: absolute; top: -4px; right: -7px; display: grid; place-items: center; width: 25px; height: 25px; border-radius: 50%; background: var(--color-accent-decorative); color: var(--color-primary-dark); font-size: .65rem; font-weight: 700; }
+.visit-steps h3 { font-size: 1.35rem; margin-bottom: .75rem; }
+.visit-steps p { font-size: .925rem; max-width: 340px; }
+.visit-note { display: grid; grid-template-columns: .85fr 1.7fr auto; align-items: center; gap: 2rem; margin-top: 3rem; padding: 1.5rem 1.75rem; background: rgba(255, 255, 255, .06); border-radius: var(--radius-md); }
+.visit-note h3 { font-size: 1.25rem; }
+.visit-note p { margin: 0; font-size: .85rem; }
+.visit-note .text-link { color: var(--color-surface); font-size: .8rem; white-space: nowrap; }
+.visit-section :focus-visible { outline-color: var(--color-accent-decorative); }
 
 /* M06 — Equipe cadastrada usa os cartões da base, sem retratos genéricos. */
 .team-section { background: var(--color-primary-soft); }
@@ -2126,12 +2185,36 @@ section[id], main[id] { scroll-margin-top: 100px; }
 }
 
 /* M03/M05/M09/M11 — Adaptação das novas áreas para tablet e celular. */
-@media (max-width: 1024px) { .smile-art { max-width: 520px; margin: auto; } }
+@media (max-width: 1024px) {
+  .hero-visual { max-width: 460px; margin: auto; }
+  .care-layout { gap: 3rem; }
+  .treatments-header { grid-template-columns: 1fr; gap: 1.5rem; }
+  .treatments-header .treatments-tabs { justify-content: flex-start; }
+  .visit-note { grid-template-columns: 1fr 2fr; gap: 1rem 2rem; }
+  .visit-note .text-link { grid-column: 2; }
+}
 @media (max-width: 768px) {
   body { padding-bottom: calc(80px + env(safe-area-inset-bottom)); }
   .differentials-grid, .footer-top, .treatments-grid, .visit-steps, .contact-grid { grid-template-columns: 1fr; }
   .hero-section { padding-top: 2.5rem; }
-  .smile-art { min-height: 380px; }
+  .hero-grid { gap: 2.5rem; }
+  .hero-content { gap: 1.35rem; }
+  .hero-title { font-size: clamp(2.35rem, 7.8vw, 3.4rem); }
+  .hero-visual { max-width: 420px; }
+  .art-caption { font-size: 1.15rem; }
+  .art-note { left: 1rem; right: 1rem; bottom: 1rem; padding: .8rem .5rem; font-size: .7rem; }
+  .care-layout { grid-template-columns: 1fr; gap: 2.5rem; }
+  .care-intro .section-head { max-width: 500px; }
+  .care-layout .diff-card { gap: 1rem; }
+  .treatment-body { padding: 1.5rem; }
+  .treatment-body h3 { font-size: 1.4rem; }
+  .visit-steps { gap: 2rem; }
+  .visit-steps li:not(:last-child)::after { top: 72px; bottom: -2rem; left: 28px; right: auto; width: 1px; height: auto; }
+  .visit-steps li { display: grid; grid-template-columns: 56px minmax(0, 1fr); gap: 1.25rem; }
+  .visit-marker { margin-bottom: 0; }
+  .visit-step-content { padding-top: .6rem; }
+  .visit-note { grid-template-columns: 1fr; gap: .85rem; padding: 1.5rem; }
+  .visit-note .text-link { grid-column: auto; white-space: normal; }
   .hero-cta-group .btn { white-space: normal; width: 100%; }
   .contact-panel { padding: 1.5rem; }
   .mobile-booking { display: inline-flex; position: fixed; bottom: calc(1rem + env(safe-area-inset-bottom)); left: 1rem; right: 1rem; z-index: 900; }

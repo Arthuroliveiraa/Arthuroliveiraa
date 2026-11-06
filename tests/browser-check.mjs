@@ -39,7 +39,7 @@ const fixture = {
   ], responsibleProfessional: { name: 'Responsável de teste', cro: 'CRO-TESTE 001' },
   publicationReady: true
 };
-const mime = { '.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css', '.svg': 'image/svg+xml' };
+const mime = { '.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css', '.svg': 'image/svg+xml', '.woff2': 'font/woff2' };
 const server = createServer(async (req, res) => {
   try {
     const url = new URL(req.url, 'http://localhost');
@@ -56,7 +56,8 @@ const server = createServer(async (req, res) => {
       return;
     }
     const body = await readFile(target);
-    res.writeHead(200, { 'Content-Type': `${mime[extname(target)] || 'application/octet-stream'}; charset=utf-8` });
+    const type = mime[extname(target)] || 'application/octet-stream';
+    res.writeHead(200, { 'Content-Type': type.startsWith('text/') ? `${type}; charset=utf-8` : type });
     res.end(body);
   } catch { res.writeHead(404).end(); }
 });
@@ -90,9 +91,13 @@ try {
   const pending = new Map();
   const exceptions = [];
   const externalRequests = [];
+  const failedResources = [];
   socket.addEventListener('message', event => {
     const data = JSON.parse(event.data);
     if (data.method === 'Runtime.exceptionThrown') exceptions.push(data.params.exceptionDetails.text);
+    if (data.method === 'Network.responseReceived' && data.params.response.status >= 400) {
+      failedResources.push(`${data.params.response.status} ${data.params.response.url}`);
+    }
     if (data.method === 'Network.requestWillBeSent' && /^https?:/.test(data.params.request.url)
       && !data.params.request.url.startsWith(origin + '/')) externalRequests.push(data.params.request.url);
     const task = pending.get(data.id);
@@ -118,7 +123,10 @@ try {
   async function navigate(path, scripted = true) {
     await call('Page.navigate', { url: origin + path });
     for (let i = 0; i < 100; i++) {
-      if (await evaluate(`document.URL === ${JSON.stringify(origin + path)} && document.readyState === 'complete' && ${scripted ? "document.querySelector('#prepare')?.disabled === false" : 'true'}`)) return;
+      if (await evaluate(`document.URL === ${JSON.stringify(origin + path)} && document.readyState === 'complete' && ${scripted ? "document.querySelector('#prepare')?.disabled === false" : 'true'}`)) {
+        await evaluate('document.fonts.ready.then(() => true)');
+        return;
+      }
       await pause(50);
     }
     throw new Error(`Página não ficou pronta: ${path}`);
@@ -127,6 +135,13 @@ try {
   await call('Runtime.enable');
   await call('Network.enable');
   await navigate('/');
+  // Fontes e ilustração precisam carregar de verdade, sem fallback silencioso.
+  assert.equal(await evaluate(`(() => {
+    const loaded = [...document.fonts].filter(face => face.status === 'loaded');
+    return ['Playfair Display', 'Plus Jakarta Sans'].every(name => loaded.some(face => face.family.includes(name)))
+      && document.fonts.check('italic 500 16px "Playfair Display"')
+      && document.querySelector('.hero-artwork').naturalWidth > 0;
+  })()`), true, 'As fontes locais ou a ilustração não carregaram');
   // M12 — O aviso aparece na versão de portfólio e o formulário continua utilizável.
   assert.equal(await evaluate("document.querySelector('#demo-banner').hidden"), false);
   assert.match(await evaluate("document.querySelector('#contact-status').textContent"), /Demonstração/);
@@ -213,8 +228,9 @@ try {
   assert.equal(await evaluate("document.querySelector('#treatment-filters').hidden"), true);
   assert.equal(await evaluate("document.querySelector('#prepare').disabled"), true);
   assert.deepEqual(exceptions, [], 'Erros JavaScript no navegador');
+  assert.deepEqual(failedResources, [], 'Recursos com erro HTTP');
   assert.deepEqual(externalRequests, [], 'A página iniciou requisições externas');
-  console.log('OK: layout em 8 larguras, menu, filtros, formulário, clipboard, configuração, equipe, contatos, modo demonstrativo e modo sem JavaScript.');
+  console.log('OK: fontes e ilustração locais, layout em 8 larguras, menu, filtros, formulário, clipboard, configuração, equipe, contatos, modo demonstrativo e modo sem JavaScript.');
 } finally {
   socket?.close();
   browser.kill();
