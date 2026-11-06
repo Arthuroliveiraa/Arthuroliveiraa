@@ -21,6 +21,8 @@ Registro da revisão iniciada em **06/11/2026**. Publicação somente mediante p
 - Sintaxe dos scripts alterados, consistência do lockfile e conteúdo de `dist/`: conferidos.
 - Os workflows executam a verificação ampliada e condicionam o deploy manual ao resultado. O histórico remoto fica nas [execuções do GitHub Actions](https://github.com/Arthuroliveiraa/Arthuroliveiraa/actions).
 
+Na primeira rodada remota ampliada, o WebKit deixou os valores do guia vazios na inicialização. A atualização dos exemplos passou a aguardar o próximo quadro e os eventos de carregamento/fontes; o teste de compatibilidade também verifica os valores com a folha de tokens atrasada, nos dois temas.
+
 Os itens 3 a 8 estão concluídos localmente. Os itens 1 e 2 têm a parte automatizada aprovada e mantêm as verificações manuais abaixo pendentes. A publicação depende da solicitação do usuário e da aprovação dos checks.
 
 ## Compatibilidade

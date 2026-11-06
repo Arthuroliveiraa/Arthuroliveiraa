@@ -61,13 +61,22 @@ for (const theme of ['light', 'dark']) {
 }
 
 test('guia visual acompanha os dois temas', async ({ page }) => {
+  const errors = [];
+  page.on('pageerror', error => errors.push(error.message));
+  // Exercita a inicialização com a folha de tokens chegando depois dos scripts.
+  await page.route('**/css/tokens.css', async route => {
+    await new Promise(resolve => setTimeout(resolve, 300));
+    await route.continue();
+  });
   await ready(page, '/design-system.html');
   for (const theme of ['light', 'dark']) {
     await page.emulateMedia({ colorScheme: theme });
     await expect(page.locator('html')).toHaveAttribute('data-theme', theme);
     await expect(page.locator('[data-contrast-pass="true"]')).toHaveCount(6);
+    await expect(page.locator('[data-token-value]').first()).toHaveText(theme === 'light' ? '#14665E' : '#8ACDBC');
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
   }
+  expect(errors).toEqual([]);
 });
 
 test('conteúdo e navegação disponíveis sem JavaScript', async ({ browser, baseURL }) => {

@@ -62,5 +62,18 @@ function refreshThemeExamples() {
   refreshTokens();
   refreshContrast();
 }
-document.addEventListener('aura:themechange', refreshThemeExamples);
-refreshThemeExamples();
+// WebKit pode invalidar os estilos durante a inicialização ou a troca de tema.
+// Lê os tokens no próximo quadro e repete após carga/fontes, sem fixar cores no JS.
+let refreshScheduled = false;
+function scheduleThemeExamples() {
+  if (refreshScheduled) return;
+  refreshScheduled = true;
+  requestAnimationFrame(() => {
+    refreshScheduled = false;
+    refreshThemeExamples();
+  });
+}
+document.addEventListener('aura:themechange', scheduleThemeExamples);
+window.addEventListener('load', scheduleThemeExamples, { once: true });
+document.fonts?.ready.then(scheduleThemeExamples);
+scheduleThemeExamples();
